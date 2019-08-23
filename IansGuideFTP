@@ -1,0 +1,189 @@
+//for setting the config of the app
+// TODO: Replace with your project's config object
+  var config = {
+    apiKey: '<your-api-key>',
+    authDomain: '<your-auth-domain>',
+    databaseURL: '<your-database-url>',
+    storageBucket: '<your-storage-bucket>'
+  };
+  firebase.initializeApp(config);
+
+  // Get a reference to the storage service, which is used to create references in your storage bucket
+  var storage = firebase.storage();
+  
+  //rdy to use da cloud
+  //this is for using FB with a custom app
+  
+  //1
+  // Get the default bucket from a custom firebase.app.App
+  var storage = customApp.storage();
+  
+  //2
+  // Get a non-default bucket from a custom firebase.app.App
+var storage = customApp.storage("gs://my-custom-bucket");
+
+//rmber storage is like a normal pc you need a pointer
+// Get a reference to the storage service, which is used to create references in your storage bucket
+var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
+
+//You can create a reference to a location lower in the tree, 
+//say 'images/space.jpg' by using the child() method on an existing 
+//eference.
+
+// Create a child reference
+var imagesRef = storageRef.child('images');
+// imagesRef now points to 'images'
+
+// Child references can also take paths delimited by '/'
+var spaceRef = storageRef.child('images/space.jpg');
+// spaceRef now points to "images/space.jpg"
+// imagesRef still points to "images"
+
+
+
+/*Full Example
+// Points to the root reference
+var storageRef = firebase.storage().ref();
+
+// Points to 'images'
+var imagesRef = storageRef.child('images');
+
+// Points to 'images/space.jpg'
+// Note that you can use variables to create child values
+var fileName = 'space.jpg';
+var spaceRef = imagesRef.child(fileName);
+
+// File path is 'images/space.jpg'
+var path = spaceRef.fullPath
+
+// File name is 'space.jpg'
+var name = spaceRef.name
+
+// Points to 'images'
+var imagesRef = spaceRef.parent;*/
+
+//uploading 
+
+
+//To upload a file to Cloud Storage, you first create a
+// reference to the full path of the file, including the file name.
+// Create a root reference
+var storageRef = firebase.storage().ref();
+
+// Create a reference to 'mountains.jpg'
+var mountainsRef = storageRef.child('mountains.jpg');
+
+// Create a reference to 'images/mountains.jpg'
+var mountainImagesRef = storageRef.child('images/mountains.jpg');
+
+// While the file names are the same, the references point to different files
+mountainsRef.name === mountainImagesRef.name            // true
+mountainsRef.fullPath === mountainImagesRef.fullPath    // false
+
+//MANAGe THe UPLOAD
+//this can be used to store all non text items in a child spot and have the app itself sort it
+// Upload the file and metadata
+var uploadTask = storageRef.child('images/mountains.jpg').put(file);
+
+// Pause the upload
+uploadTask.pause();
+
+// Resume the upload
+uploadTask.resume();
+
+
+// Cancel the upload
+uploadTask.cancel();
+
+//UPLOAD COMMAND eXAMPLe
+//var uploadTask = storageRef.child('images/rivers.jpg').put(file);
+
+// Register three observers:
+// 1. 'state_changed' observer, called any time the state changes
+// 2. Error observer, called on failure
+// 3. Completion observer, called on successful completion
+uploadTask.on('state_changed', function(snapshot){
+  // Observe state change events such as progress, pause, and resume
+  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+  var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  console.log('Upload is ' + progress + '% done');
+  switch (snapshot.state) {
+    case firebase.storage.TaskState.PAUSED: // or 'paused'
+      console.log('Upload is paused');
+      break;
+    case firebase.storage.TaskState.RUNNING: // or 'running'
+      console.log('Upload is running');
+      break;
+  }
+}, function(error) {
+  // Handle unsuccessful uploads
+}, function() {
+  // Handle successful uploads on complete
+  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    console.log('File available at', downloadURL);
+  });
+});//this one is more for pausing and starting the
+
+//Here IS THe 2nd example this one includes error handling
+
+// File or Blob named mountains.jpg
+var file = ...
+
+// Create the file metadata
+var metadata = {
+  contentType: 'image/jpeg'
+};
+
+// Upload file and metadata to the object 'images/mountains.jpg'
+var uploadTask = storageRef.child('images/' + file.name).put(file, metadata);
+
+// Listen for state changes, errors, and completion of the upload.
+uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+  function(snapshot) {
+    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // or 'paused'
+        console.log('Upload is paused');
+        break;
+      case firebase.storage.TaskState.RUNNING: // or 'running'
+        console.log('Upload is running');
+        break;
+    }
+  }, function(error) {
+
+  // A full list of error codes is available at
+  // https://firebase.google.com/docs/storage/web/handle-errors
+  switch (error.code) {
+    case 'storage/unauthorized':
+      // User doesn't have permission to access the object
+      break;
+
+    case 'storage/canceled':
+      // User canceled the upload
+      break;
+
+    ...
+
+    case 'storage/unknown':
+      // Unknown error occurred, inspect error.serverResponse
+      break;
+  }
+}, function() {
+  // Upload completed successfully, now we can get the download URL
+  uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+    console.log('File available at', downloadURL);
+  });
+});
+
+
+
+
+
+
+
