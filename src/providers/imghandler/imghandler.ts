@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
 /*
@@ -18,7 +18,7 @@ export class ImghandlerProvider {
  
   uploadimage() {
     var promise = new Promise((resolve, reject) => {
-        this.filehooser.open().then((url) => {
+        this.filechooser.open().then((url) => {
           (<any>window).FilePath.resolveNativePath(url, (result) => {
             this.nativepath = result;
             (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {

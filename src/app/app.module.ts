@@ -14,7 +14,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/imghandler/imghandler';
 import { File } from '@ionic-native/file';
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 
 

@@ -2,7 +2,7 @@
   "cordova-plugin-filepath": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-filepath"
+      "id": "cordova-plugin-filepath@^1.5.6"
     },
     "is_top_level": true,
     "variables": {}
@@ -18,7 +18,7 @@
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@6.0.2"
+      "id": "cordova-plugin-file@^6.0.2"
     },
     "is_top_level": true,
     "variables": {}

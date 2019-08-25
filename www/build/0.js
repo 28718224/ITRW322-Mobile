@@ -73,7 +73,7 @@ var TabsPage = (function () {
 }());
 TabsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\ipadc\Desktop\Projects\Messenger\src\pages\tabs\tabs.html"*/'<ion-tabs color="hcolor">\n  <ion-tab [root]="tab1" tabTitle="Chats" tabIcon="chatbubbles"></ion-tab>\n  <ion-tab [root]="tab2" tabTitle="Groups" tabIcon="contacts"></ion-tab>\n  <ion-tab [root]="tab3" tabTitle="Profile" tabIcon="contact"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\ipadc\Desktop\Projects\Messenger\src\pages\tabs\tabs.html"*/,
+        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\tabs\tabs.html"*/'<ion-tabs color="hcolor">\n  <ion-tab [root]="tab1" tabTitle="Chats" tabIcon="chatbubbles"></ion-tab>\n  <ion-tab [root]="tab2" tabTitle="Groups" tabIcon="contacts"></ion-tab>\n  <ion-tab [root]="tab3" tabTitle="Profile" tabIcon="contact"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\tabs\tabs.html"*/,
     }),
     __metadata("design:paramtypes", [])
 ], TabsPage);
