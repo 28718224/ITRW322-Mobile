@@ -77,4 +77,15 @@ export class UserProvider {
     return promise;
   }
 
+  getuserdetails() {
+    var promise = new Promise((resolve, reject) => {
+    this.firedata.child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
+      resolve(snapshot.val());
+    }).catch((err) => {
+      reject(err);
+      })
+    })
+    return promise;
+  }
+
 }
