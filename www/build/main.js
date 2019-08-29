@@ -1,4 +1,4 @@
-webpackJsonp([9],{
+webpackJsonp([8],{
 
 /***/ 152:
 /***/ (function(module, exports) {
@@ -22,36 +22,36 @@ webpackEmptyAsyncContext.id = 152;
 
 var map = {
 	"../pages/chats/chats.module": [
-		449,
-		18
+		448,
+		7
 	],
 	"../pages/groups/groups.module": [
-		450,
-		17
+		449,
+		6
 	],
 	"../pages/login/login.module": [
-		452,
-		16
+		450,
+		5
 	],
 	"../pages/passwordreset/passwordreset.module": [
 		451,
-		15
+		4
 	],
 	"../pages/profile/profile.module": [
-		453,
-		14
+		455,
+		3
 	],
 	"../pages/profilepic/profilepic.module": [
-		454,
-		13
+		452,
+		2
 	],
 	"../pages/signup/signup.module": [
-		456,
-		12
+		454,
+		1
 	],
 	"../pages/tabs/tabs.module": [
-		455,
-		11
+		453,
+		0
 	]
 };
 function webpackAsyncContext(req) {
@@ -431,12 +431,12 @@ AppModule = __decorate([
                 links: [
                     { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_7_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_5__app_firebaseconfig__["a" /* config */])
