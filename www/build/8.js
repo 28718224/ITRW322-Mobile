@@ -89,6 +89,29 @@ var BuddiesPage = (function () {
             return false;
         });
     };
+    BuddiesPage.prototype.sendreq = function (recipient) {
+        var _this = this;
+        this.newrequest.sender = firebase.auth().currentUser.uid;
+        this.newrequest.recipient = recipient.uid;
+        if (this.newrequest.sender === this.newrequest.recipient)
+            alert('You are your friend always');
+        else {
+            var successalert_1 = this.alertCtrl.create({
+                title: 'Request sent',
+                subTitle: 'Your request was sent to ' + recipient.displayName,
+                buttons: ['ok']
+            });
+            this.requestservice.sendrequest(this.newrequest).then(function (res) {
+                if (res.success) {
+                    successalert_1.present();
+                    var sentuser = _this.filteredusers.indexOf(recipient);
+                    _this.filteredusers.splice(sentuser, 1);
+                }
+            }).catch(function (err) {
+                alert(err);
+            });
+        }
+    };
     return BuddiesPage;
 }());
 BuddiesPage = __decorate([
