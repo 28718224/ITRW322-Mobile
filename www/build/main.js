@@ -1,4 +1,4 @@
-webpackJsonp([8],{
+webpackJsonp([9],{
 
 /***/ 152:
 /***/ (function(module, exports) {
@@ -21,8 +21,12 @@ webpackEmptyAsyncContext.id = 152;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../pages/chats/chats.module": [
+	"../pages/buddies/buddies.module": [
 		448,
+		8
+	],
+	"../pages/chats/chats.module": [
+		450,
 		7
 	],
 	"../pages/groups/groups.module": [
@@ -30,27 +34,27 @@ var map = {
 		6
 	],
 	"../pages/login/login.module": [
-		450,
+		451,
 		5
 	],
 	"../pages/passwordreset/passwordreset.module": [
-		451,
+		452,
 		4
 	],
 	"../pages/profile/profile.module": [
-		455,
+		453,
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
-		452,
+		454,
 		2
 	],
 	"../pages/signup/signup.module": [
-		454,
+		455,
 		1
 	],
 	"../pages/tabs/tabs.module": [
-		453,
+		456,
 		0
 	]
 };
@@ -214,6 +218,22 @@ var UserProvider = (function () {
                 }).catch(function (err) {
                     reject(err);
                 });
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+        return promise;
+    };
+    UserProvider.prototype.getallusers = function () {
+        var _this = this;
+        var promise = new Promise(function (resolve, reject) {
+            _this.firedata.orderByChild('uid').once('value', function (snapshot) {
+                var userdata = snapshot.val();
+                var temparr = [];
+                for (var key in userdata) {
+                    temparr.push(userdata[key]);
+                }
+                resolve(temparr);
             }).catch(function (err) {
                 reject(err);
             });
@@ -429,14 +449,15 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */], { tabsPlacement: 'top' }, {
                 links: [
-                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/buddies/buddies.module#BuddiesPageModule', name: 'BuddiesPage', segment: 'buddies', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_7_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_5__app_firebaseconfig__["a" /* config */])
