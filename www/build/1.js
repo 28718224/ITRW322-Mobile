@@ -1,14 +1,14 @@
 webpackJsonp([1],{
 
-/***/ 454:
+/***/ 624:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signup__ = __webpack_require__(462);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signup__ = __webpack_require__(632);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,14 +41,14 @@ SignupPageModule = __decorate([
 
 /***/ }),
 
-/***/ 462:
+/***/ 632:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(349);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -115,7 +115,7 @@ var SignupPage = (function () {
 }());
 SignupPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-signup',template:/*ion-inline-start:"/Users/juan/Desktop/ITRW322_Mobile_ProfilePic/ITRW322-Mobile/src/pages/signup/signup.html"*/'<!--\n  Generated template for the SignupPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n</ion-header>\n\n<ion-content class="background">\n<ion-card>\n  <ion-card-header>\n    Signup\n  </ion-card-header>\n  <ion-card-content>\n     <ion-list >\n       <ion-item>  \n           <ion-input type="email" placeholder="Email" [(ngModel)]="newuser.email"></ion-input>\n       </ion-item>\n       <ion-item>  \n           <ion-input type="password" placeholder="Password" [(ngModel)]="newuser.password"></ion-input>\n       </ion-item>\n       <ion-item>  \n           <ion-input type="text" placeholder="Nick Name" [(ngModel)]="newuser.displayName"></ion-input>\n       </ion-item>\n      <button ion-button block round outline color="light" (click)="signup()">Sign Up</button>\n      <button ion-button full clear color="light" (click)="goback()">Go Back</button>\n     </ion-list>    \n  </ion-card-content>\n</ion-card>\n</ion-content>'/*ion-inline-end:"/Users/juan/Desktop/ITRW322_Mobile_ProfilePic/ITRW322-Mobile/src/pages/signup/signup.html"*/,
+        selector: 'page-signup',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\signup\signup.html"*/'<!--\n\n  Generated template for the SignupPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n</ion-header>\n\n\n\n<ion-content class="background">\n\n<ion-card>\n\n  <ion-card-header>\n\n    Signup\n\n  </ion-card-header>\n\n  <ion-card-content>\n\n     <ion-list >\n\n       <ion-item>  \n\n           <ion-input type="email" placeholder="Email" [(ngModel)]="newuser.email"></ion-input>\n\n       </ion-item>\n\n       <ion-item>  \n\n           <ion-input type="password" placeholder="Password" [(ngModel)]="newuser.password"></ion-input>\n\n       </ion-item>\n\n       <ion-item>  \n\n           <ion-input type="text" placeholder="Nick Name" [(ngModel)]="newuser.displayName"></ion-input>\n\n       </ion-item>\n\n      <button ion-button block round outline color="light" (click)="signup()">Sign Up</button>\n\n      <button ion-button full clear color="light" (click)="goback()">Go Back</button>\n\n     </ion-list>    \n\n  </ion-card-content>\n\n</ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\signup\signup.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]])
