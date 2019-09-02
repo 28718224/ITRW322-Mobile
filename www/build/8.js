@@ -1,14 +1,14 @@
 webpackJsonp([8],{
 
-/***/ 448:
+/***/ 449:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddiesPageModule", function() { return BuddiesPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddies__ = __webpack_require__(457);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddies__ = __webpack_require__(458);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -29,7 +29,7 @@ BuddiesPageModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]),
         ],
         exports: [
             __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]
@@ -41,14 +41,17 @@ BuddiesPageModule = __decorate([
 
 /***/ }),
 
-/***/ 457:
+/***/ 458:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuddiesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61,12 +64,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+/**
+ * Generated class for the BuddiesPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 var BuddiesPage = (function () {
-    function BuddiesPage(navCtrl, navParams, userservice) {
+    function BuddiesPage(navCtrl, navParams, userservice, alertCtrl, requestservice) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.userservice = userservice;
+        this.alertCtrl = alertCtrl;
+        this.requestservice = requestservice;
+        this.newrequest = {};
         this.temparr = [];
         this.filteredusers = [];
         this.userservice.getallusers().then(function (res) {
@@ -91,7 +105,7 @@ var BuddiesPage = (function () {
     };
     BuddiesPage.prototype.sendreq = function (recipient) {
         var _this = this;
-        this.newrequest.sender = firebase.auth().currentUser.uid;
+        this.newrequest.sender = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.auth().currentUser.uid;
         this.newrequest.recipient = recipient.uid;
         if (this.newrequest.sender === this.newrequest.recipient)
             alert('You are your friend always');
@@ -118,8 +132,9 @@ BuddiesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-buddies',template:/*ion-inline-start:"/Users/juan/Desktop/ITRW322-Mobile/src/pages/buddies/buddies.html"*/'<!--\n  Generated template for the BuddiesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>Buddies</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>\n<ion-list no-lines>\n  <ion-list>\n    <ion-item-sliding *ngFor="let key of filteredusers">\n      <ion-item >\n        <ion-avatar item-left>\n          <img src="{{key.photoURL}}">\n        </ion-avatar>\n        <h2>{{key.displayName}}</h2>\n      </ion-item>\n      <ion-item-options slide="left">\n        <button ion-button color="primary" (click)="sendreq(key)">\n          <ion-icon name="person-add"></ion-icon>\n          Add\n        </button>\n      </ion-item-options>\n      \n    </ion-item-sliding>\n  </ion-list>\n</ion-list>'/*ion-inline-end:"/Users/juan/Desktop/ITRW322-Mobile/src/pages/buddies/buddies.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__["a" /* RequestsProvider */]])
 ], BuddiesPage);
 
 //# sourceMappingURL=buddies.js.map

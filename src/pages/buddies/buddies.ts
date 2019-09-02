@@ -1,17 +1,27 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
-
+import { RequestsProvider } from '../../providers/requests/requests';
+import { connreq } from '../../models/interfaces/request';
+import firebase from 'firebase';
+/**
+ * Generated class for the BuddiesPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 @IonicPage()
 @Component({
   selector: 'page-buddies',
   templateUrl: 'buddies.html',
 })
 export class BuddiesPage {
+  newrequest = {} as connreq;
   temparr = [];
   filteredusers = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public userservice: UserProvider) {
+    public userservice: UserProvider, public alertCtrl: AlertController,
+    public requestservice: RequestsProvider) {
     this.userservice.getallusers().then((res: any) => {
       this.filteredusers = res;
       this.temparr = res;
@@ -36,6 +46,7 @@ export class BuddiesPage {
       return false;
     })
   }
+
   sendreq(recipient) {
     this.newrequest.sender = firebase.auth().currentUser.uid;
     this.newrequest.recipient = recipient.uid;
@@ -59,5 +70,6 @@ export class BuddiesPage {
       })
     }
   }
+
 
 }
