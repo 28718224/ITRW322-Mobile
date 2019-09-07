@@ -17,6 +17,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { RequestsProvider } from '../providers/requests/requests';
+import { ChatProvider } from '../providers/chat/chat';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { RequestsProvider } from '../providers/requests/requests';
     FileChooser,
     File, 
     FilePath,
-    RequestsProvider
+    RequestsProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}

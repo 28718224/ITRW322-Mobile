@@ -44,7 +44,7 @@
   <ion-list-header>
     Friends
   </ion-list-header>
-  <ion-item *ngFor="let item of myfriends" >
+  <ion-item *ngFor="let item of myfriends" (click)="buddychat(item)">
     <ion-avatar item-left>
       <img src={{item.photoURL}}>
     </ion-avatar>
