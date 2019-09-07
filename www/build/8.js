@@ -1,14 +1,14 @@
 webpackJsonp([8],{
 
-/***/ 449:
+/***/ 450:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddiesPageModule", function() { return BuddiesPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddychatPageModule", function() { return BuddychatPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddies__ = __webpack_require__(458);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddychat__ = __webpack_require__(460);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,40 +18,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var BuddiesPageModule = (function () {
-    function BuddiesPageModule() {
+var BuddychatPageModule = (function () {
+    function BuddychatPageModule() {
     }
-    return BuddiesPageModule;
+    return BuddychatPageModule;
 }());
-BuddiesPageModule = __decorate([
+BuddychatPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */],
+            __WEBPACK_IMPORTED_MODULE_2__buddychat__["a" /* BuddychatPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddychat__["a" /* BuddychatPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]
+            __WEBPACK_IMPORTED_MODULE_2__buddychat__["a" /* BuddychatPage */]
         ]
     })
-], BuddiesPageModule);
+], BuddychatPageModule);
 
-//# sourceMappingURL=buddies.module.js.map
+//# sourceMappingURL=buddychat.module.js.map
 
 /***/ }),
 
-/***/ 458:
+/***/ 460:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuddiesPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuddychatPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -65,79 +64,62 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 /**
- * Generated class for the BuddiesPage page.
+ * Generated class for the BuddychatPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var BuddiesPage = (function () {
-    function BuddiesPage(navCtrl, navParams, userservice, alertCtrl, requestservice) {
+var BuddychatPage = (function () {
+    function BuddychatPage(navCtrl, navParams, chatservice, events, zone) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.userservice = userservice;
-        this.alertCtrl = alertCtrl;
-        this.requestservice = requestservice;
-        this.newrequest = {};
-        this.temparr = [];
-        this.filteredusers = [];
-        this.userservice.getallusers().then(function (res) {
-            _this.filteredusers = res;
-            _this.temparr = res;
+        this.chatservice = chatservice;
+        this.events = events;
+        this.zone = zone;
+        this.allmessages = [];
+        this.buddy = this.chatservice.buddy;
+        this.photoURL = __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.photoURL;
+        this.scrollto();
+        this.events.subscribe('newmessage', function () {
+            _this.allmessages = [];
+            _this.zone.run(function () {
+                _this.allmessages = _this.chatservice.buddymessages;
+            });
         });
     }
-    BuddiesPage.prototype.ionViewDidLoad = function () {
-    };
-    BuddiesPage.prototype.searchuser = function (searchbar) {
-        this.filteredusers = this.temparr;
-        var q = searchbar.target.value;
-        if (q.trim() == '') {
-            return;
-        }
-        this.filteredusers = this.filteredusers.filter(function (v) {
-            if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                return true;
-            }
-            return false;
+    BuddychatPage.prototype.addmessage = function () {
+        var _this = this;
+        this.chatservice.addnewmessage(this.newmessage).then(function () {
+            _this.content.scrollToBottom();
+            _this.newmessage = '';
         });
     };
-    BuddiesPage.prototype.sendreq = function (recipient) {
-        var _this = this;
-        this.newrequest.sender = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.auth().currentUser.uid;
-        this.newrequest.recipient = recipient.uid;
-        if (this.newrequest.sender === this.newrequest.recipient)
-            alert('You are your friend always');
-        else {
-            var successalert_1 = this.alertCtrl.create({
-                title: 'Request sent',
-                subTitle: 'Your request was sent to ' + recipient.displayName,
-                buttons: ['ok']
-            });
-            this.requestservice.sendrequest(this.newrequest).then(function (res) {
-                if (res.success) {
-                    successalert_1.present();
-                    var sentuser = _this.filteredusers.indexOf(recipient);
-                    _this.filteredusers.splice(sentuser, 1);
-                }
-            }).catch(function (err) {
-                alert(err);
-            });
-        }
+    BuddychatPage.prototype.ionViewDidEnter = function () {
+        this.chatservice.getbuddymessages();
     };
-    return BuddiesPage;
+    BuddychatPage.prototype.scrollto = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.content.scrollToBottom();
+        }, 1000);
+    };
+    return BuddychatPage;
 }());
-BuddiesPage = __decorate([
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* ViewChild */])('content'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Content */])
+], BuddychatPage.prototype, "content", void 0);
+BuddychatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-buddies',template:/*ion-inline-start:"/Users/juan/Desktop/ITRW322-Mobile/src/pages/buddies/buddies.html"*/'<!--\n  Generated template for the BuddiesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>Buddies</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>\n<ion-list no-lines>\n  <ion-list>\n    <ion-item-sliding *ngFor="let key of filteredusers">\n      <ion-item >\n        <ion-avatar item-left>\n          <img src="{{key.photoURL}}">\n        </ion-avatar>\n        <h2>{{key.displayName}}</h2>\n      </ion-item>\n      <ion-item-options slide="left">\n        <button ion-button color="primary" (click)="sendreq(key)">\n          <ion-icon name="person-add"></ion-icon>\n          Add\n        </button>\n      </ion-item-options>\n      \n    </ion-item-sliding>\n  </ion-list>\n</ion-list>'/*ion-inline-end:"/Users/juan/Desktop/ITRW322-Mobile/src/pages/buddies/buddies.html"*/,
+        selector: 'page-buddychat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/'<!--\n  Generated template for the BuddychatPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>{{buddy.displayName}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content #content>\n<div class = "chatwindow">\n  <ion-list no-lines>\n    <ion-item *ngFor = "let item of allmessages; let i = index" text-wrap>\n      <ion-avatar item-left *ngIf="item.sentby === buddy.uid">\n        <img src="{{buddy.photoURL}}">\n      </ion-avatar>\n      <div class="bubble me" *ngIf="item.sentby === buddy.uid">\n        <h3>{{item.message}}</h3>\n      </div>\n      <ion-avatar item-right *ngIf="item.sentby != buddy.uid">\n        <img src="{{photoURL}}">\n      </ion-avatar>\n      <div class="bubble you" *ngIf="item.sentby != buddy.uid">\n        <h3>{{item.message}}</h3>\n      </div>\n    </ion-item>\n  </ion-list>\n</div>\n</ion-content>\n<ion-footer ion-fixed>    \n  <ion-toolbar class="no-border" color="white">        \n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>  \n    <ion-buttons end>\n      <button ion-button (click)="addmessage()">\n        <ion-icon name="send" color="primary"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>    \n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__["a" /* RequestsProvider */]])
-], BuddiesPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__["a" /* ChatProvider */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */]])
+], BuddychatPage);
 
-//# sourceMappingURL=buddies.js.map
+//# sourceMappingURL=buddychat.js.map
 
 /***/ })
 
