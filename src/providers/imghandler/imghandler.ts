@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
-import { FileChooser } from '@ionic-native/file-chooser/ngx'
+import { FileChooser } from '@ionic-native/file-chooser'
 import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
 /*
@@ -74,9 +74,6 @@ export class ImghandlerProvider {
                     }).catch((err) => {
                         reject(err);
                     })
-                  .catch((err) => {
-                    reject(err);
-                  })
                 }
               })
             })

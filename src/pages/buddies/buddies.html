@@ -7,14 +7,14 @@
 <ion-header>
 
   <ion-navbar color="hcolor">
-    <ion-title>Buddies</ion-title>
+    <ion-title>Contacts</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
+  <ion-searchbar [(ngModel)]= "searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
 <ion-list no-lines>
   <ion-list>
     <ion-item-sliding *ngFor="let key of filteredusers">
@@ -30,7 +30,7 @@
           Add
         </button>
       </ion-item-options>
-      
+
     </ion-item-sliding>
   </ion-list>
 </ion-list>

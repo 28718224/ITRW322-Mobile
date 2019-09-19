@@ -14,7 +14,7 @@ export class ChatProvider {
   buddy: any;
   buddymessages = [];
   constructor(public events: Events) {
-    
+
   }
 
   initializebuddy(buddy) {
@@ -35,8 +35,7 @@ export class ChatProvider {
             timestamp: firebase.database.ServerValue.TIMESTAMP
           }).then(() => {
             resolve(true);
-            }).catch((err) => {
-              reject(err);
+
           })
         })
       })
@@ -45,7 +44,7 @@ export class ChatProvider {
   }
 
   getbuddymessages() {
-    
+
     let temp;
     this.firebuddychats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).on('value', (snapshot) => {
       this.buddymessages = [];

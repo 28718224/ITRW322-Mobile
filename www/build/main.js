@@ -6,7 +6,7 @@ webpackJsonp([10],{
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -199,31 +199,31 @@ webpackEmptyAsyncContext.id = 153;
 
 var map = {
 	"../pages/buddies/buddies.module": [
-		453,
+		450,
 		9
 	],
 	"../pages/buddychat/buddychat.module": [
-		450,
+		455,
 		8
 	],
 	"../pages/chats/chats.module": [
-		451,
+		454,
 		7
 	],
 	"../pages/groups/groups.module": [
-		452,
+		451,
 		6
 	],
 	"../pages/login/login.module": [
-		454,
+		452,
 		5
 	],
 	"../pages/passwordreset/passwordreset.module": [
-		455,
+		453,
 		4
 	],
 	"../pages/profile/profile.module": [
-		456,
+		458,
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
@@ -235,7 +235,7 @@ var map = {
 		1
 	],
 	"../pages/tabs/tabs.module": [
-		458,
+		456,
 		0
 	]
 };
@@ -259,11 +259,11 @@ module.exports = webpackAsyncContext;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ImghandlerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_firebase__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -277,64 +277,99 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /*
-  Generated class for the ChatProvider provider.
+  Generated class for the ImghandlerProvider provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var ChatProvider = (function () {
-    function ChatProvider(events) {
-        this.events = events;
-        this.firebuddychats = __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database().ref('/buddychats');
-        this.buddymessages = [];
+var ImghandlerProvider = (function () {
+    function ImghandlerProvider(filechooser) {
+        this.filechooser = filechooser;
+        this.firestore = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.storage();
     }
-    ChatProvider.prototype.initializebuddy = function (buddy) {
-        this.buddy = buddy;
-    };
-    ChatProvider.prototype.addnewmessage = function (msg) {
+    /*
+   
+    For uploading an image to firebase storage.
+   
+    Called from - profilepic.ts
+    Inputs - None.
+    Outputs - The image url of the stored image.
+   
+     */
+    ImghandlerProvider.prototype.uploadimage = function () {
         var _this = this;
-        if (this.buddy) {
-            var promise = new Promise(function (resolve, reject) {
-                _this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(_this.buddy.uid).push({
-                    sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
-                    message: msg,
-                    timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
-                }).then(function () {
-                    _this.firebuddychats.child(_this.buddy.uid).child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).push({
-                        sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
-                        message: msg,
-                        timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
-                    }).then(function () {
-                        resolve(true);
-                    }).catch(function (err) {
-                        reject(err);
+        var promise = new Promise(function (resolve, reject) {
+            _this.filechooser.open().then(function (url) {
+                window.FilePath.resolveNativePath(url, function (result) {
+                    _this.nativepath = result;
+                    window.resolveLocalFileSystemURL(_this.nativepath, function (res) {
+                        res.file(function (resFile) {
+                            var reader = new FileReader();
+                            reader.readAsArrayBuffer(resFile);
+                            reader.onloadend = function (evt) {
+                                var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
+                                var imageStore = _this.firestore.ref('/profileimages').child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid);
+                                imageStore.put(imgBlob).then(function (res) {
+                                    _this.firestore.ref('/profileimages').child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid).getDownloadURL().then(function (url) {
+                                        resolve(url);
+                                    }).catch(function (err) {
+                                        reject(err);
+                                    });
+                                }).catch(function (err) {
+                                    reject(err);
+                                });
+                            };
+                        });
                     });
                 });
             });
-            return promise;
-        }
-    };
-    ChatProvider.prototype.getbuddymessages = function () {
-        var _this = this;
-        var temp;
-        this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(this.buddy.uid).on('value', function (snapshot) {
-            _this.buddymessages = [];
-            temp = snapshot.val();
-            for (var tempkey in temp) {
-                _this.buddymessages.push(temp[tempkey]);
-            }
-            _this.events.publish('newmessage');
         });
+        return promise;
     };
-    return ChatProvider;
+    ImghandlerProvider.prototype.picmsgstore = function () {
+        var _this = this;
+        var promise = new Promise(function (resolve, reject) {
+            _this.filechooser.open().then(function (url) {
+                window.FilePath.resolveNativePath(url, function (result) {
+                    _this.nativepath = result;
+                    window.resolveLocalFileSystemURL(_this.nativepath, function (res) {
+                        res.file(function (resFile) {
+                            var reader = new FileReader();
+                            reader.readAsArrayBuffer(resFile);
+                            reader.onloadend = function (evt) {
+                                var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
+                                var uuid = _this.guid();
+                                var imageStore = _this.firestore.ref('/picmsgs').child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid).child('picmsg' + uuid);
+                                imageStore.put(imgBlob).then(function (res) {
+                                    resolve(res.downloadURL);
+                                }).catch(function (err) {
+                                    reject(err);
+                                });
+                            };
+                        });
+                    });
+                });
+            });
+        });
+        return promise;
+    };
+    ImghandlerProvider.prototype.guid = function () {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    };
+    return ImghandlerProvider;
 }());
-ChatProvider = __decorate([
+ImghandlerProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Events */]) === "function" && _a || Object])
-], ChatProvider);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser__["a" /* FileChooser */]])
+], ImghandlerProvider);
 
-var _a;
-//# sourceMappingURL=chat.js.map
+//# sourceMappingURL=imghandler.js.map
 
 /***/ }),
 
@@ -491,11 +526,11 @@ RequestsProvider = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ImghandlerProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser_ngx__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_firebase__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(57);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -506,59 +541,65 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-//import { File } from '@ionic-native/file';
 
-//import { FilePath } from '@ionic-native/file-path';
 
 /*
-  Generated class for the ImghandlerProvider provider.
+  Generated class for the ChatProvider provider.
 
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
-var ImghandlerProvider = (function () {
-    function ImghandlerProvider(filechooser) {
-        this.filechooser = filechooser;
-        this.firestore = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.storage();
+var ChatProvider = (function () {
+    function ChatProvider(events) {
+        this.events = events;
+        this.firebuddychats = __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database().ref('/buddychats');
+        this.buddymessages = [];
     }
-    ImghandlerProvider.prototype.uploadimage = function () {
+    ChatProvider.prototype.initializebuddy = function (buddy) {
+        this.buddy = buddy;
+    };
+    ChatProvider.prototype.addnewmessage = function (msg) {
         var _this = this;
-        var promise = new Promise(function (resolve, reject) {
-            _this.filechooser.open().then(function (url) {
-                window.FilePath.resolveNativePath(url, function (result) {
-                    _this.nativepath = result;
-                    window.resolveLocalFileSystemURL(_this.nativepath, function (res) {
-                        res.file(function (resFile) {
-                            var reader = new FileReader();
-                            reader.readAsArrayBuffer(resFile);
-                            reader.onloadend = function (evt) {
-                                var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
-                                var imageStore = _this.firestore.ref('/profileimages').child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid);
-                                imageStore.put(imgBlob).then(function (res) {
-                                    _this.firestore.ref('/profileimages').child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid).getDownloadURL().then(function (url) {
-                                        resolve(url);
-                                    }).catch(function (err) {
-                                        reject(err);
-                                    });
-                                }).catch(function (err) {
-                                    reject(err);
-                                });
-                            };
-                        });
+        if (this.buddy) {
+            var promise = new Promise(function (resolve, reject) {
+                _this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(_this.buddy.uid).push({
+                    sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
+                    message: msg,
+                    timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
+                }).then(function () {
+                    _this.firebuddychats.child(_this.buddy.uid).child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).push({
+                        sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
+                        message: msg,
+                        timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
+                    }).then(function () {
+                        resolve(true);
                     });
                 });
             });
-        });
-        return promise;
+            return promise;
+        }
     };
-    return ImghandlerProvider;
+    ChatProvider.prototype.getbuddymessages = function () {
+        var _this = this;
+        var temp;
+        this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(this.buddy.uid).on('value', function (snapshot) {
+            _this.buddymessages = [];
+            temp = snapshot.val();
+            for (var tempkey in temp) {
+                _this.buddymessages.push(temp[tempkey]);
+            }
+            _this.events.publish('newmessage');
+        });
+    };
+    return ChatProvider;
 }());
-ImghandlerProvider = __decorate([
+ChatProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser_ngx__["a" /* FileChooser */]])
-], ImghandlerProvider);
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* Events */]) === "function" && _a || Object])
+], ChatProvider);
 
-//# sourceMappingURL=imghandler.js.map
+var _a;
+//# sourceMappingURL=chat.js.map
 
 /***/ }),
 
@@ -568,7 +609,7 @@ ImghandlerProvider = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(109);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -641,17 +682,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_firebaseconfig__ = __webpack_require__(446);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2_auth__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2_auth__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2__ = __webpack_require__(112);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(447);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_auth_auth__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_user_user__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_imghandler_imghandler__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_imghandler_imghandler__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_file_ngx__ = __webpack_require__(448);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_chooser_ngx__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_chooser__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_path_ngx__ = __webpack_require__(449);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_requests_requests__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_chat_chat__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_chat_chat__ = __webpack_require__(283);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -689,15 +730,15 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */], { tabsPlacement: 'top' }, {
                 links: [
-                    { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/buddies/buddies.module#BuddiesPageModule', name: 'BuddiesPage', segment: 'buddies', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] }
                 ]
             }),
@@ -715,7 +756,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6_angularfire2_auth__["a" /* AngularFireAuth */],
             __WEBPACK_IMPORTED_MODULE_10__providers_user_user__["a" /* UserProvider */],
             __WEBPACK_IMPORTED_MODULE_11__providers_imghandler_imghandler__["a" /* ImghandlerProvider */],
-            __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_chooser_ngx__["a" /* FileChooser */],
+            __WEBPACK_IMPORTED_MODULE_13__ionic_native_file_chooser__["a" /* FileChooser */],
             __WEBPACK_IMPORTED_MODULE_12__ionic_native_file_ngx__["a" /* File */],
             __WEBPACK_IMPORTED_MODULE_14__ionic_native_file_path_ngx__["a" /* FilePath */],
             __WEBPACK_IMPORTED_MODULE_15__providers_requests_requests__["a" /* RequestsProvider */],

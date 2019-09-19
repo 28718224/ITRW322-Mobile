@@ -14,7 +14,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/imghandler/imghandler';
 import { File } from '@ionic-native/file/ngx';
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
@@ -42,7 +42,7 @@ import { ChatProvider } from '../providers/chat/chat';
     UserProvider,
     ImghandlerProvider,
     FileChooser,
-    File, 
+    File,
     FilePath,
     RequestsProvider,
     ChatProvider
