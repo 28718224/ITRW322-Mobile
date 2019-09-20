@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, Events, LoadingController } from 'ionic-angular';
+//import { GroupsProvider } from '../../providers/groups/groups';
 /**
  * Generated class for the GroupsPage page.
  *
@@ -13,12 +13,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'groups.html',
 })
 export class GroupsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  allmygroups;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public events: Events,
+              public loadingCtrl: LoadingController,/* public groupservice: GroupsProvider*/) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GroupsPage');
+  addgroup() {
+    this.navCtrl.push('NewgroupPage');
   }
 
 }
