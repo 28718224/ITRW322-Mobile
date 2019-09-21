@@ -80,6 +80,7 @@ export class GroupsProvider {
           for (var key in temp) {
             this.currentgroup.push(temp[key]);
           }
+          this.currentgroupname = groupname;
         }
       })
     }
@@ -97,6 +98,8 @@ export class GroupsProvider {
   }
 
   addmember(newmember) {
+    console.log('1' + firebase.auth().currentUser.uid);
+    console.log('2' + this.currentgroupname);
     this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').push(newmember).then(() => {
       this.getgroupimage().then(() => {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({

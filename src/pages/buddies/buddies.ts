@@ -19,6 +19,7 @@ export class BuddiesPage {
   newrequest = {} as connreq;
   temparr = [];
   filteredusers = [];
+  searchstring;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public alertCtrl: AlertController,
     public requestservice: RequestsProvider) {
@@ -58,7 +59,7 @@ export class BuddiesPage {
         subTitle: 'Your request was sent to ' + recipient.displayName,
         buttons: ['ok']
       });
-    
+
       this.requestservice.sendrequest(this.newrequest).then((res: any) => {
         if (res.success) {
           successalert.present();

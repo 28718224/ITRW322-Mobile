@@ -1,14 +1,14 @@
 webpackJsonp([6],{
 
-/***/ 453:
+/***/ 459:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupsPageModule", function() { return GroupsPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPageModule", function() { return LoginPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groups__ = __webpack_require__(463);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(474);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,36 +18,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var GroupsPageModule = (function () {
-    function GroupsPageModule() {
+var LoginPageModule = (function () {
+    function LoginPageModule() {
     }
-    return GroupsPageModule;
+    return LoginPageModule;
 }());
-GroupsPageModule = __decorate([
+LoginPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__groups__["a" /* GroupsPage */],
+            __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__groups__["a" /* GroupsPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__groups__["a" /* GroupsPage */]
+            __WEBPACK_IMPORTED_MODULE_2__login__["a" /* LoginPage */]
         ]
     })
-], GroupsPageModule);
+], LoginPageModule);
 
-//# sourceMappingURL=groups.module.js.map
+//# sourceMappingURL=login.module.js.map
 
 /***/ }),
 
-/***/ 463:
+/***/ 474:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupsPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__ = __webpack_require__(285);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,34 +60,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-//import { GroupsProvider } from '../../providers/groups/groups';
+
 /**
- * Generated class for the GroupsPage page.
+ * Generated class for the LoginPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var GroupsPage = (function () {
-    function GroupsPage(navCtrl, navParams, events, loadingCtrl) {
+var LoginPage = (function () {
+    function LoginPage(navCtrl, navParams, authservice) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.events = events;
-        this.loadingCtrl = loadingCtrl;
+        this.authservice = authservice;
+        this.credentials = {};
     }
-    GroupsPage.prototype.addgroup = function () {
-        this.navCtrl.push('NewgroupPage');
+    LoginPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad LoginPage');
     };
-    return GroupsPage;
+    LoginPage.prototype.signin = function () {
+        var _this = this;
+        this.authservice.login(this.credentials).then(function (res) {
+            if (!res.code)
+                _this.navCtrl.setRoot('TabsPage');
+            else
+                alert(res);
+        });
+    };
+    LoginPage.prototype.passwordreset = function () {
+        this.navCtrl.push('PasswordresetPage');
+    };
+    LoginPage.prototype.signup = function () {
+        this.navCtrl.push('SignupPage');
+    };
+    return LoginPage;
 }());
-GroupsPage = __decorate([
+LoginPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-groups',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groups\groups.html"*/'<!--\n\n  Generated template for the GroupsPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>Groups</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button icon-only (click)="addgroup()">\n\n        <ion-icon name="contacts"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groups\groups.html"*/,
+        selector: 'page-login',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content class="background">\n\n  <ion-card>\n\n    <ion-card-header>\n\n      Login\n\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-list no-lines>\n\n        <div class="spacer" style="height: 10px;"></div>\n\n        <ion-item>\n\n          <ion-input type="email" placeholder="Email" [(ngModel)]="credentials.email"></ion-input>\n\n        </ion-item>\n\n        <div class="spacer" style="height: 5px;"></div>\n\n        <ion-item>\n\n          <ion-input type="password" placeholder="Password" [(ngModel)]="credentials.password"></ion-input>\n\n        </ion-item>\n\n        <div class="spacer" style="height: 10px;"></div>\n\n        <a (click)="passwordreset()">Forgot login details ? <b> Get Help </b></a>\n\n        <div class="spacer" style="height: 10px;"></div>\n\n        <button ion-button block round outline color="light" (click)="signin()">Login</button>\n\n        <div class="spacer" style="height: 10px;"></div>\n\n        <p>OR</p>\n\n        <div class="spacer" style="height: 10px;"></div>\n\n        <button ion-button clear full color="light" (click)="signup()">Don\'t have an account? Sign up</button>\n\n      </ion-list>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  \n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\login\login.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Events */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _d || Object])
-], GroupsPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */]])
+], LoginPage);
 
-var _a, _b, _c, _d;
-//# sourceMappingURL=groups.js.map
+//# sourceMappingURL=login.js.map
 
 /***/ })
 
