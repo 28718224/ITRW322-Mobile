@@ -5,10 +5,10 @@ webpackJsonp([14],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddiesPageModule", function() { return BuddiesPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddychatPageModule", function() { return BuddychatPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddies__ = __webpack_require__(467);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddychat__ = __webpack_require__(468);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,38 +18,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var BuddiesPageModule = (function () {
-    function BuddiesPageModule() {
+var BuddychatPageModule = (function () {
+    function BuddychatPageModule() {
     }
-    return BuddiesPageModule;
+    return BuddychatPageModule;
 }());
-BuddiesPageModule = __decorate([
+BuddychatPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */],
+            __WEBPACK_IMPORTED_MODULE_2__buddychat__["a" /* BuddychatPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddychat__["a" /* BuddychatPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]
+            __WEBPACK_IMPORTED_MODULE_2__buddychat__["a" /* BuddychatPage */]
         ]
     })
-], BuddiesPageModule);
+], BuddychatPageModule);
 
-//# sourceMappingURL=buddies.module.js.map
+//# sourceMappingURL=buddychat.module.js.map
 
 /***/ }),
 
-/***/ 467:
+/***/ 468:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuddiesPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuddychatPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -67,77 +67,88 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 /**
- * Generated class for the BuddiesPage page.
+ * Generated class for the BuddychatPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var BuddiesPage = (function () {
-    function BuddiesPage(navCtrl, navParams, userservice, alertCtrl, requestservice) {
+var BuddychatPage = (function () {
+    function BuddychatPage(navCtrl, navParams, chatservice, events, zone, loadingCtrl, imgstore) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.userservice = userservice;
-        this.alertCtrl = alertCtrl;
-        this.requestservice = requestservice;
-        this.newrequest = {};
-        this.temparr = [];
-        this.filteredusers = [];
-        this.userservice.getallusers().then(function (res) {
-            _this.filteredusers = res;
-            _this.temparr = res;
+        this.chatservice = chatservice;
+        this.events = events;
+        this.zone = zone;
+        this.loadingCtrl = loadingCtrl;
+        this.imgstore = imgstore;
+        this.allmessages = [];
+        this.buddy = this.chatservice.buddy;
+        this.photoURL = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.auth().currentUser.photoURL;
+        this.scrollto();
+        this.events.subscribe('newmessage', function () {
+            _this.allmessages = [];
+            _this.imgornot = [];
+            _this.zone.run(function () {
+                _this.allmessages = _this.chatservice.buddymessages;
+                for (var key in _this.allmessages) {
+                    if (_this.allmessages[key].message.substring(0, 4) == 'http')
+                        _this.imgornot.push(true);
+                    else
+                        _this.imgornot.push(false);
+                }
+            });
         });
     }
-    BuddiesPage.prototype.ionViewDidLoad = function () {
-    };
-    BuddiesPage.prototype.searchuser = function (searchbar) {
-        this.filteredusers = this.temparr;
-        var q = searchbar.target.value;
-        if (q.trim() == '') {
-            return;
-        }
-        this.filteredusers = this.filteredusers.filter(function (v) {
-            if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                return true;
-            }
-            return false;
+    BuddychatPage.prototype.addmessage = function () {
+        var _this = this;
+        this.chatservice.addnewmessage(this.newmessage).then(function () {
+            _this.content.scrollToBottom();
+            _this.newmessage = '';
         });
     };
-    BuddiesPage.prototype.sendreq = function (recipient) {
-        var _this = this;
-        this.newrequest.sender = __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.auth().currentUser.uid;
-        this.newrequest.recipient = recipient.uid;
-        if (this.newrequest.sender === this.newrequest.recipient)
-            alert('You are your friend always');
-        else {
-            var successalert_1 = this.alertCtrl.create({
-                title: 'Request sent',
-                subTitle: 'Your request was sent to ' + recipient.displayName,
-                buttons: ['ok']
-            });
-            this.requestservice.sendrequest(this.newrequest).then(function (res) {
-                if (res.success) {
-                    successalert_1.present();
-                    var sentuser = _this.filteredusers.indexOf(recipient);
-                    _this.filteredusers.splice(sentuser, 1);
-                }
-            }).catch(function (err) {
-                alert(err);
-            });
-        }
+    BuddychatPage.prototype.ionViewDidEnter = function () {
+        this.chatservice.getbuddymessages();
     };
-    return BuddiesPage;
+    BuddychatPage.prototype.scrollto = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.content.scrollToBottom();
+        }, 1000);
+    };
+    BuddychatPage.prototype.sendPicMsg = function () {
+        var _this = this;
+        var loader = this.loadingCtrl.create({
+            content: 'Please wait'
+        });
+        loader.present();
+        this.imgstore.picmsgstore().then(function (imgurl) {
+            loader.dismiss();
+            _this.chatservice.addnewmessage(imgurl).then(function () {
+                _this.scrollto();
+                _this.newmessage = '';
+            });
+        }).catch(function (err) {
+            alert(err);
+            loader.dismiss();
+        });
+    };
+    return BuddychatPage;
 }());
-BuddiesPage = __decorate([
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* ViewChild */])('content'),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+], BuddychatPage.prototype, "content", void 0);
+BuddychatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-buddies',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddies\buddies.html"*/'<!--\n\n  Generated template for the BuddiesPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>Contacts</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-searchbar [(ngModel)]= "searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>\n\n<ion-list no-lines>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let key of filteredusers">\n\n      <ion-item >\n\n        <ion-avatar item-left>\n\n          <img src="{{key.photoURL}}">\n\n        </ion-avatar>\n\n        <h2>{{key.displayName}}</h2>\n\n      </ion-item>\n\n      <ion-item-options slide="left">\n\n        <button ion-button color="primary" (click)="sendreq(key)">\n\n          <ion-icon name="person-add"></ion-icon>\n\n          Add\n\n        </button>\n\n      </ion-item-options>\n\n\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n</ion-list>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddies\buddies.html"*/,
+        selector: 'page-buddychat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/'<!--\n  Generated template for the BuddychatPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>{{buddy.displayName}}</ion-title>\n    <ion-buttons end>\n      <button ion-button (click)="sendPicMsg()">\n      <ion-icon name="camera"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content #content>\n<div class = "chatwindow">\n  <ion-list no-lines>\n    <ion-item *ngFor = "let item of allmessages; let i = index" text-wrap>\n      <ion-avatar item-left *ngIf="item.sentby === buddy.uid">\n        <img src="{{buddy.photoURL}}">\n      </ion-avatar>\n      <div class="bubble me" *ngIf="item.sentby === buddy.uid">\n        <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n      </div>\n      <ion-avatar item-right *ngIf="item.sentby != buddy.uid">\n        <img src="{{photoURL}}">\n      </ion-avatar>\n      <div class="bubble you" *ngIf="item.sentby != buddy.uid">\n        <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n      </div>\n    </ion-item>\n  </ion-list>\n</div>\n</ion-content>\n<ion-footer ion-fixed>\n  <ion-toolbar class="no-border" color="white">\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="addmessage()">\n        <ion-icon name="send" color="primary"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__["a" /* RequestsProvider */]])
-], BuddiesPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__["a" /* ChatProvider */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */]])
+], BuddychatPage);
 
-//# sourceMappingURL=buddies.js.map
+//# sourceMappingURL=buddychat.js.map
 
 /***/ })
 

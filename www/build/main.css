@@ -30288,6 +30288,10 @@ page-buddychat .chatwindow {
   padding-bottom: 70px;
 }
 
+.comm {
+  background-color: red;
+}
+
 page-groupchat .chat {
   width: 320px;
 }
