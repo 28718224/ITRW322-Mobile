@@ -135,6 +135,7 @@ export class UserProvider {
     })
     return promise;
   }
+
   getallusers() {
     var promise = new Promise((resolve, reject) => {
       this.firedata.orderByChild('uid').once('value', (snapshot) => {

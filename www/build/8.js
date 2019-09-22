@@ -1,14 +1,14 @@
 webpackJsonp([8],{
 
-/***/ 448:
+/***/ 458:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddiesPageModule", function() { return BuddiesPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupmembersPageModule", function() { return GroupmembersPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddies__ = __webpack_require__(457);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupmembers__ = __webpack_require__(474);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,37 +18,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var BuddiesPageModule = (function () {
-    function BuddiesPageModule() {
+var GroupmembersPageModule = (function () {
+    function GroupmembersPageModule() {
     }
-    return BuddiesPageModule;
+    return GroupmembersPageModule;
 }());
-BuddiesPageModule = __decorate([
+GroupmembersPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */],
+            __WEBPACK_IMPORTED_MODULE_2__groupmembers__["a" /* GroupmembersPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__groupmembers__["a" /* GroupmembersPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__buddies__["a" /* BuddiesPage */]
+            __WEBPACK_IMPORTED_MODULE_2__groupmembers__["a" /* GroupmembersPage */]
         ]
     })
-], BuddiesPageModule);
+], GroupmembersPageModule);
 
-//# sourceMappingURL=buddies.module.js.map
+//# sourceMappingURL=groupmembers.module.js.map
 
 /***/ }),
 
-/***/ 457:
+/***/ 474:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuddiesPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupmembersPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__ = __webpack_require__(281);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61,45 +61,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var BuddiesPage = (function () {
-    function BuddiesPage(navCtrl, navParams, userservice) {
-        var _this = this;
+var GroupmembersPage = (function () {
+    function GroupmembersPage(navCtrl, navParams, groupservice, events) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.userservice = userservice;
-        this.temparr = [];
-        this.filteredusers = [];
-        this.userservice.getallusers().then(function (res) {
-            _this.filteredusers = res;
-            _this.temparr = res;
-        });
+        this.groupservice = groupservice;
+        this.events = events;
     }
-    BuddiesPage.prototype.ionViewDidLoad = function () {
+    GroupmembersPage.prototype.ionViewWillEnter = function () {
+        var _this = this;
+        this.groupmembers = this.groupservice.currentgroup;
+        this.tempgrpmembers = this.groupmembers;
+        this.events.subscribe('gotintogroup', function () {
+            _this.groupmembers = _this.groupservice.currentgroup;
+            _this.tempgrpmembers = _this.groupmembers;
+        });
     };
-    BuddiesPage.prototype.searchuser = function (searchbar) {
-        this.filteredusers = this.temparr;
+    GroupmembersPage.prototype.ionViewWillLeave = function () {
+        this.events.unsubscribe('gotintogroups');
+    };
+    GroupmembersPage.prototype.searchuser = function (searchbar) {
+        var tempmembers = this.tempgrpmembers;
         var q = searchbar.target.value;
-        if (q.trim() == '') {
+        if (q.trim() === '') {
+            this.groupmembers = this.tempgrpmembers;
             return;
         }
-        this.filteredusers = this.filteredusers.filter(function (v) {
+        tempmembers = tempmembers.filter(function (v) {
             if (v.displayName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
                 return true;
             }
             return false;
         });
+        this.groupmembers = tempmembers;
     };
-    return BuddiesPage;
+    GroupmembersPage.prototype.removemember = function (member) {
+        this.groupservice.deletemember(member);
+    };
+    return GroupmembersPage;
 }());
-BuddiesPage = __decorate([
+GroupmembersPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-buddies',template:/*ion-inline-start:"/Users/juan/Desktop/ITRW322-Mobile/src/pages/buddies/buddies.html"*/'<!--\n  Generated template for the BuddiesPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>Buddies</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>\n<ion-list no-lines>\n  <ion-list>\n    <ion-item-sliding *ngFor="let key of filteredusers">\n      <ion-item >\n        <ion-avatar item-left>\n          <img src="{{key.photoURL}}">\n        </ion-avatar>\n        <h2>{{key.displayName}}</h2>\n      </ion-item>\n      <ion-item-options slide="left">\n        <button ion-button color="primary" (click)="sendreq(key)">\n          <ion-icon name="person-add"></ion-icon>\n          Add\n        </button>\n      </ion-item-options>\n      \n    </ion-item-sliding>\n  </ion-list>\n</ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/juan/Desktop/ITRW322-Mobile/src/pages/buddies/buddies.html"*/,
+        selector: 'page-groupmembers',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groupmembers\groupmembers.html"*/'<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>Group Members</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n  <ion-searchbar  (input)="searchuser($event)"\n                  placeholder="Search">\n  </ion-searchbar>\n<ion-list no-lines>\n  <ion-item-sliding *ngFor="let key of groupmembers">\n    <ion-item>\n      <ion-avatar item-left>\n        <img src="{{key.photoURL}}">\n      </ion-avatar>\n      <h2>{{key.displayName}}</h2>\n    </ion-item>\n    <ion-item-options slide="left">\n      <button ion-button color="danger" (click)="removemember(key)">\n        <ion-icon name="trash"></ion-icon>\n        Remove\n      </button>\n    </ion-item-options>\n  </ion-item-sliding>\n</ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groupmembers\groupmembers.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */]) === "function" && _c || Object])
-], BuddiesPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+], GroupmembersPage);
 
-var _a, _b, _c;
-//# sourceMappingURL=buddies.js.map
+//# sourceMappingURL=groupmembers.js.map
 
 /***/ })
 
