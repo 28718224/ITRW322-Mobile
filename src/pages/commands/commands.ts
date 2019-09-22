@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheet, ActionSheetController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user/user';
 import { RequestsProvider } from '../../providers/requests/requests';
+import { CommandProvider } from '../../providers/command/command';
 import { connreq } from '../../models/interfaces/request';
 import firebase from 'firebase';
 
@@ -24,7 +25,8 @@ export class CommandsPage {
   searchstring;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public userservice: UserProvider, public alertCtrl: AlertController,
-    public requestservice: RequestsProvider) {
+    public requestservice: RequestsProvider,public actionSheet:ActionSheetController,
+    public commandProvider: CommandProvider) {
     this.userservice.getallusers().then((res: any) => {
       this.filteredusers = res;
       this.temparr = res;
@@ -50,29 +52,69 @@ export class CommandsPage {
     })
   }
 
-  sendcomm(recipient) {
+  sendcomm(recipient, cmd) {
     this.newrequest.sender = firebase.auth().currentUser.uid;
     this.newrequest.recipient = recipient.uid;
-    if (this.newrequest.sender === this.newrequest.recipient)
-      alert('You are your friend always');
-    else {
+
       let successalert = this.alertCtrl.create({
-        title: 'Request sent',
-        subTitle: 'Your request was sent to ' + recipient.displayName,
+        title: 'Command sent',
+        subTitle: 'Your command was sent to ' + recipient.displayName + 'a report on the command success should be in shortly',
         buttons: ['ok']
       });
 
-      this.requestservice.sendrequest(this.newrequest).then((res: any) => {
+      this.commandProvider.sendcommand(this.newrequest,cmd).then((res: any) => {
         if (res.success) {
           successalert.present();
-          let sentuser = this.filteredusers.indexOf(recipient);
-          this.filteredusers.splice(sentuser, 1);
+
         }
       }).catch((err) => {
         alert(err);
       })
-    }
+
   }
+
+  presentCommandOptions(receiver) {
+    let sheet = this.actionSheet.create({
+      title: 'List of Commands',
+      buttons: [
+        {
+          text: 'Shut Down PC',
+          icon: 'ios-power',
+          handler: () => {
+            this.sendcomm(receiver, "ShutDown");
+          }
+        },
+        {
+          text: 'Sleep PC',
+          icon: 'medkit',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Display Popup',
+          icon: 'happy',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'View files of PC(Only if pc is on)',
+          icon: 'folder',
+          handler: () => {
+
+          }
+        }, {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+        }
+      ]
+    })
+    sheet.present();
+  }
+
+
 
 
 }

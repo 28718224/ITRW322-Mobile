@@ -11,19 +11,13 @@
   <ion-searchbar [(ngModel)]= "searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>
 <ion-list no-lines>
   <ion-list>
-    <ion-item-sliding *ngFor="let key of filteredusers">
+    <ion-item-sliding *ngFor="let key of filteredusers" (click)= "presentCommandOptions(key)">
       <ion-item >
         <ion-avatar item-left>
           <img src="{{key.photoURL}}">
         </ion-avatar>
         <h2>{{key.displayName}}</h2>
       </ion-item>
-      <ion-item-options slide="left">
-        <button ion-button color="primary" (click)="sendcomm(key)">
-          <ion-icon name="person-add"></ion-icon>
-          Send command
-        </button>
-      </ion-item-options>
 
     </ion-item-sliding>
   </ion-list>
