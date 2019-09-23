@@ -22,8 +22,25 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+
+  console.log(this.CaesarCipher('Hey karton what is up', 13));
+  console.log(this.CaesarCipher(this.CaesarCipher('Hey karton what is up', 13), -13));
+
   }
+   CaesarCipher(str, num) {
+    // you can comment this line
+    str = str.toLowerCase();
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str[i].charCodeAt()) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
 
   signin() {
     this.authservice.login(this.credentials).then((res: any) => {
@@ -34,8 +51,8 @@ export class LoginPage {
     })
   }
 
-  
-  passwordreset() { 
+
+  passwordreset() {
   this.navCtrl.push('PasswordresetPage');
   }
 

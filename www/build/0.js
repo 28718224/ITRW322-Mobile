@@ -67,14 +67,14 @@ var TabsPage = (function () {
     function TabsPage() {
         this.tab1 = "ChatsPage";
         this.tab2 = "GroupsPage";
-        this.tab3 = "ProfilePage";
-        this.tab4 = "CommandsPage";
+        this.tab3 = "CommandsPage";
+        this.tab4 = "ProfilePage";
     }
     return TabsPage;
 }());
 TabsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\tabs\tabs.html"*/'<ion-tabs color="hcolor">\n\n  <ion-tab [root]="tab1" tabTitle="Chats" tabIcon="chatbubbles"></ion-tab>\n\n  <ion-tab [root]="tab2" tabTitle="Groups" tabIcon="contacts"></ion-tab>\n\n  <ion-tab [root]="tab3" tabTitle="Profile" tabIcon="contact"></ion-tab>\n\n   <ion-tab [root]="tab4" tabTitle="Commands" tabIcon="contact"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\tabs\tabs.html"*/,
+        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\tabs\tabs.html"*/'<ion-tabs color="hcolor">\n\n  <ion-tab [root]="tab1" tabTitle="Chats" tabIcon="chatbubbles"></ion-tab>\n\n  <ion-tab [root]="tab2" tabTitle="Groups" tabIcon="contacts"></ion-tab>\n\n\n\n   <ion-tab [root]="tab3" tabTitle="Commands" tabIcon="contact"></ion-tab>\n\n   <ion-tab [root]="tab4" tabTitle="Profile" tabIcon="contact"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\tabs\tabs.html"*/,
     }),
     __metadata("design:paramtypes", [])
 ], TabsPage);

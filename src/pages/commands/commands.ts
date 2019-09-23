@@ -89,21 +89,36 @@ export class CommandsPage {
           text: 'Sleep PC',
           icon: 'medkit',
           handler: () => {
-
+            this.sendcomm(receiver, "Sleep");
           }
         },
         {
           text: 'Display Popup',
           icon: 'happy',
           handler: () => {
+            let alert = this.alertCtrl.create({
+              title: 'Message',
+              inputs: [
+                {
+                  name: 'Message',
+                  placeholder: 'Message'
+                }],
+                buttons: [
+                  {
+                    text: 'Send message',
 
+                    handler: data => {
+                      this.sendcomm(receiver, "ShowPopup=" +data.username);
+                    }
+                  }]});
+                  alert.present();
           }
         },
         {
           text: 'View files of PC(Only if pc is on)',
           icon: 'folder',
           handler: () => {
-
+            this.sendcomm(receiver, "ShowFileStructure");
           }
         }, {
           text: 'Cancel',
