@@ -81,6 +81,7 @@ export class CommandsPage {
           text: 'Shut Down PC',
           icon: 'ios-power',
           handler: () => {
+
             this.sendcomm(receiver, "ShutDown");
           }
         },

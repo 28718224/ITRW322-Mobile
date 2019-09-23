@@ -26,11 +26,11 @@ var map = {
 		15
 	],
 	"../pages/buddychat/buddychat.module": [
-		453,
+		454,
 		14
 	],
 	"../pages/chats/chats.module": [
-		454,
+		453,
 		13
 	],
 	"../pages/commands/commands.module": [
@@ -38,11 +38,11 @@ var map = {
 		12
 	],
 	"../pages/groupbuddies/groupbuddies.module": [
-		456,
+		457,
 		11
 	],
 	"../pages/groupchat/groupchat.module": [
-		457,
+		456,
 		10
 	],
 	"../pages/groupinfo/groupinfo.module": [
@@ -50,15 +50,15 @@ var map = {
 		9
 	],
 	"../pages/groupmembers/groupmembers.module": [
-		459,
+		461,
 		8
 	],
 	"../pages/groups/groups.module": [
-		460,
+		459,
 		7
 	],
 	"../pages/login/login.module": [
-		461,
+		460,
 		6
 	],
 	"../pages/newgroup/newgroup.module": [
@@ -74,11 +74,11 @@ var map = {
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
-		465,
+		466,
 		2
 	],
 	"../pages/signup/signup.module": [
-		466,
+		465,
 		1
 	],
 	"../pages/tabs/tabs.module": [
@@ -529,13 +529,48 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
 
 
 
 /*
   Generated class for the RequestsProvider provider.
- 
+
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
@@ -548,19 +583,28 @@ var RequestsProvider = (function () {
     }
     RequestsProvider.prototype.sendrequest = function (req) {
         var _this = this;
-        var promise = new Promise(function (resolve, reject) {
-            _this.firereq
-                .child(req.recipient)
-                .push().set({
-                sender: req.sender,
-            })
-                .then(function () {
-                resolve({ success: true });
-            })
-                .catch(function (err) {
-                resolve(err);
+        var promise = new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = this.firereq
+                            .child(req.recipient)).child;
+                        return [4 /*yield*/, this.getIndex(req)];
+                    case 1:
+                        _b.apply(_a, [_c.sent()]).set({
+                            sender: req.sender,
+                        })
+                            .then(function () {
+                            resolve({ success: true });
+                        })
+                            .catch(function (err) {
+                            resolve(err);
+                        });
+                        return [2 /*return*/];
+                }
             });
-        });
+        }); });
         return promise;
     };
     RequestsProvider.prototype.getmyrequests = function () {
@@ -588,24 +632,48 @@ var RequestsProvider = (function () {
     };
     RequestsProvider.prototype.acceptrequest = function (buddy) {
         var _this = this;
-        var promise = new Promise(function (resolve, reject) {
-            _this.myfriends = [];
-            _this.firefriends.child(__WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid).push().set({
-                uid: buddy.uid
-            }).then(function () {
-                _this.firefriends.child(buddy.uid).push().set({
-                    uid: __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid
-                }).then(function () {
-                    _this.deleterequest(buddy).then(function () {
-                        resolve(true);
-                    });
-                }).catch(function (err) {
-                    reject(err);
-                });
-            }).catch(function (err) {
-                reject(err);
+        console.log('User: ' + __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid);
+        console.log('Buddy: ' + buddy.uid);
+        var promise = new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var _this = this;
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        this.myfriends = [];
+                        _b = (_a = this.firefriends.child(__WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid)).child;
+                        return [4 /*yield*/, this.getIndex2('1', buddy)];
+                    case 1:
+                        _b.apply(_a, [_c.sent()]).set({
+                            uid: buddy.uid
+                        }).then(function () { return __awaiter(_this, void 0, void 0, function () {
+                            var _this = this;
+                            var _a, _b;
+                            return __generator(this, function (_c) {
+                                switch (_c.label) {
+                                    case 0:
+                                        _b = (_a = this.firefriends.child(buddy.uid)).child;
+                                        return [4 /*yield*/, this.getIndex2('2', buddy)];
+                                    case 1:
+                                        _b.apply(_a, [_c.sent()]).set({
+                                            uid: __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid
+                                        }).then(function () {
+                                            _this.deleterequest(buddy).then(function () {
+                                                resolve(true);
+                                            });
+                                        }).catch(function (err) {
+                                            reject(err);
+                                        });
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }).catch(function (err) {
+                            reject(err);
+                        });
+                        return [2 /*return*/];
+                }
             });
-        });
+        }); });
         return promise;
     };
     RequestsProvider.prototype.deleterequest = function (buddy) {
@@ -648,6 +716,151 @@ var RequestsProvider = (function () {
             });
         });
     };
+    RequestsProvider.prototype.getIndex = function (req) {
+        return __awaiter(this, void 0, void 0, function () {
+            var found, number, _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        found = false;
+                        number = 0;
+                        _b = (_a = this.firereq.child(req.recipient)).once;
+                        _c = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            console.log('Not exists');
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 1: return [4 /*yield*/, _b.apply(_a, _c.concat([_g.sent()]))];
+                    case 2:
+                        _g.sent();
+                        _g.label = 3;
+                    case 3:
+                        if (!!found) return [3 /*break*/, 6];
+                        _e = (_d = this.firereq.child(req.recipient).child(number.toString())).once;
+                        _f = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            console.log('Found next index');
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 4: return [4 /*yield*/, _e.apply(_d, _f.concat([_g.sent()]))];
+                    case 5:
+                        _g.sent();
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, number.toString()];
+                }
+            });
+        });
+    };
+    RequestsProvider.prototype.getIndex2 = function (type, buddy) {
+        return __awaiter(this, void 0, void 0, function () {
+            var found, number, _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+            return __generator(this, function (_o) {
+                switch (_o.label) {
+                    case 0:
+                        found = false;
+                        number = 0;
+                        if (!(type === '1')) return [3 /*break*/, 7];
+                        _b = (_a = this.firefriends.child(__WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid)).once;
+                        _c = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 1: return [4 /*yield*/, _b.apply(_a, _c.concat([_o.sent()]))];
+                    case 2:
+                        _o.sent();
+                        _o.label = 3;
+                    case 3:
+                        if (!!found) return [3 /*break*/, 6];
+                        _e = (_d = this.firefriends.child(__WEBPACK_IMPORTED_MODULE_3_firebase___default.a.auth().currentUser.uid).child(number.toString())).once;
+                        _f = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 4: return [4 /*yield*/, _e.apply(_d, _f.concat([_o.sent()]))];
+                    case 5:
+                        _o.sent();
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, number.toString()];
+                    case 7:
+                        _h = (_g = this.firefriends.child(buddy.uid)).once;
+                        _j = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 8: return [4 /*yield*/, _h.apply(_g, _j.concat([_o.sent()]))];
+                    case 9:
+                        _o.sent();
+                        _o.label = 10;
+                    case 10:
+                        if (!!found) return [3 /*break*/, 13];
+                        _l = (_k = this.firefriends.child(buddy.uid).child(number.toString())).once;
+                        _m = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 11: return [4 /*yield*/, _l.apply(_k, _m.concat([_o.sent()]))];
+                    case 12:
+                        _o.sent();
+                        return [3 /*break*/, 10];
+                    case 13: return [2 /*return*/, number.toString()];
+                }
+            });
+        });
+    };
     return RequestsProvider;
 }());
 RequestsProvider = __decorate([
@@ -677,6 +890,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
 
 
@@ -698,21 +946,42 @@ var ChatProvider = (function () {
     ChatProvider.prototype.addnewmessage = function (msg) {
         var _this = this;
         if (this.buddy) {
-            var promise = new Promise(function (resolve, reject) {
-                _this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(_this.buddy.uid).push({
-                    sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
-                    message: msg,
-                    timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
-                }).then(function () {
-                    _this.firebuddychats.child(_this.buddy.uid).child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).push({
-                        sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
-                        message: msg,
-                        timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
-                    }).then(function () {
-                        resolve(true);
-                    });
+            var promise = new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                var _this = this;
+                var _a, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            _b = (_a = this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(this.buddy.uid)).child;
+                            return [4 /*yield*/, this.getIndex2('1')];
+                        case 1:
+                            _b.apply(_a, [_c.sent()]).set({
+                                sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
+                                message: msg,
+                                timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
+                            }).then(function () { return __awaiter(_this, void 0, void 0, function () {
+                                var _a, _b;
+                                return __generator(this, function (_c) {
+                                    switch (_c.label) {
+                                        case 0:
+                                            _b = (_a = this.firebuddychats.child(this.buddy.uid).child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid)).child;
+                                            return [4 /*yield*/, this.getIndex2('2')];
+                                        case 1:
+                                            _b.apply(_a, [_c.sent()]).set({
+                                                sentby: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid,
+                                                message: msg,
+                                                timestamp: __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database.ServerValue.TIMESTAMP
+                                            }).then(function () {
+                                                resolve(true);
+                                            });
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            }); });
+                            return [2 /*return*/];
+                    }
                 });
-            });
+            }); });
             return promise;
         }
     };
@@ -728,13 +997,106 @@ var ChatProvider = (function () {
             _this.events.publish('newmessage');
         });
     };
+    ChatProvider.prototype.getIndex2 = function (type) {
+        return __awaiter(this, void 0, void 0, function () {
+            var found, number, _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+            return __generator(this, function (_o) {
+                switch (_o.label) {
+                    case 0:
+                        found = false;
+                        number = 0;
+                        if (!(type === '1')) return [3 /*break*/, 7];
+                        _b = (_a = this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(this.buddy.uid)).once;
+                        _c = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 1: return [4 /*yield*/, _b.apply(_a, _c.concat([_o.sent()]))];
+                    case 2:
+                        _o.sent();
+                        _o.label = 3;
+                    case 3:
+                        if (!!found) return [3 /*break*/, 6];
+                        _e = (_d = this.firebuddychats.child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(this.buddy.uid).child(number.toString())).once;
+                        _f = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 4: return [4 /*yield*/, _e.apply(_d, _f.concat([_o.sent()]))];
+                    case 5:
+                        _o.sent();
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, number.toString()];
+                    case 7:
+                        _h = (_g = this.firebuddychats.child(this.buddy.uid).child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid)).once;
+                        _j = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 8: return [4 /*yield*/, _h.apply(_g, _j.concat([_o.sent()]))];
+                    case 9:
+                        _o.sent();
+                        _o.label = 10;
+                    case 10:
+                        if (!!found) return [3 /*break*/, 13];
+                        _l = (_k = this.firebuddychats.child(this.buddy.uid).child(__WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid).child(number.toString())).once;
+                        _m = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 11: return [4 /*yield*/, _l.apply(_k, _m.concat([_o.sent()]))];
+                    case 12:
+                        _o.sent();
+                        return [3 /*break*/, 10];
+                    case 13: return [2 /*return*/, number.toString()];
+                }
+            });
+        });
+    };
     return ChatProvider;
 }());
 ChatProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]) === "function" && _a || Object])
 ], ChatProvider);
 
+var _a;
 //# sourceMappingURL=chat.js.map
 
 /***/ }),
@@ -758,6 +1120,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
 
 
@@ -774,24 +1171,99 @@ var CommandProvider = (function () {
         this.events = events;
         this.firereq = __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.database().ref('/commands');
         this.firefriends = __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.database().ref('/friends');
+        this.fireindex = __WEBPACK_IMPORTED_MODULE_3_firebase___default.a.database().ref('Index');
     }
     CommandProvider.prototype.sendcommand = function (req, cmd) {
-        var _this = this;
-        var promise = new Promise(function (resolve, reject) {
-            _this.firereq
-                .child(req.recipient)
-                .push().set({
-                sender: req.sender,
-                Command: cmd,
-            })
-                .then(function () {
-                resolve({ success: true });
-            })
-                .catch(function (err) {
-                resolve(err);
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var _a, _b, promise;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = console).log;
+                        return [4 /*yield*/, this.getIndex(req)];
+                    case 1:
+                        _b.apply(_a, [_c.sent()]);
+                        promise = new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                            var _a, _b;
+                            return __generator(this, function (_c) {
+                                switch (_c.label) {
+                                    case 0:
+                                        _b = (_a = this.firereq
+                                            .child(req.recipient)).child;
+                                        return [4 /*yield*/, this.getIndex(req)];
+                                    case 1:
+                                        _b.apply(_a, [_c.sent()]).set({
+                                            sender: req.sender,
+                                            Command: cmd,
+                                        })
+                                            .then(function () {
+                                            resolve({ success: true });
+                                        })
+                                            .catch(function (err) {
+                                            resolve(err);
+                                        });
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        return [2 /*return*/, promise];
+                }
             });
         });
-        return promise;
+    };
+    CommandProvider.prototype.getIndex = function (req) {
+        return __awaiter(this, void 0, void 0, function () {
+            var found, number, _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        found = false;
+                        number = 0;
+                        _b = (_a = this.firereq.child(req.recipient)).once;
+                        _c = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            console.log('Not exists');
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 1: return [4 /*yield*/, _b.apply(_a, _c.concat([_g.sent()]))];
+                    case 2:
+                        _g.sent();
+                        _g.label = 3;
+                    case 3:
+                        if (!!found) return [3 /*break*/, 6];
+                        _e = (_d = this.firereq.child(req.recipient).child(number.toString())).once;
+                        _f = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            console.log('Found next index');
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 4: return [4 /*yield*/, _e.apply(_d, _f.concat([_g.sent()]))];
+                    case 5:
+                        _g.sent();
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, number.toString()];
+                }
+            });
+        });
     };
     return CommandProvider;
 }());
@@ -936,20 +1408,20 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */], { tabsPlacement: 'top' }, {
                 links: [
                     { loadChildren: '../pages/buddies/buddies.module#BuddiesPageModule', name: 'BuddiesPage', segment: 'buddies', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/commands/commands.module#CommandsPageModule', name: 'CommandsPage', segment: 'commands', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupinfo/groupinfo.module#GroupinfoPageModule', name: 'GroupinfoPage', segment: 'groupinfo', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/newgroup/newgroup.module#NewgroupPageModule', name: 'NewgroupPage', segment: 'newgroup', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                 ]
             }),
