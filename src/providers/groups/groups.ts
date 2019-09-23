@@ -97,10 +97,8 @@ export class GroupsProvider {
 
   }
 
-  addmember(newmember) {
-    console.log('1' + firebase.auth().currentUser.uid);
-    console.log('2' + this.currentgroupname);
-    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').push(newmember).then(() => {
+  async addmember(newmember) {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(await this.getIndex()).set(newmember).then(() => {
       this.getgroupimage().then(() => {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({
           groupimage: this.grouppic,
@@ -187,17 +185,17 @@ export class GroupsProvider {
   addgroupmsg(newmessage) {
     return new Promise((resolve) => {
 
-    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('owner').once('value', (snapshot) => {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('owner').once('value', async (snapshot) => {
       var tempowner = snapshot.val();
-      this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').push({
+      this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex2()).set({
         sentby: firebase.auth().currentUser.uid,
         displayName: firebase.auth().currentUser.displayName,
         photoURL: firebase.auth().currentUser.photoURL,
         message: newmessage,
         timestamp: firebase.database.ServerValue.TIMESTAMP
-      }).then(() => {
+      }).then(async () => {
         if (tempowner != firebase.auth().currentUser.uid) {
-          this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').push({
+          this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').child(await this.getIndex3(tempowner)).set({
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             photoURL: firebase.auth().currentUser.photoURL,
@@ -228,8 +226,8 @@ export class GroupsProvider {
     })
   }
 
-  postmsgs(member, msg, cb) {
-    this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').push({
+  async postmsgs(member, msg, cb) {
+    this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex4(member)).set({
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             photoURL: firebase.auth().currentUser.photoURL,
@@ -248,5 +246,111 @@ export class GroupsProvider {
         this.groupmsgs.push(tempmsgholder[key]);
       this.events.publish('newgroupmsg');
     })
+  }
+
+
+
+
+
+  async getIndex(){
+    var found = false;
+    var number = 0
+    await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+          console.log('Found next index');
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+
+  async getIndex2(){
+    var found = false;
+    var number = 0
+    await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+
+  async getIndex3(tempowner){
+    var found = false;
+    var number = 0
+    await  this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+  async getIndex4(member){
+    var found = false;
+    var number = 0
+    await  this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
   }
 }
