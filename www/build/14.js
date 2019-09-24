@@ -1,6 +1,6 @@
 webpackJsonp([14],{
 
-/***/ 453:
+/***/ 454:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BuddychatPageModule", function() { return BuddychatPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddychat__ = __webpack_require__(469);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__buddychat__ = __webpack_require__(470);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ BuddychatPageModule = __decorate([
 
 /***/ }),
 
-/***/ 469:
+/***/ 470:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -92,7 +92,7 @@ var BuddychatPage = (function () {
             _this.zone.run(function () {
                 _this.allmessages = _this.chatservice.buddymessages;
                 for (var key in _this.allmessages) {
-                    if (_this.allmessages[key].message.substring(0, 4) == 'http')
+                    if (_this.allmessages[key].message.substring(0, 4) == _this.CaesarCipher('http', 13))
                         _this.imgornot.push(true);
                     else
                         _this.imgornot.push(false);
@@ -133,6 +133,16 @@ var BuddychatPage = (function () {
             loader.dismiss();
         });
     };
+    BuddychatPage.prototype.CaesarCipher = function (str, num) {
+        // you can comment this line
+        var result = '';
+        var charcode = 0;
+        for (var i = 0; i < str.length; i++) {
+            charcode = (str[i].charCodeAt()) + num;
+            result += String.fromCharCode(charcode);
+        }
+        return result;
+    };
     return BuddychatPage;
 }());
 __decorate([
@@ -141,7 +151,7 @@ __decorate([
 ], BuddychatPage.prototype, "content", void 0);
 BuddychatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-buddychat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/'<!--\n  Generated template for the BuddychatPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>{{buddy.displayName}}</ion-title>\n    <ion-buttons end>\n      <button ion-button (click)="sendPicMsg()">\n      <ion-icon name="camera"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content #content>\n<div class = "chatwindow">\n  <ion-list no-lines>\n    <ion-item *ngFor = "let item of allmessages; let i = index" text-wrap>\n      <ion-avatar item-left *ngIf="item.sentby === buddy.uid">\n        <img src="{{buddy.photoURL}}">\n      </ion-avatar>\n      <div class="bubble me" *ngIf="item.sentby === buddy.uid">\n        <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n      </div>\n      <ion-avatar item-right *ngIf="item.sentby != buddy.uid">\n        <img src="{{photoURL}}">\n      </ion-avatar>\n      <div class="bubble you" *ngIf="item.sentby != buddy.uid">\n        <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n      </div>\n    </ion-item>\n  </ion-list>\n</div>\n</ion-content>\n<ion-footer ion-fixed>\n  <ion-toolbar class="no-border" color="white">\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="addmessage()">\n        <ion-icon name="send" color="primary"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/,
+        selector: 'page-buddychat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/'<!--\n  Generated template for the BuddychatPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>{{buddy.displayName}}</ion-title>\n    <ion-buttons end>\n      <button ion-button (click)="sendPicMsg()">\n      <ion-icon name="camera"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content #content>\n<div class = "chatwindow">\n  <ion-list no-lines>\n    <ion-item *ngFor = "let item of allmessages; let i = index" text-wrap>\n      <ion-avatar item-left *ngIf="item.sentby === buddy.uid">\n        <img src="{{buddy.photoURL}}">\n      </ion-avatar>\n      <div class="bubble me" *ngIf="item.sentby === buddy.uid">\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n      </div>\n      <ion-avatar item-right *ngIf="item.sentby != buddy.uid">\n        <img src="{{photoURL}}">\n      </ion-avatar>\n      <div class="bubble you" *ngIf="item.sentby != buddy.uid">\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n      </div>\n    </ion-item>\n  </ion-list>\n</div>\n</ion-content>\n<ion-footer ion-fixed>\n  <ion-toolbar class="no-border" color="white">\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="addmessage()">\n        <ion-icon name="send" color="primary"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__["a" /* ChatProvider */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],

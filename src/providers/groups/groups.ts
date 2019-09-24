@@ -191,7 +191,7 @@ export class GroupsProvider {
         sentby: firebase.auth().currentUser.uid,
         displayName: firebase.auth().currentUser.displayName,
         photoURL: firebase.auth().currentUser.photoURL,
-        message: newmessage,
+        message: this.CaesarCipher(newmessage,13),
         timestamp: firebase.database.ServerValue.TIMESTAMP
       }).then(async () => {
         if (tempowner != firebase.auth().currentUser.uid) {
@@ -199,7 +199,7 @@ export class GroupsProvider {
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             photoURL: firebase.auth().currentUser.photoURL,
-            message: newmessage,
+            message: this.CaesarCipher(newmessage,13),
             timestamp: firebase.database.ServerValue.TIMESTAMP
           })
         }
@@ -231,7 +231,7 @@ export class GroupsProvider {
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             photoURL: firebase.auth().currentUser.photoURL,
-            message: msg,
+            message: this.CaesarCipher(msg,13),
             timestamp: firebase.database.ServerValue.TIMESTAMP
     }).then(() => {
       cb();
@@ -353,4 +353,20 @@ export class GroupsProvider {
     }
     return number.toString();
   }
+
+
+  CaesarCipher(str, num) {
+    // you can comment this line
+
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str[i].charCodeAt()) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
 }
