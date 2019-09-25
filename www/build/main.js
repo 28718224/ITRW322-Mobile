@@ -26,31 +26,31 @@ var map = {
 		15
 	],
 	"../pages/buddychat/buddychat.module": [
-		454,
+		453,
 		14
 	],
 	"../pages/chats/chats.module": [
-		453,
+		454,
 		13
 	],
 	"../pages/commands/commands.module": [
-		459,
+		455,
 		12
 	],
 	"../pages/groupbuddies/groupbuddies.module": [
-		458,
+		456,
 		11
 	],
 	"../pages/groupchat/groupchat.module": [
-		456,
+		457,
 		10
 	],
 	"../pages/groupinfo/groupinfo.module": [
-		461,
+		458,
 		9
 	],
 	"../pages/groupmembers/groupmembers.module": [
-		455,
+		459,
 		8
 	],
 	"../pages/groups/groups.module": [
@@ -58,7 +58,7 @@ var map = {
 		7
 	],
 	"../pages/login/login.module": [
-		457,
+		461,
 		6
 	],
 	"../pages/newgroup/newgroup.module": [
@@ -70,7 +70,7 @@ var map = {
 		4
 	],
 	"../pages/profile/profile.module": [
-		467,
+		464,
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
@@ -82,7 +82,7 @@ var map = {
 		1
 	],
 	"../pages/tabs/tabs.module": [
-		464,
+		467,
 		0
 	]
 };
@@ -168,6 +168,7 @@ var GroupsProvider = (function () {
     function GroupsProvider(events) {
         this.events = events;
         this.firegroup = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/groups');
+        this.firegroupname = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/groupsnames');
         this.mygroups = [];
         this.currentgroup = [];
         this.groupmsgs = [];
@@ -185,6 +186,27 @@ var GroupsProvider = (function () {
                 reject(err);
             });
         });
+        var promise2 = new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _b = (_a = this.firegroupname.child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid)).child;
+                        return [4 /*yield*/, this.getIndex5(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid)];
+                    case 1:
+                        _b.apply(_a, [_c.sent()]).set({
+                            groupName: newGroup.groupName,
+                            members: '',
+                            owner: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid
+                        }).then(function () {
+                            resolve(true);
+                        }).catch(function (err) {
+                            reject(err);
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        }); });
         return promise;
     };
     GroupsProvider.prototype.getmygroups = function () {
@@ -255,18 +277,36 @@ var GroupsProvider = (function () {
                         _b = (_a = this.firegroup.child(__WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid).child(this.currentgroupname).child('members')).child;
                         return [4 /*yield*/, this.getIndex()];
                     case 1:
-                        _b.apply(_a, [_c.sent()]).set(newmember).then(function () {
-                            _this.getgroupimage().then(function () {
-                                _this.firegroup.child(newmember.uid).child(_this.currentgroupname).set({
-                                    groupimage: _this.grouppic,
-                                    owner: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
-                                    msgboard: ''
-                                }).catch(function (err) {
-                                    console.log(err);
-                                });
+                        _b.apply(_a, [_c.sent()]).set(newmember).then(function () { return __awaiter(_this, void 0, void 0, function () {
+                            var _this = this;
+                            var _a, _b;
+                            return __generator(this, function (_c) {
+                                switch (_c.label) {
+                                    case 0:
+                                        this.getgroupimage().then(function () {
+                                            _this.firegroup.child(newmember.uid).child(_this.currentgroupname).set({
+                                                groupimage: _this.grouppic,
+                                                owner: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
+                                                msgboard: ''
+                                            }).catch(function (err) {
+                                                console.log(err);
+                                            });
+                                        });
+                                        _b = (_a = this.firegroupname.child(newmember.uid)).child;
+                                        return [4 /*yield*/, this.getIndex5(newmember.uid)];
+                                    case 1:
+                                        _b.apply(_a, [_c.sent()]).set({
+                                            groupName: this.currentgroupname,
+                                            members: '',
+                                            owner: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid
+                                        }).catch(function (err) {
+                                            console.log(err);
+                                        });
+                                        this.getintogroup(this.currentgroupname);
+                                        return [2 /*return*/];
+                                }
                             });
-                            _this.getintogroup(_this.currentgroupname);
-                        });
+                        }); });
                         return [2 /*return*/];
                 }
             });
@@ -636,6 +676,57 @@ var GroupsProvider = (function () {
             });
         });
     };
+    GroupsProvider.prototype.getIndex5 = function (person) {
+        return __awaiter(this, void 0, void 0, function () {
+            var found, number, _a, _b, _c, _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        found = false;
+                        number = 0;
+                        _b = (_a = this.firegroupname.child(person)).once;
+                        _c = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            number = 0;
+                                            found = true;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 1: return [4 /*yield*/, _b.apply(_a, _c.concat([_g.sent()]))];
+                    case 2:
+                        _g.sent();
+                        _g.label = 3;
+                    case 3:
+                        if (!!found) return [3 /*break*/, 6];
+                        _e = (_d = this.firegroupname.child(person).child(number.toString())).once;
+                        _f = ['value'];
+                        return [4 /*yield*/, function (snapshot) {
+                                return __awaiter(this, void 0, void 0, function () {
+                                    return __generator(this, function (_a) {
+                                        if (!snapshot.exists()) {
+                                            found = true;
+                                        }
+                                        else {
+                                            number = number + 1;
+                                        }
+                                        return [2 /*return*/];
+                                    });
+                                });
+                            }];
+                    case 4: return [4 /*yield*/, _e.apply(_d, _f.concat([_g.sent()]))];
+                    case 5:
+                        _g.sent();
+                        return [3 /*break*/, 3];
+                    case 6: return [2 /*return*/, number.toString()];
+                }
+            });
+        });
+    };
     GroupsProvider.prototype.CaesarCipher = function (str, num) {
         // you can comment this line
         var result = '';
@@ -650,9 +741,10 @@ var GroupsProvider = (function () {
 }());
 GroupsProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _a || Object])
 ], GroupsProvider);
 
+var _a;
 //# sourceMappingURL=groups.js.map
 
 /***/ }),
@@ -1409,60 +1501,6 @@ ChatProvider = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(110);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
-var AuthProvider = (function () {
-    function AuthProvider(afireauth) {
-        this.afireauth = afireauth;
-    }
-    /*
-        For logging in a particular user. Called from the login.ts file.
-      
-    */
-    AuthProvider.prototype.login = function (credentials) {
-        var _this = this;
-        var promise = new Promise(function (resolve, reject) {
-            _this.afireauth.auth.signInWithEmailAndPassword(credentials.email, credentials.password).then(function () {
-                resolve(true);
-            }).catch(function (err) {
-                reject(err);
-            });
-        });
-        return promise;
-    };
-    return AuthProvider;
-}());
-AuthProvider = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */]])
-], AuthProvider);
-
-//# sourceMappingURL=auth.js.map
-
-/***/ }),
-
-/***/ 286:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CommandProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
@@ -1634,6 +1672,60 @@ CommandProvider = __decorate([
 
 /***/ }),
 
+/***/ 286:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__ = __webpack_require__(110);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/*
+  Generated class for the AuthProvider provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular 2 DI.
+*/
+var AuthProvider = (function () {
+    function AuthProvider(afireauth) {
+        this.afireauth = afireauth;
+    }
+    /*
+        For logging in a particular user. Called from the login.ts file.
+      
+    */
+    AuthProvider.prototype.login = function (credentials) {
+        var _this = this;
+        var promise = new Promise(function (resolve, reject) {
+            _this.afireauth.auth.signInWithEmailAndPassword(credentials.email, credentials.password).then(function () {
+                resolve(true);
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+        return promise;
+    };
+    return AuthProvider;
+}());
+AuthProvider = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */]])
+], AuthProvider);
+
+//# sourceMappingURL=auth.js.map
+
+/***/ }),
+
 /***/ 287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1662,7 +1754,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_angularfire2_auth__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(449);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_auth_auth__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_auth_auth__ = __webpack_require__(286);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_user_user__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_imghandler_imghandler__ = __webpack_require__(282);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_file_ngx__ = __webpack_require__(450);
@@ -1671,7 +1763,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_requests_requests__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_chat_chat__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_groups_groups__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_command_command__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_command_command__ = __webpack_require__(285);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1712,21 +1804,21 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */], { tabsPlacement: 'top' }, {
                 links: [
                     { loadChildren: '../pages/buddies/buddies.module#BuddiesPageModule', name: 'BuddiesPage', segment: 'buddies', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/commands/commands.module#CommandsPageModule', name: 'CommandsPage', segment: 'commands', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupinfo/groupinfo.module#GroupinfoPageModule', name: 'GroupinfoPage', segment: 'groupinfo', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/newgroup/newgroup.module#NewgroupPageModule', name: 'NewgroupPage', segment: 'newgroup', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_7_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_5__app_firebaseconfig__["a" /* config */])

@@ -12,6 +12,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Injectable()
 export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
+  firegroupname = firebase.database().ref('/groupsnames');
   mygroups: Array<any> = [];
   currentgroup:  Array<any> = [];
   currentgroupname;
@@ -33,6 +34,20 @@ export class GroupsProvider {
           reject(err);
       })
     });
+
+    var promise2 = new Promise(async (resolve, reject) => {
+      this.firegroupname.child(firebase.auth().currentUser.uid).child(await this.getIndex5(firebase.auth().currentUser.uid)).set({
+        groupName: newGroup.groupName,
+        members: '',
+        owner: firebase.auth().currentUser.uid
+      }).then(() => {
+        resolve(true);
+        }).catch((err) => {
+          reject(err);
+      })
+    });
+
+
     return promise;
   }
 
@@ -98,7 +113,7 @@ export class GroupsProvider {
   }
 
   async addmember(newmember) {
-    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(await this.getIndex()).set(newmember).then(() => {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(await this.getIndex()).set(newmember).then(async () => {
       this.getgroupimage().then(() => {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({
           groupimage: this.grouppic,
@@ -108,6 +123,15 @@ export class GroupsProvider {
           console.log(err);
         })
       })
+
+      this.firegroupname.child(newmember.uid).child(await this.getIndex5(newmember.uid)).set({
+        groupName: this.currentgroupname,
+        members: '',
+        owner: firebase.auth().currentUser.uid
+      }).catch((err) => {
+        console.log(err);
+      })
+
       this.getintogroup(this.currentgroupname);
     })
   }
@@ -354,6 +378,30 @@ export class GroupsProvider {
     return number.toString();
   }
 
+  async getIndex5(person){
+    var found = false;
+    var number = 0
+    await  this.firegroupname.child(person).once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroupname.child(person).child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
 
   CaesarCipher(str, num) {
     // you can comment this line
