@@ -38,7 +38,7 @@ export class GroupsProvider {
     var promise2 = new Promise(async (resolve, reject) => {
       this.firegroupname.child(firebase.auth().currentUser.uid).child(await this.getIndex5(firebase.auth().currentUser.uid)).set({
         groupName: newGroup.groupName,
-        members: '',
+
         owner: firebase.auth().currentUser.uid
       }).then(() => {
         resolve(true);
@@ -77,6 +77,7 @@ export class GroupsProvider {
           resolve(true);
         }
         else {
+
           resolve(false);
         }
       }).catch((err) => {
@@ -126,11 +127,19 @@ export class GroupsProvider {
 
       this.firegroupname.child(newmember.uid).child(await this.getIndex5(newmember.uid)).set({
         groupName: this.currentgroupname,
-        members: '',
         owner: firebase.auth().currentUser.uid
       }).catch((err) => {
         console.log(err);
       })
+
+      this.firegroup.child(newmember.uid).child(this.currentgroupname).child('members').child('0').set({
+        displayName:'',
+        photoURL: '',
+        uid: ''
+      }).catch((err) => {
+        console.log(err);
+      })
+
 
       this.getintogroup(this.currentgroupname);
     })
@@ -263,6 +272,8 @@ export class GroupsProvider {
   }
 
   getgroupmsgs(groupname) {
+
+
     this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('msgboard').on('value', (snapshot) => {
       var tempmsgholder = snapshot.val();
       this.groupmsgs = [];

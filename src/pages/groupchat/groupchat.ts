@@ -178,9 +178,14 @@ export class GroupchatPage {
   }
 
   scrollto() {
-    setTimeout(() => {
-      this.content.scrollToBottom();
-    }, 1000);
+    try{
+      setTimeout(() => {
+        this.content.scrollToBottom();
+      }, 1000);
+    } catch(err){
+
+    }
+
   }
 
   CaesarCipher(str, num) {

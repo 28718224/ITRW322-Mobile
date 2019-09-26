@@ -38,11 +38,11 @@ var map = {
 		12
 	],
 	"../pages/groupbuddies/groupbuddies.module": [
-		456,
+		457,
 		11
 	],
 	"../pages/groupchat/groupchat.module": [
-		457,
+		456,
 		10
 	],
 	"../pages/groupinfo/groupinfo.module": [
@@ -58,31 +58,31 @@ var map = {
 		7
 	],
 	"../pages/login/login.module": [
-		461,
+		462,
 		6
 	],
 	"../pages/newgroup/newgroup.module": [
-		462,
+		461,
 		5
 	],
 	"../pages/passwordreset/passwordreset.module": [
-		463,
+		465,
 		4
 	],
 	"../pages/profile/profile.module": [
-		464,
+		463,
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
-		465,
+		464,
 		2
 	],
 	"../pages/signup/signup.module": [
-		466,
+		467,
 		1
 	],
 	"../pages/tabs/tabs.module": [
-		467,
+		466,
 		0
 	]
 };
@@ -196,7 +196,6 @@ var GroupsProvider = (function () {
                     case 1:
                         _b.apply(_a, [_c.sent()]).set({
                             groupName: newGroup.groupName,
-                            members: '',
                             owner: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid
                         }).then(function () {
                             resolve(true);
@@ -297,8 +296,14 @@ var GroupsProvider = (function () {
                                     case 1:
                                         _b.apply(_a, [_c.sent()]).set({
                                             groupName: this.currentgroupname,
-                                            members: '',
                                             owner: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid
+                                        }).catch(function (err) {
+                                            console.log(err);
+                                        });
+                                        this.firegroup.child(newmember.uid).child(this.currentgroupname).child('members').child('0').set({
+                                            displayName: '',
+                                            photoURL: '',
+                                            uid: ''
                                         }).catch(function (err) {
                                             console.log(err);
                                         });
@@ -1807,18 +1812,18 @@ AppModule = __decorate([
                     { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/commands/commands.module#CommandsPageModule', name: 'CommandsPage', segment: 'commands', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupinfo/groupinfo.module#GroupinfoPageModule', name: 'GroupinfoPage', segment: 'groupinfo', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/newgroup/newgroup.module#NewgroupPageModule', name: 'NewgroupPage', segment: 'newgroup', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_7_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_5__app_firebaseconfig__["a" /* config */])
