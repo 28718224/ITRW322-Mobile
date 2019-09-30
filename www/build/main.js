@@ -38,11 +38,11 @@ var map = {
 		12
 	],
 	"../pages/groupbuddies/groupbuddies.module": [
-		457,
+		456,
 		11
 	],
 	"../pages/groupchat/groupchat.module": [
-		456,
+		457,
 		10
 	],
 	"../pages/groupinfo/groupinfo.module": [
@@ -58,31 +58,31 @@ var map = {
 		7
 	],
 	"../pages/login/login.module": [
-		462,
+		461,
 		6
 	],
 	"../pages/newgroup/newgroup.module": [
-		461,
+		462,
 		5
 	],
 	"../pages/passwordreset/passwordreset.module": [
-		465,
+		463,
 		4
 	],
 	"../pages/profile/profile.module": [
-		463,
+		464,
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
-		464,
+		465,
 		2
 	],
 	"../pages/signup/signup.module": [
-		467,
+		466,
 		1
 	],
 	"../pages/tabs/tabs.module": [
-		466,
+		467,
 		0
 	]
 };
@@ -746,10 +746,9 @@ var GroupsProvider = (function () {
 }());
 GroupsProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
 ], GroupsProvider);
 
-var _a;
 //# sourceMappingURL=groups.js.map
 
 /***/ }),
@@ -1812,18 +1811,18 @@ AppModule = __decorate([
                     { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/commands/commands.module#CommandsPageModule', name: 'CommandsPage', segment: 'commands', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupinfo/groupinfo.module#GroupinfoPageModule', name: 'GroupinfoPage', segment: 'groupinfo', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/newgroup/newgroup.module#NewgroupPageModule', name: 'NewgroupPage', segment: 'newgroup', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/newgroup/newgroup.module#NewgroupPageModule', name: 'NewgroupPage', segment: 'newgroup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_7_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_5__app_firebaseconfig__["a" /* config */])
@@ -1946,7 +1945,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 /*
   Generated class for the UserProvider provider.
- 
+
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
@@ -1956,13 +1955,13 @@ var UserProvider = (function () {
         this.firedata = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/users');
     }
     /*
-   
+  
     Adds a new user to the system.
-   
+  
     Called from - signup.ts
     Inputs - The new user object containing the email, password and displayName.
     Outputs - Promise.
-    
+  
      */
     UserProvider.prototype.adduser = function (newuser) {
         var _this = this;
@@ -1991,12 +1990,12 @@ var UserProvider = (function () {
         return promise;
     };
     /*
-   
+  
     For resetting the password of the user.
     Called from - passwordreset.ts
     Inputs - email of the user.
     Output - Promise.
-    
+  
      */
     UserProvider.prototype.passwordreset = function (email) {
         var promise = new Promise(function (resolve, reject) {
@@ -2009,14 +2008,14 @@ var UserProvider = (function () {
         return promise;
     };
     /*
-    
+  
     For updating the users collection and the firebase users list with
     the imageurl of the profile picture stored in firebase storage.
-   
+  
     Called from - profilepic.ts
     Inputs - Url of the image stored in firebase.
     OUtputs - Promise.
-    
+  
     */
     UserProvider.prototype.updateimage = function (imageurl) {
         var _this = this;
@@ -2093,9 +2092,10 @@ var UserProvider = (function () {
 }());
 UserProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_auth__["a" /* AngularFireAuth */]) === "function" && _a || Object])
 ], UserProvider);
 
+var _a;
 //# sourceMappingURL=user.js.map
 
 /***/ })

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
- 
+
 /*
   Generated class for the UserProvider provider.
- 
+
   See https://angular.io/docs/ts/latest/guide/dependency-injection.html
   for more info on providers and Angular 2 DI.
 */
@@ -13,17 +13,17 @@ export class UserProvider {
   firedata = firebase.database().ref('/users');
   constructor(public afireauth: AngularFireAuth) {
   }
- 
+
   /*
- 
+
   Adds a new user to the system.
- 
+
   Called from - signup.ts
   Inputs - The new user object containing the email, password and displayName.
   Outputs - Promise.
-  
+
    */
- 
+
   adduser(newuser) {
     var promise = new Promise((resolve, reject) => {
       this.afireauth.auth.createUserWithEmailAndPassword(newuser.email, newuser.password).then(() => {
@@ -49,16 +49,16 @@ export class UserProvider {
     })
     return promise;
   }
- 
+
   /*
- 
+
   For resetting the password of the user.
   Called from - passwordreset.ts
   Inputs - email of the user.
   Output - Promise.
-  
+
    */
- 
+
   passwordreset(email) {
     var promise = new Promise((resolve, reject) => {
       firebase.auth().sendPasswordResetEmail(email).then(() => {
@@ -69,23 +69,23 @@ export class UserProvider {
     })
     return promise;
   }
- 
+
   /*
-  
+
   For updating the users collection and the firebase users list with
   the imageurl of the profile picture stored in firebase storage.
- 
+
   Called from - profilepic.ts
   Inputs - Url of the image stored in firebase.
   OUtputs - Promise.
-  
+
   */
- 
+
   updateimage(imageurl) {
       var promise = new Promise((resolve, reject) => {
           this.afireauth.auth.currentUser.updateProfile({
               displayName: this.afireauth.auth.currentUser.displayName,
-              photoURL: imageurl      
+              photoURL: imageurl
           }).then(() => {
               firebase.database().ref('/users/' + firebase.auth().currentUser.uid).update({
               displayName: this.afireauth.auth.currentUser.displayName,
@@ -98,11 +98,11 @@ export class UserProvider {
                   })
           }).catch((err) => {
                 reject(err);
-             })  
+             })
       })
       return promise;
   }
- 
+
   getuserdetails() {
     var promise = new Promise((resolve, reject) => {
     this.firedata.child(firebase.auth().currentUser.uid).once('value', (snapshot) => {
@@ -113,7 +113,7 @@ export class UserProvider {
     })
     return promise;
   }
- 
+
   updatedisplayname(newname) {
     var promise = new Promise((resolve, reject) => {
       this.afireauth.auth.currentUser.updateProfile({
@@ -151,5 +151,5 @@ export class UserProvider {
     })
     return promise;
   }
- 
+
 }
