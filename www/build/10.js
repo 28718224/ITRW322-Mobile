@@ -1,14 +1,14 @@
 webpackJsonp([10],{
 
-/***/ 454:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupchatPageModule", function() { return GroupchatPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupchat__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupchat__ = __webpack_require__(473);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,16 +41,16 @@ GroupchatPageModule = __decorate([
 
 /***/ }),
 
-/***/ 470:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupchatPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -107,7 +107,7 @@ var GroupchatPage = (function () {
                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                 var formattedTime = monthNames[month] + "-" + da + "-" + hours + ":" + minutes.substr(-2);
                 _this.allgroupmsgs[key].timestamp = formattedTime;
-                if (_this.allgroupmsgs[key].message.substring(0, 4) === 'http') {
+                if (_this.allgroupmsgs[key].message.substring(0, 4) === _this.CaesarCipher('http', 13)) {
                     _this.imgornot.push(true);
                 }
                 else {
@@ -230,9 +230,23 @@ var GroupchatPage = (function () {
     };
     GroupchatPage.prototype.scrollto = function () {
         var _this = this;
-        setTimeout(function () {
-            _this.content.scrollToBottom();
-        }, 1000);
+        try {
+            setTimeout(function () {
+                _this.content.scrollToBottom();
+            }, 1000);
+        }
+        catch (err) {
+        }
+    };
+    GroupchatPage.prototype.CaesarCipher = function (str, num) {
+        // you can comment this line
+        var result = '';
+        var charcode = 0;
+        for (var i = 0; i < str.length; i++) {
+            charcode = (str[i].charCodeAt()) + num;
+            result += String.fromCharCode(charcode);
+        }
+        return result;
     };
     return GroupchatPage;
 }());
@@ -242,7 +256,7 @@ __decorate([
 ], GroupchatPage.prototype, "content", void 0);
 GroupchatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-groupchat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groupchat\groupchat.html"*/'<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>{{groupName}}</ion-title>\n    <ion-buttons end>\n      <button ion-button (click)="sendpicmsg()">\n        <ion-icon name="camera"></ion-icon>\n      </button>\n      <button *ngIf="owner" ion-button icon-only (click)="presentOwnerSheet()">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <button *ngIf="!owner" ion-button icon-only (click)="presentMemberSheet()">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content #content>\n<div class = "chatwindow">\n  <ion-list no-lines>\n    <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>\n      <ion-avatar item-left *ngIf="item.sentby === alignuid">\n        <img src="{{photoURL}}">\n      </ion-avatar>\n      <div class="bubble me" *ngIf="item.sentby === alignuid">\n        <h6 style="color: mediumpurple;">{{item.displayName}}</h6>\n        <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n        <p><small>{{item.timestamp}}</small></p>\n      </div>\n      <ion-avatar item-right *ngIf="item.sentby != alignuid">\n        <img src="{{item.photoURL}}">\n      </ion-avatar>\n      <div class="bubble you" *ngIf="item.sentby != alignuid">\n        <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>\n        <h3 *ngIf="!imgornot[i]">{{item.message}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n        <p><small>{{item.timestamp}}</small></p>\n      </div>\n    </ion-item>\n  </ion-list>\n</div>\n</ion-content>\n<ion-footer ion-fixed>\n  <ion-toolbar class="no-border" color="white">\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="addgroupmsg()">\n        <ion-icon name="send" color="primary"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groupchat\groupchat.html"*/,
+        selector: 'page-groupchat',template:/*ion-inline-start:"/Users/juan/Desktop/ITRW322-Mobile-Richard-mobile/src/pages/groupchat/groupchat.html"*/'<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>{{groupName}}</ion-title>\n    <ion-buttons end>\n      <button ion-button (click)="sendpicmsg()">\n        <ion-icon name="camera"></ion-icon>\n      </button>\n      <button *ngIf="owner" ion-button icon-only (click)="presentOwnerSheet()">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <button *ngIf="!owner" ion-button icon-only (click)="presentMemberSheet()">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content #content>\n<div class = "chatwindow">\n  <ion-list no-lines>\n    <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>\n      <ion-avatar item-left *ngIf="item.sentby === alignuid">\n        <img src="{{photoURL}}">\n      </ion-avatar>\n      <div class="bubble me" *ngIf="item.sentby === alignuid">\n        <h6 style="color: mediumpurple;">{{item.displayName}}</h6>\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n        <p><small>{{item.timestamp}}</small></p>\n      </div>\n      <ion-avatar item-right *ngIf="item.sentby != alignuid">\n        <img src="{{item.photoURL}}">\n      </ion-avatar>\n      <div class="bubble you" *ngIf="item.sentby != alignuid">\n        <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n        <img src="{{item.message}}" *ngIf="imgornot[i]">\n        <p><small>{{item.timestamp}}</small></p>\n      </div>\n    </ion-item>\n  </ion-list>\n</div>\n</ion-content>\n<ion-footer ion-fixed>\n  <ion-toolbar class="no-border" color="white">\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n    <ion-buttons end>\n      <button ion-button (click)="addgroupmsg()">\n        <ion-icon name="send" color="primary"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>'/*ion-inline-end:"/Users/juan/Desktop/ITRW322-Mobile-Richard-mobile/src/pages/groupchat/groupchat.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]])

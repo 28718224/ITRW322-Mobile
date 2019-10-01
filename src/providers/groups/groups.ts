@@ -12,6 +12,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Injectable()
 export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
+  firegroupname = firebase.database().ref('/groupsnames');
   mygroups: Array<any> = [];
   currentgroup:  Array<any> = [];
   currentgroupname;
@@ -33,6 +34,20 @@ export class GroupsProvider {
           reject(err);
       })
     });
+
+    var promise2 = new Promise(async (resolve, reject) => {
+      this.firegroupname.child(firebase.auth().currentUser.uid).child(await this.getIndex5(firebase.auth().currentUser.uid)).set({
+        groupName: newGroup.groupName,
+
+        owner: firebase.auth().currentUser.uid
+      }).then(() => {
+        resolve(true);
+        }).catch((err) => {
+          reject(err);
+      })
+    });
+
+
     return promise;
   }
 
@@ -62,6 +77,7 @@ export class GroupsProvider {
           resolve(true);
         }
         else {
+
           resolve(false);
         }
       }).catch((err) => {
@@ -97,10 +113,8 @@ export class GroupsProvider {
 
   }
 
-  addmember(newmember) {
-    console.log('1' + firebase.auth().currentUser.uid);
-    console.log('2' + this.currentgroupname);
-    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').push(newmember).then(() => {
+  async addmember(newmember) {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(await this.getIndex()).set(newmember).then(async () => {
       this.getgroupimage().then(() => {
         this.firegroup.child(newmember.uid).child(this.currentgroupname).set({
           groupimage: this.grouppic,
@@ -110,6 +124,23 @@ export class GroupsProvider {
           console.log(err);
         })
       })
+
+      this.firegroupname.child(newmember.uid).child(await this.getIndex5(newmember.uid)).set({
+        groupName: this.currentgroupname,
+        owner: firebase.auth().currentUser.uid
+      }).catch((err) => {
+        console.log(err);
+      })
+
+      this.firegroup.child(newmember.uid).child(this.currentgroupname).child('members').child('0').set({
+        displayName:'',
+        photoURL: '',
+        uid: ''
+      }).catch((err) => {
+        console.log(err);
+      })
+
+
       this.getintogroup(this.currentgroupname);
     })
   }
@@ -187,21 +218,21 @@ export class GroupsProvider {
   addgroupmsg(newmessage) {
     return new Promise((resolve) => {
 
-    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('owner').once('value', (snapshot) => {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('owner').once('value', async (snapshot) => {
       var tempowner = snapshot.val();
-      this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').push({
+      this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex2()).set({
         sentby: firebase.auth().currentUser.uid,
         displayName: firebase.auth().currentUser.displayName,
         photoURL: firebase.auth().currentUser.photoURL,
-        message: newmessage,
+        message: this.CaesarCipher(newmessage,13),
         timestamp: firebase.database.ServerValue.TIMESTAMP
-      }).then(() => {
+      }).then(async () => {
         if (tempowner != firebase.auth().currentUser.uid) {
-          this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').push({
+          this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').child(await this.getIndex3(tempowner)).set({
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             photoURL: firebase.auth().currentUser.photoURL,
-            message: newmessage,
+            message: this.CaesarCipher(newmessage,13),
             timestamp: firebase.database.ServerValue.TIMESTAMP
           })
         }
@@ -228,12 +259,12 @@ export class GroupsProvider {
     })
   }
 
-  postmsgs(member, msg, cb) {
-    this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').push({
+  async postmsgs(member, msg, cb) {
+    this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex4(member)).set({
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
             photoURL: firebase.auth().currentUser.photoURL,
-            message: msg,
+            message: this.CaesarCipher(msg,13),
             timestamp: firebase.database.ServerValue.TIMESTAMP
     }).then(() => {
       cb();
@@ -241,6 +272,8 @@ export class GroupsProvider {
   }
 
   getgroupmsgs(groupname) {
+
+
     this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('msgboard').on('value', (snapshot) => {
       var tempmsgholder = snapshot.val();
       this.groupmsgs = [];
@@ -249,4 +282,150 @@ export class GroupsProvider {
       this.events.publish('newgroupmsg');
     })
   }
+
+
+
+
+
+  async getIndex(){
+    var found = false;
+    var number = 0
+    await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('members').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+          console.log('Found next index');
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+
+  async getIndex2(){
+    var found = false;
+    var number = 0
+    await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+
+  async getIndex3(tempowner){
+    var found = false;
+    var number = 0
+    await  this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+  async getIndex4(member){
+    var found = false;
+    var number = 0
+    await  this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+  async getIndex5(person){
+    var found = false;
+    var number = 0
+    await  this.firegroupname.child(person).once('value', await async function(snapshot) {
+      if (!snapshot.exists()) {
+        number=0;
+        found=true;
+      }
+    });
+
+    while(!found)
+    {
+      await this.firegroupname.child(person).child(number.toString()).once('value', await async function(snapshot) {
+        if (!snapshot.exists()) {
+
+          found=true;
+        }
+        else{
+          number= number +1;
+        }
+      });
+    }
+    return number.toString();
+  }
+
+  CaesarCipher(str, num) {
+    // you can comment this line
+
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str[i].charCodeAt()) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
 }

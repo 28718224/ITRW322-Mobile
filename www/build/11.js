@@ -1,14 +1,14 @@
 webpackJsonp([11],{
 
-/***/ 453:
+/***/ 456:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupbuddiesPageModule", function() { return GroupbuddiesPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupbuddies__ = __webpack_require__(469);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupbuddies__ = __webpack_require__(472);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,13 +41,13 @@ GroupbuddiesPageModule = __decorate([
 
 /***/ }),
 
-/***/ 469:
+/***/ 472:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupbuddiesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_requests_requests__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_groups_groups__ = __webpack_require__(281);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -116,7 +116,7 @@ var GroupbuddiesPage = (function () {
 }());
 GroupbuddiesPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-groupbuddies',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groupbuddies\groupbuddies.html"*/'<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>Group Buddies</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)"\n                  placeholder="Search">\n  </ion-searchbar>\n<ion-list no-lines>\n  <ion-item-sliding *ngFor="let key of myfriends">\n    <ion-item>\n      <ion-avatar item-left>\n        <img src="{{key.photoURL}}">\n      </ion-avatar>\n      <h2>{{key.displayName}}</h2>\n    </ion-item>\n    <ion-item-options slide="left">\n      <button ion-button color="primary" (click)="addbuddy(key)">\n        <ion-icon name="person-add"></ion-icon>\n        Add\n      </button>\n    </ion-item-options>\n  </ion-item-sliding>\n</ion-list>\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\groupbuddies\groupbuddies.html"*/,
+        selector: 'page-groupbuddies',template:/*ion-inline-start:"/Users/juan/Desktop/ITRW322-Mobile-Richard-mobile/src/pages/groupbuddies/groupbuddies.html"*/'<ion-header>\n\n  <ion-navbar color="hcolor">\n    <ion-title>Group Buddies</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content>\n  <ion-searchbar [(ngModel)]="searchstring" (input)="searchuser($event)"\n                  placeholder="Search">\n  </ion-searchbar>\n<ion-list no-lines>\n  <ion-item-sliding *ngFor="let key of myfriends">\n    <ion-item>\n      <ion-avatar item-left>\n        <img src="{{key.photoURL}}">\n      </ion-avatar>\n      <h2>{{key.displayName}}</h2>\n    </ion-item>\n    <ion-item-options slide="left">\n      <button ion-button color="primary" (click)="addbuddy(key)">\n        <ion-icon name="person-add"></ion-icon>\n        Add\n      </button>\n    </ion-item-options>\n  </ion-item-sliding>\n</ion-list>\n</ion-content>'/*ion-inline-end:"/Users/juan/Desktop/ITRW322-Mobile-Richard-mobile/src/pages/groupbuddies/groupbuddies.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_requests_requests__["a" /* RequestsProvider */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_3__providers_groups_groups__["a" /* GroupsProvider */]])

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file';
-import { FileChooser } from '@ionic-native/file-chooser'
+import { FileChooser } from '@ionic-native/file-chooser/ngx'
 import { FilePath } from '@ionic-native/file-path';
 import firebase from 'firebase';
 /*

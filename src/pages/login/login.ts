@@ -22,7 +22,8 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+
+
   }
 
   signin() {
@@ -34,8 +35,8 @@ export class LoginPage {
     })
   }
 
-  
-  passwordreset() { 
+
+  passwordreset() {
   this.navCtrl.push('PasswordresetPage');
   }
 
