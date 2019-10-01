@@ -894,10 +894,9 @@ var ImghandlerProvider = (function () {
 }());
 ImghandlerProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser_ngx__["a" /* FileChooser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser_ngx__["a" /* FileChooser */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__ionic_native_file_chooser_ngx__["a" /* FileChooser */]])
 ], ImghandlerProvider);
 
-var _a;
 //# sourceMappingURL=imghandler.js.map
 
 /***/ }),
