@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+        <name>VideoWhisper 2 Way Video Chat</name> 
+        <author>VideoWhisper.com</author> 
+        <creationDate>December 2011</creationDate> 
+        <license>GPL</license> 
+        <authorUrl>http://www.videowhisper.com</authorUrl>
+		<copyright>(C)2007-2011 VideoWhisper.com All rights reserved.</copyright>
+        <version>4.05.2</version> 
+        <description>Provides list of public and owned 2 way video chat rooms. Requires VideoWhisper.com 2 Way Video Chat component for Joomla.
+		For more details, detailed installation instructions, other editions see: &lt;a href=&quot;http://www.videowhisper.com/?p=2+Way+Video+Chat&quot; target=&quot;_blank&quot;&gt;http://www.videowhisper.com/?p=2+Way+Video+Chat&lt;/a&gt;.
+		</description>
+        
+		
+		<files>
+		<filename module="mod_videowhisper_2wvc">mod_videowhisper_2wvc.php</filename>
+                <filename>index.html</filename>
+				<filename>license/gpl.txt</filename>
+        </files>
+		
+<config>
+			
+<fields name="params">
+<fieldset name="settings" group="settings" label="Settings">
+
+		<field name="count" type="text" default="10" label="Count" description="The number of items to display.  Default: 10" />
+
+		<field name="show" type="list" default="all" label="Room Types" description="Room Types to Show: Only rooms that are accessible will be shown. Default: Any Presence">		  
+		  <option value="all">All</option>
+		  <option value="public">Public</option>
+		  <option value="featured">Featured</option>
+		  <option value="owned">Owned</option>
+		  <option value="private">Private</option>
+		</field>
+
+		<field name="online" type="list" default="any" label="Online Presence" description="Show rooms based on users online.">		  
+		  <option value="any">Any</option>
+		  <option value="none">No Users</option>
+		  <option value="one">Just One</option>
+		  <option value="yes">One or Multiple</option>
+		  <option value="many">Multiple</option>
+  		  <option value="owner">Owner</option>
+		  <option value="onlyowner">Only Owner</option>
+		  <option value="admin">Moderator or Owner</option>
+		  <option value="onlyadmin">Only Moderator or Owner</option>
+		</field>
+		
+		<field name="manage" type="list" default="1" label="Room Management" description="Show links to create and edit rooms.">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</field>
+		
+		
+</fieldset>
+</fields>
+</config>
+		
+		<params>
+		<param name="count" type="text" default="10" label="Count" description="The number of items to display. Default: 10" />
+		
+		<param name="show" type="list" default="all" label="Room Types" description="Room Types to Show. Only rooms that are accessible will be shown. Default: All Rooms">		  
+		  <option value="all">All Rooms</option>
+		  <option value="public">Public</option>
+		  <option value="featured">Featured</option>
+		  <option value="owned">Owned</option>
+		  <option value="private">Private</option>
+		</param>
+		
+		<param name="online" type="list" default="any" label="Online Presence" description="Show rooms based on users online. Default: Any Presence">		  
+		  <option value="any">All Rooms</option>
+		  <option value="none">No Users</option>
+		  <option value="one">Just One</option>
+		  <option value="yes">One or Multiple</option>
+		  <option value="many">Multiple</option>
+		  <option value="owner">Owner</option>
+		  <option value="onlyowner">Only Owner</option>
+		  <option value="admin">Administrator</option>
+		  <option value="onlyadmin">Only Administrator</option>		  
+		</param>		
+		
+		<param name="manage" type="list" default="1" label="Room Management" description="Show links to create and edit rooms">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		
+		</params>
+		
+		<params group="advanced">
+		<param name="cache" type="list" default="0" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+		</params>
+		
+	<updateservers>
+        <server type="extension" priority="1" name="VideoWhisper.com">http://videowhisper.com/joomla/mod_videowhisper_2wvc.xml</server>
+    </updateservers>
+</install>
