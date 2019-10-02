@@ -1,0 +1,15 @@
+{ 
+	"name": "p2p-video-chat-webrtc",
+	"version":"0.10",
+	"description": "",
+	"main": "index.js"
+	"scripts":{
+	"start": "pudo index.js"
+	},
+	"devDependences":{
+	"budo": '^4.1.0"
+	},
+	"dependencies":{
+	"simple-peer": "^5.11.4"
+	}
+}
