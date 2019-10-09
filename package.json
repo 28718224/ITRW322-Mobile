@@ -27,6 +27,7 @@
     "@ionic-native/splash-screen": "3.10.2",
     "@ionic-native/status-bar": "3.10.2",
     "@ionic/storage": "2.0.1",
+    "@types/node": "^12.7.12",
     "angularfire2": "^5.0.0-rc.3",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-filechooser": "^1.2.0",

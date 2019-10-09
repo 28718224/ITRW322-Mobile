@@ -41,12 +41,12 @@ export class ChatProvider {
         this.firebuddychats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).child(await this.getIndex2('1')).set({
           sentby: firebase.auth().currentUser.uid,
           message: this.CaesarCipher(msg,13),
-          timestamp: firebase.database.ServerValue.TIMESTAMP
+          timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
         }).then(async () => {
           this.firebuddychats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).child(await this.getIndex2('2')).set({
             sentby: firebase.auth().currentUser.uid,
             message: this.CaesarCipher(msg,13),
-            timestamp: firebase.database.ServerValue.TIMESTAMP
+            timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
           }).then(() => {
             resolve(true);
 
@@ -64,6 +64,7 @@ export class ChatProvider {
       this.buddymessages = [];
       temp = snapshot.val();
       for (var tempkey in temp) {
+        alert(temp[tempkey].message);
         this.buddymessages.push(temp[tempkey]);
       }
       this.events.publish('newmessage');

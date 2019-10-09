@@ -1,14 +1,14 @@
 webpackJsonp([1],{
 
-/***/ 466:
+/***/ 467:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPageModule", function() { return TabsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signup__ = __webpack_require__(482);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tabs__ = __webpack_require__(527);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,37 +18,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var SignupPageModule = (function () {
-    function SignupPageModule() {
+var TabsPageModule = (function () {
+    function TabsPageModule() {
     }
-    return SignupPageModule;
+    return TabsPageModule;
 }());
-SignupPageModule = __decorate([
+TabsPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */],
+            __WEBPACK_IMPORTED_MODULE_2__tabs__["a" /* TabsPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__tabs__["a" /* TabsPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */]
+            __WEBPACK_IMPORTED_MODULE_2__tabs__["a" /* TabsPage */]
         ]
     })
-], SignupPageModule);
+], TabsPageModule);
 
-//# sourceMappingURL=signup.module.js.map
+//# sourceMappingURL=tabs.module.js.map
 
 /***/ }),
 
-/***/ 482:
+/***/ 527:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(78);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,69 +57,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
-
 /**
- * Generated class for the SignupPage page.
+ * Generated class for the TabsPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var SignupPage = (function () {
-    function SignupPage(navCtrl, navParams, userservice, loadingCtrl, toastCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.userservice = userservice;
-        this.loadingCtrl = loadingCtrl;
-        this.toastCtrl = toastCtrl;
-        this.newuser = {
-            email: '',
-            password: '',
-            displayName: ''
-        };
+var TabsPage = (function () {
+    function TabsPage() {
+        this.tab1 = "ChatsPage";
+        this.tab2 = "GroupsPage";
+        this.tab3 = "CommandsPage";
+        this.tab4 = "ProfilePage";
     }
-    SignupPage.prototype.signup = function () {
-        var _this = this;
-        var toaster = this.toastCtrl.create({
-            duration: 3000,
-            position: 'bottom'
-        });
-        if (this.newuser.email == '' || this.newuser.password == '' || this.newuser.displayName == '') {
-            toaster.setMessage('All fields are required dude');
-            toaster.present();
-        }
-        else if (this.newuser.password.length < 7) {
-            toaster.setMessage('Password is not strong. Try giving more than six characters');
-            toaster.present();
-        }
-        else {
-            var loader_1 = this.loadingCtrl.create({
-                content: 'Please wait'
-            });
-            loader_1.present();
-            this.userservice.adduser(this.newuser).then(function (res) {
-                loader_1.dismiss();
-                if (res.success)
-                    _this.navCtrl.push('ProfilepicPage');
-                else
-                    alert('Error' + res);
-            });
-        }
-    };
-    SignupPage.prototype.goback = function () {
-        this.navCtrl.setRoot('LoginPage');
-    };
-    return SignupPage;
+    return TabsPage;
 }());
-SignupPage = __decorate([
+TabsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-signup',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\signup\signup.html"*/'<!--\n\n  Generated template for the SignupPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n</ion-header>\n\n\n\n<ion-content class="background">\n\n<ion-card>\n\n  <ion-card-header>\n\n    Signup\n\n  </ion-card-header>\n\n  <ion-card-content>\n\n     <ion-list >\n\n       <ion-item>  \n\n           <ion-input type="email" placeholder="Email" [(ngModel)]="newuser.email"></ion-input>\n\n       </ion-item>\n\n       <ion-item>  \n\n           <ion-input type="password" placeholder="Password" [(ngModel)]="newuser.password"></ion-input>\n\n       </ion-item>\n\n       <ion-item>  \n\n           <ion-input type="text" placeholder="Nick Name" [(ngModel)]="newuser.displayName"></ion-input>\n\n       </ion-item>\n\n      <button ion-button block round outline color="light" (click)="signup()">Sign Up</button>\n\n      <button ion-button full clear color="light" (click)="goback()">Go Back</button>\n\n     </ion-list>    \n\n  </ion-card-content>\n\n</ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\signup\signup.html"*/,
+        selector: 'page-tabs',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\tabs\tabs.html"*/'<ion-tabs color="hcolor">\n\n  <ion-tab [root]="tab1" tabTitle="Chats" tabIcon="chatbubbles"></ion-tab>\n\n  <ion-tab [root]="tab2" tabTitle="Groups" tabIcon="contacts"></ion-tab>\n\n\n\n   <ion-tab [root]="tab3" tabTitle="Commands" tabIcon="contact"></ion-tab>\n\n   <ion-tab [root]="tab4" tabTitle="Profile" tabIcon="contact"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\tabs\tabs.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */]])
-], SignupPage);
+    __metadata("design:paramtypes", [])
+], TabsPage);
 
-//# sourceMappingURL=signup.js.map
+//# sourceMappingURL=tabs.js.map
 
 /***/ })
 

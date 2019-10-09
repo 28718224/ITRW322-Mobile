@@ -1,14 +1,14 @@
 webpackJsonp([2],{
 
-/***/ 465:
+/***/ 466:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilepicPageModule", function() { return ProfilepicPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profilepic__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signup__ = __webpack_require__(526);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,38 +18,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ProfilepicPageModule = (function () {
-    function ProfilepicPageModule() {
+var SignupPageModule = (function () {
+    function SignupPageModule() {
     }
-    return ProfilepicPageModule;
+    return SignupPageModule;
 }());
-ProfilepicPageModule = __decorate([
+SignupPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__profilepic__["a" /* ProfilepicPage */],
+            __WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profilepic__["a" /* ProfilepicPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__profilepic__["a" /* ProfilepicPage */]
+            __WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */]
         ]
     })
-], ProfilepicPageModule);
+], SignupPageModule);
 
-//# sourceMappingURL=profilepic.module.js.map
+//# sourceMappingURL=signup.module.js.map
 
 /***/ }),
 
-/***/ 481:
+/***/ 526:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilepicPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_imghandler_imghandler__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_user_user__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(78);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,70 +61,67 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 /**
- * Generated class for the ProfilepicPage page.
+ * Generated class for the SignupPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var ProfilepicPage = (function () {
-    function ProfilepicPage(navCtrl, navParams, imgservice, zone, userservice, loadingCtrl) {
+var SignupPage = (function () {
+    function SignupPage(navCtrl, navParams, userservice, loadingCtrl, toastCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.imgservice = imgservice;
-        this.zone = zone;
         this.userservice = userservice;
         this.loadingCtrl = loadingCtrl;
-        this.imgurl = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e';
-        this.moveon = true;
+        this.toastCtrl = toastCtrl;
+        this.newuser = {
+            email: '',
+            password: '',
+            displayName: ''
+        };
     }
-    ProfilepicPage.prototype.ionViewDidLoad = function () {
-    };
-    ProfilepicPage.prototype.chooseimage = function () {
+    SignupPage.prototype.signup = function () {
         var _this = this;
-        var loader = this.loadingCtrl.create({
-            content: 'Please wait'
+        var toaster = this.toastCtrl.create({
+            duration: 3000,
+            position: 'bottom'
         });
-        loader.present();
-        this.imgservice.uploadimage().then(function (uploadedurl) {
-            loader.dismiss();
-            _this.zone.run(function () {
-                _this.imgurl = uploadedurl;
-                _this.moveon = false;
+        if (this.newuser.email == '' || this.newuser.password == '' || this.newuser.displayName == '') {
+            toaster.setMessage('All fields are required dude');
+            toaster.present();
+        }
+        else if (this.newuser.password.length < 7) {
+            toaster.setMessage('Password is not strong. Try giving more than six characters');
+            toaster.present();
+        }
+        else {
+            var loader_1 = this.loadingCtrl.create({
+                content: 'Please wait'
             });
-        });
+            loader_1.present();
+            this.userservice.adduser(this.newuser).then(function (res) {
+                loader_1.dismiss();
+                if (res.success)
+                    _this.navCtrl.push('ProfilepicPage');
+                else
+                    alert('Error' + res);
+            });
+        }
     };
-    ProfilepicPage.prototype.updateproceed = function () {
-        var _this = this;
-        var loader = this.loadingCtrl.create({
-            content: 'Please wait'
-        });
-        loader.present();
-        this.userservice.updateimage(this.imgurl).then(function (res) {
-            loader.dismiss();
-            if (res.success) {
-                _this.navCtrl.setRoot('TabsPage');
-            }
-            else {
-                alert(res);
-            }
-        });
+    SignupPage.prototype.goback = function () {
+        this.navCtrl.setRoot('LoginPage');
     };
-    ProfilepicPage.prototype.proceed = function () {
-        this.navCtrl.setRoot('TabsPage');
-    };
-    return ProfilepicPage;
+    return SignupPage;
 }());
-ProfilepicPage = __decorate([
+SignupPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-profilepic',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\profilepic\profilepic.html"*/'<ion-header>\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>Profile Picture</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div class="profile-image">\n\n    <img src="{{imgurl}}">\n\n  </div>\n\n  <div>\n\n    <button ion-button round outline (click)="chooseimage()">Choose profile image</button>\n\n  </div>\n\n  <div [hidden]="!moveon">\n\n    <button ion-button round outline (click)="proceed()">Skip this step</button>\n\n  </div>\n\n  <div [hidden]="moveon">\n\n    <button ion-button round outline (click)="updateproceed()">Upload & proceed</button>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\profilepic\profilepic.html"*/,
+        selector: 'page-signup',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\signup\signup.html"*/'<!--\n\n  Generated template for the SignupPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n</ion-header>\n\n\n\n<ion-content class="background">\n\n<ion-card>\n\n  <ion-card-header>\n\n    Signup\n\n  </ion-card-header>\n\n  <ion-card-content>\n\n     <ion-list >\n\n       <ion-item>  \n\n           <ion-input type="email" placeholder="Email" [(ngModel)]="newuser.email"></ion-input>\n\n       </ion-item>\n\n       <ion-item>  \n\n           <ion-input type="password" placeholder="Password" [(ngModel)]="newuser.password"></ion-input>\n\n       </ion-item>\n\n       <ion-item>  \n\n           <ion-input type="text" placeholder="Nick Name" [(ngModel)]="newuser.displayName"></ion-input>\n\n       </ion-item>\n\n      <button ion-button block round outline color="light" (click)="signup()">Sign Up</button>\n\n      <button ion-button full clear color="light" (click)="goback()">Go Back</button>\n\n     </ion-list>    \n\n  </ion-card-content>\n\n</ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\signup\signup.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_imghandler_imghandler__["a" /* ImghandlerProvider */],
-        __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */], __WEBPACK_IMPORTED_MODULE_3__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]])
-], ProfilepicPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */]])
+], SignupPage);
 
-//# sourceMappingURL=profilepic.js.map
+//# sourceMappingURL=signup.js.map
 
 /***/ })
 

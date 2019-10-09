@@ -1,14 +1,14 @@
 webpackJsonp([4],{
 
-/***/ 463:
+/***/ 464:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordresetPageModule", function() { return PasswordresetPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilePageModule", function() { return ProfilePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__passwordreset__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile__ = __webpack_require__(524);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,37 +18,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var PasswordresetPageModule = (function () {
-    function PasswordresetPageModule() {
+var ProfilePageModule = (function () {
+    function ProfilePageModule() {
     }
-    return PasswordresetPageModule;
+    return ProfilePageModule;
 }());
-PasswordresetPageModule = __decorate([
+ProfilePageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__passwordreset__["a" /* PasswordresetPage */],
+            __WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__passwordreset__["a" /* PasswordresetPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__passwordreset__["a" /* PasswordresetPage */]
+            __WEBPACK_IMPORTED_MODULE_2__profile__["a" /* ProfilePage */]
         ]
     })
-], PasswordresetPageModule);
+], ProfilePageModule);
 
-//# sourceMappingURL=passwordreset.module.js.map
+//# sourceMappingURL=profile.module.js.map
 
 /***/ }),
 
-/***/ 479:
+/***/ 524:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PasswordresetPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfilePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_imghandler_imghandler__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_user_user__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61,50 +64,117 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 /**
- * Generated class for the PasswordresetPage page.
+ * Generated class for the ProfilePage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var PasswordresetPage = (function () {
-    function PasswordresetPage(navCtrl, navParams, userservice, alertCtrl) {
+var ProfilePage = (function () {
+    function ProfilePage(navCtrl, navParams, userservice, zone, alertCtrl, imghandler) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.userservice = userservice;
+        this.zone = zone;
         this.alertCtrl = alertCtrl;
+        this.imghandler = imghandler;
     }
-    PasswordresetPage.prototype.ionViewDidLoad = function () {
-        // console.log('ionViewDidLoad PasswordresetPage');
+    ProfilePage.prototype.ionViewWillEnter = function () {
+        this.loaduserdetails();
     };
-    PasswordresetPage.prototype.reset = function () {
+    ProfilePage.prototype.loaduserdetails = function () {
+        var _this = this;
+        this.userservice.getuserdetails().then(function (res) {
+            _this.displayName = res.displayName;
+            _this.zone.run(function () {
+                _this.avatar = res.photoURL;
+            });
+        });
+    };
+    ProfilePage.prototype.editimage = function () {
+        var _this = this;
+        var statusalert = this.alertCtrl.create({
+            buttons: ['okay']
+        });
+        this.imghandler.uploadimage().then(function (url) {
+            _this.userservice.updateimage(url).then(function (res) {
+                if (res.success) {
+                    statusalert.setTitle('Updated');
+                    statusalert.setSubTitle('Your profile pic has been changed successfully!!');
+                    statusalert.present();
+                    _this.zone.run(function () {
+                        _this.avatar = url;
+                    });
+                }
+            }).catch(function (err) {
+                statusalert.setTitle('Failed');
+                statusalert.setSubTitle('Your profile pic was not changed');
+                statusalert.present();
+            });
+        });
+    };
+    ProfilePage.prototype.editname = function () {
+        var _this = this;
+        var statusalert = this.alertCtrl.create({
+            buttons: ['okay']
+        });
         var alert = this.alertCtrl.create({
-            buttons: ['Ok']
+            title: 'Edit Nickname',
+            inputs: [{
+                    name: 'nickname',
+                    placeholder: 'Nickname'
+                }],
+            buttons: [{
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: function (data) {
+                    }
+                },
+                {
+                    text: 'Edit',
+                    handler: function (data) {
+                        if (data.nickname) {
+                            _this.userservice.updatedisplayname(data.nickname).then(function (res) {
+                                if (res.success) {
+                                    statusalert.setTitle('Updated');
+                                    statusalert.setSubTitle('Your nickname has been changed successfully!!');
+                                    statusalert.present();
+                                    _this.zone.run(function () {
+                                        _this.displayName = data.nickname;
+                                    });
+                                }
+                                else {
+                                    statusalert.setTitle('Failed');
+                                    statusalert.setSubTitle('Your nickname was not changed');
+                                    statusalert.present();
+                                }
+                            });
+                        }
+                    }
+                }]
         });
-        this.userservice.passwordreset(this.email).then(function (res) {
-            if (res.success) {
-                alert.setTitle('Email Sent');
-                alert.setSubTitle('Please follow the instructions in the email to reset your password');
-            }
-            else {
-                alert.setTitle('Failed');
-            }
+        alert.present();
+    };
+    ProfilePage.prototype.logout = function () {
+        var _this = this;
+        __WEBPACK_IMPORTED_MODULE_4_firebase___default.a.auth().signOut().then(function () {
+            _this.navCtrl.parent.parent.setRoot('LoginPage');
         });
     };
-    PasswordresetPage.prototype.goback = function () {
-        this.navCtrl.setRoot('LoginPage');
-    };
-    return PasswordresetPage;
+    return ProfilePage;
 }());
-PasswordresetPage = __decorate([
+ProfilePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-passwordreset',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\passwordreset\passwordreset.html"*/'<!--\n\n  Generated template for the PasswordresetPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-content class="background">\n\n  <ion-card>\n\n    <ion-card-header>\n\n      Password Reset\n\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-list >\n\n        <ion-item>\n\n            <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>\n\n        </ion-item>\n\n        <button ion-button block round outline color="light" (click)="reset()">Reset my Password</button>\n\n        <button ion-button full clear color="light" (click)="goback()">Go Back</button>\n\n      </ion-list>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  </ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\passwordreset\passwordreset.html"*/,
+        selector: 'page-profile',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\profile\profile.html"*/'<!--\n\n  Generated template for the ProfilePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>Profile</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n<div class="profile-image" (click)="editimage()">\n\n  <img src="{{avatar}}">\n\n</div>\n\n<div>\n\n  <h2 (click)="editname()">{{displayName}}</h2>\n\n</div>\n\n<div>\n\n  Tap on your pic or nick name to change it.\n\n</div>\n\n<div class="spacer" style="height: 10px;"></div>\n\n<div>\n\n  <button ion-button round outline color="danger" (click)="logout()">Logout</button>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\profile\profile.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
-], PasswordresetPage);
+        __WEBPACK_IMPORTED_MODULE_3__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__providers_imghandler_imghandler__["a" /* ImghandlerProvider */]])
+], ProfilePage);
 
-//# sourceMappingURL=passwordreset.js.map
+//# sourceMappingURL=profile.js.map
 
 /***/ })
 

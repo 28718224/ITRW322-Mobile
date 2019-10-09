@@ -28,11 +28,9 @@ ion-card-header.card-header {
     background: rgba(255, 255, 255, 0.5);
     border: medium none;
 
-    .text-input, {
-        color: #fff;
-    }
 
-    
+
+
     input::-moz-placeholder{
         color: #fff!important;
     }
@@ -64,4 +62,3 @@ position: static;
 }
 
 }
-

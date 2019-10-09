@@ -21,6 +21,7 @@ export class BuddychatPage {
   allmessages = [];
   photoURL;
   imgornot;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public chatservice: ChatProvider,
     public events: Events, public zone: NgZone, public loadingCtrl: LoadingController,
     public imgstore: ImghandlerProvider) {
@@ -29,6 +30,7 @@ export class BuddychatPage {
     this.scrollto();
     this.events.subscribe('newmessage', () => {
       this.allmessages = [];
+
       this.imgornot = [];
       this.zone.run(() => {
         this.allmessages = this.chatservice.buddymessages;
@@ -38,6 +40,7 @@ export class BuddychatPage {
             this.imgornot.push(true);
           else
             this.imgornot.push(false);
+            console.log(this.CaesarCipher(this.allmessages[key].message,-13));
         }
       })
 
