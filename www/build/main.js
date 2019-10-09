@@ -38,11 +38,11 @@ var map = {
 		12
 	],
 	"../pages/groupbuddies/groupbuddies.module": [
-		457,
+		456,
 		11
 	],
 	"../pages/groupchat/groupchat.module": [
-		456,
+		457,
 		10
 	],
 	"../pages/groupinfo/groupinfo.module": [
@@ -1811,8 +1811,8 @@ AppModule = __decorate([
                     { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/commands/commands.module#CommandsPageModule', name: 'CommandsPage', segment: 'commands', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupinfo/groupinfo.module#GroupinfoPageModule', name: 'GroupinfoPage', segment: 'groupinfo', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },

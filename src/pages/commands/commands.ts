@@ -108,7 +108,7 @@ export class CommandsPage {
                     text: 'Send message',
 
                     handler: data => {
-                      this.sendcomm(receiver, "ShowPopup=" +data.username);
+                      this.sendcomm(receiver, "ShowPopup=" +data.Message);
                     }
                   }]});
                   alert.present();
