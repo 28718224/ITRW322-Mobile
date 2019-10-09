@@ -112,9 +112,13 @@ var BuddychatPage = (function () {
     };
     BuddychatPage.prototype.scrollto = function () {
         var _this = this;
-        setTimeout(function () {
-            _this.content.scrollToBottom();
-        }, 1000);
+        try {
+            setTimeout(function () {
+                _this.content.scrollToBottom();
+            }, 1000);
+        }
+        catch (err) {
+        }
     };
     BuddychatPage.prototype.sendPicMsg = function () {
         var _this = this;
@@ -147,17 +151,16 @@ var BuddychatPage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* ViewChild */])('content'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], BuddychatPage.prototype, "content", void 0);
 BuddychatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-buddychat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/'<!--\n\n  Generated template for the BuddychatPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>{{buddy.displayName}}</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="sendPicMsg()">\n\n      <ion-icon name="camera"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content #content>\n\n<div class = "chatwindow">\n\n  <ion-list no-lines>\n\n    <ion-item *ngFor = "let item of allmessages; let i = index" text-wrap>\n\n      <ion-avatar item-left *ngIf="item.sentby === buddy.uid">\n\n        <img src="{{buddy.photoURL}}">\n\n      </ion-avatar>\n\n      <div class="bubble me" *ngIf="item.sentby === buddy.uid">\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n      </div>\n\n      <ion-avatar item-right *ngIf="item.sentby != buddy.uid">\n\n        <img src="{{photoURL}}">\n\n      </ion-avatar>\n\n      <div class="bubble you" *ngIf="item.sentby != buddy.uid">\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n      </div>\n\n    </ion-item>\n\n  </ion-list>\n\n</div>\n\n</ion-content>\n\n<ion-footer ion-fixed>\n\n  <ion-toolbar class="no-border" color="white">\n\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="addmessage()">\n\n        <ion-icon name="send" color="primary"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-toolbar>\n\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322\src\pages\buddychat\buddychat.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__["a" /* ChatProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__["a" /* ChatProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_chat_chat__["a" /* ChatProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* NgZone */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */]) === "function" && _h || Object])
 ], BuddychatPage);
 
+var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=buddychat.js.map
 
 /***/ })

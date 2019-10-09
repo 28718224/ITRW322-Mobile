@@ -59,9 +59,14 @@ export class BuddychatPage {
   }
 
   scrollto() {
-    setTimeout(() => {
-      this.content.scrollToBottom();
-    }, 1000);
+    try{
+      setTimeout(() => {
+        this.content.scrollToBottom();
+      }, 1000);
+    }catch(err){
+
+    }
+
   }
 
   sendPicMsg() {
