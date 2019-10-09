@@ -28,7 +28,7 @@
       <div class="bubble me" *ngIf="item.sentby === alignuid">
         <h6 style="color: mediumpurple;">{{item.displayName}}</h6>
         <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>
-        <img src="{{item.message}}" *ngIf="imgornot[i]">
+        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">
         <p><small>{{item.timestamp}}</small></p>
       </div>
       <ion-avatar item-right *ngIf="item.sentby != alignuid">
@@ -37,7 +37,7 @@
       <div class="bubble you" *ngIf="item.sentby != alignuid">
         <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>
         <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>
-        <img src="{{item.message}}" *ngIf="imgornot[i]">
+        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">
         <p><small>{{item.timestamp}}</small></p>
       </div>
     </ion-item>
