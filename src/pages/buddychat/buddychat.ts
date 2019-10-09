@@ -33,7 +33,8 @@ export class BuddychatPage {
       this.zone.run(() => {
         this.allmessages = this.chatservice.buddymessages;
         for (var key in this.allmessages) {
-          if (this.allmessages[key].message.substring(0, 4) == 'http')
+
+          if (this.allmessages[key].message.substring(0, 4) == this.CaesarCipher('http',13))
             this.imgornot.push(true);
           else
             this.imgornot.push(false);
@@ -43,6 +44,8 @@ export class BuddychatPage {
 
     })
   }
+
+
 
   addmessage() {
     this.chatservice.addnewmessage(this.newmessage).then(() => {
@@ -56,9 +59,14 @@ export class BuddychatPage {
   }
 
   scrollto() {
-    setTimeout(() => {
-      this.content.scrollToBottom();
-    }, 1000);
+    try{
+      setTimeout(() => {
+        this.content.scrollToBottom();
+      }, 1000);
+    }catch(err){
+
+    }
+
   }
 
   sendPicMsg() {
@@ -77,4 +85,19 @@ export class BuddychatPage {
       loader.dismiss();
     })
   }
+
+  CaesarCipher(str, num) {
+    // you can comment this line
+
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str[i].charCodeAt()) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
 }

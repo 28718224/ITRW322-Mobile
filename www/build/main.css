@@ -30459,6 +30459,84 @@ page-newgroup .scroll-content {
   text-align: center;
 }
 
+page-passwordreset .background {
+  background-image: url("../assets/bgimage.jpg");
+}
+
+page-passwordreset .scroll-content {
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+page-passwordreset ion-card.card {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+page-passwordreset a, page-passwordreset p,
+page-passwordreset ion-card-header.card-header {
+  color: #fff !important;
+}
+
+page-passwordreset .list > .item-block:first-child {
+  border: medium none;
+}
+
+page-passwordreset .item {
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border: medium none;
+}
+
+page-passwordreset .item input::-moz-placeholder {
+  color: #fff !important;
+}
+
+page-passwordreset .item input:-moz-placeholder {
+  color: #fff !important;
+}
+
+page-passwordreset .item *:-moz-placeholder {
+  color: #fff !important;
+}
+
+page-passwordreset .item *:-ms-input-placeholder {
+  color: #fff !important;
+}
+
+page-passwordreset .item *::-webkit-input-placeholder {
+  color: #fff !important;
+}
+
+page-passwordreset .icon {
+  padding-right: 10px;
+}
+
+page-passwordreset .bottom {
+  bottom: 0;
+}
+
+page-passwordreset .input-cover {
+  position: static;
+}
+
 page-profile .profile-image img {
   height: 200px;
   width: 200px;

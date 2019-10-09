@@ -20,18 +20,32 @@ export class ChatProvider {
   initializebuddy(buddy) {
     this.buddy = buddy;
   }
+  CaesarCipher(str, num) {
+    // you can comment this line
+
+
+    var result = '';
+    var charcode = 0;
+
+    for (var i = 0; i < str.length; i++) {
+        charcode = (str[i].charCodeAt()) + num;
+        result += String.fromCharCode(charcode);
+    }
+    return result;
+
+}
 
   addnewmessage(msg) {
     if (this.buddy) {
-      var promise = new Promise((resolve, reject) => {
-        this.firebuddychats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).push({
+      var promise = new Promise(async (resolve, reject) => {
+        this.firebuddychats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).child(await this.getIndex2('1')).set({
           sentby: firebase.auth().currentUser.uid,
-          message: msg,
+          message: this.CaesarCipher(msg,13),
           timestamp: firebase.database.ServerValue.TIMESTAMP
-        }).then(() => {
-          this.firebuddychats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).push({
+        }).then(async () => {
+          this.firebuddychats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).child(await this.getIndex2('2')).set({
             sentby: firebase.auth().currentUser.uid,
-            message: msg,
+            message: this.CaesarCipher(msg,13),
             timestamp: firebase.database.ServerValue.TIMESTAMP
           }).then(() => {
             resolve(true);
@@ -56,4 +70,60 @@ export class ChatProvider {
     })
   }
 
+
+
+  async getIndex2(type:string){
+    var found = false;
+    var number = 0;
+        if(type === '1')
+        {
+              await this.firebuddychats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).once('value', await async function(snapshot) {
+                if (!snapshot.exists()) {
+
+                  number=0;
+                  found=true;
+                }
+              });
+
+              while(!found)
+              {
+                await this.firebuddychats.child(firebase.auth().currentUser.uid).child(this.buddy.uid).child(number.toString()).once('value', await async function(snapshot) {
+                  if (!snapshot.exists()) {
+
+                    found=true;
+                  }
+                  else{
+                    number= number +1;
+                  }
+                });
+              }
+
+              return number.toString();
+        }
+        else{
+          await this.firebuddychats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).once('value', await async function(snapshot) {
+            if (!snapshot.exists()) {
+
+              number=0;
+              found=true;
+            }
+          });
+
+          while(!found)
+          {
+            await this.firebuddychats.child(this.buddy.uid).child(firebase.auth().currentUser.uid).child(number.toString()).once('value', await async function(snapshot) {
+              if (!snapshot.exists()) {
+
+                found=true;
+              }
+              else{
+                number= number +1;
+              }
+            });
+          }
+
+          return number.toString();
+        }
+
+  }
 }
