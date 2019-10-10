@@ -60,7 +60,12 @@ export class GroupchatPage {
           this.imgornot.push(false);
         }
       }
-      this.scrollto();
+      try{
+        this.scrollto();
+      }catch(err){
+
+      }
+
     })
 
   }
@@ -77,7 +82,11 @@ export class GroupchatPage {
     this.imgstore.picmsgstore().then((imgurl) => {
       loader.dismiss();
       this.groupservice.addgroupmsg(imgurl).then(() => {
-        this.scrollto();
+        try{
+          this.scrollto();
+        }catch(err){
+
+        }
         this.newmessage = '';
       })
     }).catch((err) => {

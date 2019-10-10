@@ -1,14 +1,14 @@
 webpackJsonp([5],{
 
-/***/ 463:
+/***/ 462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordresetPageModule", function() { return PasswordresetPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewgroupPageModule", function() { return NewgroupPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__passwordreset__ = __webpack_require__(523);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__newgroup__ = __webpack_require__(478);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,37 +18,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var PasswordresetPageModule = (function () {
-    function PasswordresetPageModule() {
+var NewgroupPageModule = (function () {
+    function NewgroupPageModule() {
     }
-    return PasswordresetPageModule;
+    return NewgroupPageModule;
 }());
-PasswordresetPageModule = __decorate([
+NewgroupPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__passwordreset__["a" /* PasswordresetPage */],
+            __WEBPACK_IMPORTED_MODULE_2__newgroup__["a" /* NewgroupPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__passwordreset__["a" /* PasswordresetPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__newgroup__["a" /* NewgroupPage */]),
         ],
         exports: [
-            __WEBPACK_IMPORTED_MODULE_2__passwordreset__["a" /* PasswordresetPage */]
+            __WEBPACK_IMPORTED_MODULE_2__newgroup__["a" /* NewgroupPage */]
         ]
     })
-], PasswordresetPageModule);
+], NewgroupPageModule);
 
-//# sourceMappingURL=passwordreset.module.js.map
+//# sourceMappingURL=newgroup.module.js.map
 
 /***/ }),
 
-/***/ 523:
+/***/ 478:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PasswordresetPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NewgroupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__ = __webpack_require__(282);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -61,50 +62,101 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
- * Generated class for the PasswordresetPage page.
+ * Generated class for the NewgroupPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var PasswordresetPage = (function () {
-    function PasswordresetPage(navCtrl, navParams, userservice, alertCtrl) {
+var NewgroupPage = (function () {
+    function NewgroupPage(navCtrl, navParams, alertCtrl, groupservice, imghandler, loadingCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.userservice = userservice;
         this.alertCtrl = alertCtrl;
+        this.groupservice = groupservice;
+        this.imghandler = imghandler;
+        this.loadingCtrl = loadingCtrl;
+        this.newgroup = {
+            groupName: 'GroupName',
+            groupPic: 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/chatterplace.png?alt=media&token=e51fa887-bfc6-48ff-87c6-e2c61976534e'
+        };
     }
-    PasswordresetPage.prototype.ionViewDidLoad = function () {
-        // console.log('ionViewDidLoad PasswordresetPage');
+    NewgroupPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad NewgroupPage');
     };
-    PasswordresetPage.prototype.reset = function () {
+    NewgroupPage.prototype.chooseimage = function () {
+        var _this = this;
+        if (this.newgroup.groupName == 'GroupName') {
+            var namealert = this.alertCtrl.create({
+                buttons: ['okay'],
+                message: 'Please enter the groupname first. Thanks'
+            });
+            namealert.present();
+        }
+        else {
+            var loader_1 = this.loadingCtrl.create({
+                content: 'Loading, please wait..'
+            });
+            loader_1.present();
+            this.imghandler.grouppicstore(this.newgroup.groupName).then(function (res) {
+                loader_1.dismiss();
+                if (res)
+                    _this.newgroup.groupPic = res;
+            }).catch(function (err) {
+                alert(err);
+            });
+        }
+    };
+    NewgroupPage.prototype.creategroup = function () {
+        var _this = this;
+        this.groupservice.addgroup(this.newgroup).then(function () {
+            _this.navCtrl.pop();
+        }).catch(function (err) {
+            alert(JSON.stringify(err));
+        });
+    };
+    NewgroupPage.prototype.editgroupname = function () {
+        var _this = this;
         var alert = this.alertCtrl.create({
-            buttons: ['Ok']
+            title: 'Edit Group Name',
+            inputs: [{
+                    name: 'groupname',
+                    placeholder: 'Give a new groupname'
+                }],
+            buttons: [{
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: function (data) {
+                    }
+                },
+                {
+                    text: 'Set',
+                    handler: function (data) {
+                        if (data.groupname) {
+                            _this.newgroup.groupName = data.groupname;
+                        }
+                        else {
+                            _this.newgroup.groupName = 'groupName';
+                        }
+                    }
+                }
+            ]
         });
-        this.userservice.passwordreset(this.email).then(function (res) {
-            if (res.success) {
-                alert.setTitle('Email Sent');
-                alert.setSubTitle('Please follow the instructions in the email to reset your password');
-            }
-            else {
-                alert.setTitle('Failed');
-            }
-        });
+        alert.present();
     };
-    PasswordresetPage.prototype.goback = function () {
-        this.navCtrl.setRoot('LoginPage');
-    };
-    return PasswordresetPage;
+    return NewgroupPage;
 }());
-PasswordresetPage = __decorate([
+NewgroupPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-passwordreset',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\passwordreset\passwordreset.html"*/'<!--\n\n  Generated template for the PasswordresetPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-content class="background">\n\n  <ion-card>\n\n    <ion-card-header>\n\n      Password Reset\n\n    </ion-card-header>\n\n    <ion-card-content>\n\n      <ion-list >\n\n        <ion-item>\n\n            <ion-input type="email" [(ngModel)]="email" placeholder="Email"></ion-input>\n\n        </ion-item>\n\n        <button ion-button block round outline color="light" (click)="reset()">Reset my Password</button>\n\n        <button ion-button full clear color="light" (click)="goback()">Go Back</button>\n\n      </ion-list>\n\n    </ion-card-content>\n\n  </ion-card>\n\n  </ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\passwordreset\passwordreset.html"*/,
+        selector: 'page-newgroup',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\newgroup\newgroup.html"*/'<!--\n\n  Generated template for the NewgroupPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>Add a New Group</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n<div class="profile-image" (click)="chooseimage()">\n\n  <img src="{{newgroup.groupPic}}">\n\n</div>\n\n<div>\n\n  <h2 (click)="editgroupname()">{{newgroup.groupName}}</h2>\n\n</div>\n\n<div>\n\n  Tap on the pic or group name to change it.\n\n</div>\n\n<div class="spacer" style="height: 10px;"></div>\n\n<div>\n\n  <button ion-button round outline (click)="creategroup()">Create</button>\n\n</div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\newgroup\newgroup.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
-], PasswordresetPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]])
+], NewgroupPage);
 
-//# sourceMappingURL=passwordreset.js.map
+//# sourceMappingURL=newgroup.js.map
 
 /***/ })
 

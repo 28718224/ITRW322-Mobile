@@ -17,6 +17,7 @@ export class GroupsProvider {
   currentgroup:  Array<any> = [];
   currentgroupname;
   grouppic;
+  groupowner;
   groupmsgs:  Array<any> = [];
   constructor(public events: Events) {
 
@@ -73,6 +74,8 @@ export class GroupsProvider {
     var promise = new Promise((resolve, reject) => {
       this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).once('value', (snapshot) => {
         var temp = snapshot.val().owner;
+        this.groupowner =snapshot.val().owner;
+
         if (temp == firebase.auth().currentUser.uid) {
           resolve(true);
         }
@@ -272,15 +275,20 @@ export class GroupsProvider {
   }
 
   getgroupmsgs(groupname) {
+    this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('owner').once('value', async (snapshot) => {
+      var tempowner = snapshot.val();
+      alert(tempowner);
+      this.firegroup.child(tempowner).child(groupname).child('msgboard').on('value', (snapshot) => {
+        var tempmsgholder = snapshot.val();
+        this.groupmsgs = [];
+        for (var key in tempmsgholder)
+          this.groupmsgs.push(tempmsgholder[key]);
+        this.events.publish('newgroupmsg');
+      })
 
-
-    this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('msgboard').on('value', (snapshot) => {
-      var tempmsgholder = snapshot.val();
-      this.groupmsgs = [];
-      for (var key in tempmsgholder)
-        this.groupmsgs.push(tempmsgholder[key]);
-      this.events.publish('newgroupmsg');
     })
+
+
   }
 
 
