@@ -64,7 +64,7 @@ export class ChatProvider {
       this.buddymessages = [];
       temp = snapshot.val();
       for (var tempkey in temp) {
-        alert(temp[tempkey].message);
+
         this.buddymessages.push(temp[tempkey]);
       }
       this.events.publish('newmessage');

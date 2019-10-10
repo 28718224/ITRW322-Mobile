@@ -394,9 +394,8 @@ var GroupsProvider = (function () {
                             _b.apply(_a, [_c.sent()]).set({
                                 sentby: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
                                 displayName: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.displayName,
-                                photoURL: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.photoURL,
                                 message: this.CaesarCipher(newmessage, 13),
-                                timestamp: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database.ServerValue.TIMESTAMP
+                                timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                             }).then(function () { return __awaiter(_this, void 0, void 0, function () {
                                 var _this = this;
                                 var _a, _b, tempmembers;
@@ -410,9 +409,8 @@ var GroupsProvider = (function () {
                                             _b.apply(_a, [_c.sent()]).set({
                                                 sentby: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
                                                 displayName: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.displayName,
-                                                photoURL: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.photoURL,
                                                 message: this.CaesarCipher(newmessage, 13),
-                                                timestamp: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database.ServerValue.TIMESTAMP
+                                                timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                                             });
                                             _c.label = 2;
                                         case 2:
@@ -456,9 +454,8 @@ var GroupsProvider = (function () {
                         _b.apply(_a, [_c.sent()]).set({
                             sentby: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
                             displayName: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.displayName,
-                            photoURL: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.photoURL,
                             message: this.CaesarCipher(msg, 13),
-                            timestamp: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database.ServerValue.TIMESTAMP
+                            timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                         }).then(function () {
                             cb();
                         });
@@ -1404,7 +1401,6 @@ var ChatProvider = (function () {
             _this.buddymessages = [];
             temp = snapshot.val();
             for (var tempkey in temp) {
-                alert(temp[tempkey].message);
                 _this.buddymessages.push(temp[tempkey]);
             }
             _this.events.publish('newmessage');
@@ -1506,9 +1502,10 @@ var ChatProvider = (function () {
 }());
 ChatProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]) === "function" && _a || Object])
 ], ChatProvider);
 
+var _a;
 //# sourceMappingURL=chat.js.map
 
 /***/ }),

@@ -41,7 +41,7 @@ export class GroupchatPage {
       this.imgornot = [];
       this.allgroupmsgs = this.groupservice.groupmsgs;
       for (var key in this.allgroupmsgs) {
-        var d = new Date(this.allgroupmsgs[key].timestamp);
+      /*  var d = new Date(this.allgroupmsgs[key].timestamp);
         var hours = d.getHours();
         var minutes = "0" + d.getMinutes();
         var month = d.getMonth();
@@ -50,9 +50,12 @@ export class GroupchatPage {
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-        var formattedTime = monthNames[month] + "-" + da + "-" + hours + ":" + minutes.substr(-2);
+        var formattedTime = monthNames[month] + "-" + da + "-" + hours + ":" + minutes.substr(-2);*/
+        var utcSeconds = this.allgroupmsgs[key].timestamp;
+        var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+        d.setUTCSeconds(utcSeconds);
 
-        this.allgroupmsgs[key].timestamp = formattedTime;
+        this.allgroupmsgs[key].timestamp = d.toString().substr(0, d.toString().indexOf('GMT')-1);
         if (this.allgroupmsgs[key].message.substring(0, 4) === this.CaesarCipher('http',13)) {
           this.imgornot.push(true);
         }
