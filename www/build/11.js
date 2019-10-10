@@ -111,6 +111,8 @@ var GroupbuddiesPage = (function () {
     GroupbuddiesPage.prototype.addbuddy = function (buddy) {
         this.newbuddy = buddy;
         this.groupservice.addmember(buddy);
+        var sentuser = this.tempmyfriends.indexOf(buddy);
+        this.tempmyfriends.splice(sentuser, 1);
     };
     return GroupbuddiesPage;
 }());

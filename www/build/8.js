@@ -97,6 +97,8 @@ var GroupmembersPage = (function () {
     };
     GroupmembersPage.prototype.removemember = function (member) {
         this.groupservice.deletemember(member);
+        var sentuser = this.tempgrpmembers.indexOf(member);
+        this.tempgrpmembers.splice(sentuser, 1);
     };
     return GroupmembersPage;
 }());

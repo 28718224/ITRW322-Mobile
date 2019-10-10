@@ -52,6 +52,8 @@ export class GroupmembersPage {
 
   removemember(member) {
     this.groupservice.deletemember(member);
+    let sentuser = this.tempgrpmembers.indexOf(member);
+          this.tempgrpmembers.splice(sentuser, 1);
   }
 
 }

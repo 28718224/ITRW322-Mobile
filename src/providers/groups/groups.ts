@@ -13,11 +13,13 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 export class GroupsProvider {
   firegroup = firebase.database().ref('/groups');
   firegroupname = firebase.database().ref('/groupsnames');
+  fireusername = firebase.database().ref('/users');
   mygroups: Array<any> = [];
   currentgroup:  Array<any> = [];
   currentgroupname;
   grouppic;
   groupowner;
+  public sendersNames: Array<any> = [];
   groupmsgs:  Array<any> = [];
   constructor(public events: Events) {
 
@@ -413,6 +415,17 @@ export class GroupsProvider {
     }
     return number.toString();
   }
+
+   async getSenders(groupname){
+    return await new Promise((resolve, reject) => {;
+    this.fireusername.child(groupname).once('value', async (snapshot) => {
+      var tempowner = snapshot.val();
+      this.sendersNames.push(tempowner.displayName);
+      resolve(true);
+    })
+  })
+  }
+
 
   CaesarCipher(str, num) {
     // you can comment this line

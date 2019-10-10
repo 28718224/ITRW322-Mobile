@@ -38,6 +38,7 @@ export class GroupbuddiesPage {
     })
   }
 
+
   searchuser(searchbar) {
     let tempfriends = this.tempmyfriends;
 
@@ -62,6 +63,8 @@ export class GroupbuddiesPage {
   addbuddy(buddy) {
     this.newbuddy = buddy;
     this.groupservice.addmember(buddy);
+    let sentuser = this.tempmyfriends.indexOf(buddy);
+          this.tempmyfriends.splice(sentuser, 1);
   }
 
 }

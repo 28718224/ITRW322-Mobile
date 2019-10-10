@@ -169,8 +169,10 @@ var GroupsProvider = (function () {
         this.events = events;
         this.firegroup = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/groups');
         this.firegroupname = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/groupsnames');
+        this.fireusername = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/users');
         this.mygroups = [];
         this.currentgroup = [];
+        this.sendersNames = [];
         this.groupmsgs = [];
     }
     GroupsProvider.prototype.addgroup = function (newGroup) {
@@ -736,6 +738,28 @@ var GroupsProvider = (function () {
             });
         });
     };
+    GroupsProvider.prototype.getSenders = function (groupname) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, new Promise(function (resolve, reject) {
+                            ;
+                            _this.fireusername.child(groupname).once('value', function (snapshot) { return __awaiter(_this, void 0, void 0, function () {
+                                var tempowner;
+                                return __generator(this, function (_a) {
+                                    tempowner = snapshot.val();
+                                    this.sendersNames.push(tempowner.displayName);
+                                    resolve(true);
+                                    return [2 /*return*/];
+                                });
+                            }); });
+                        })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     GroupsProvider.prototype.CaesarCipher = function (str, num) {
         // you can comment this line
         var result = '';
@@ -750,10 +774,9 @@ var GroupsProvider = (function () {
 }());
 GroupsProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
 ], GroupsProvider);
 
-var _a;
 //# sourceMappingURL=groups.js.map
 
 /***/ }),
@@ -1499,10 +1522,9 @@ var ChatProvider = (function () {
 }());
 ChatProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */]])
 ], ChatProvider);
 
-var _a;
 //# sourceMappingURL=chat.js.map
 
 /***/ }),

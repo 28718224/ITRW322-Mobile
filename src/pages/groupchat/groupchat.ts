@@ -36,11 +36,16 @@ export class GroupchatPage {
       alert(err);
       })
     this.groupservice.getgroupmsgs(this.groupName);
-    this.events.subscribe('newgroupmsg', () => {
+    this.events.subscribe('newgroupmsg', async () => {
       this.allgroupmsgs = [];
       this.imgornot = [];
       this.allgroupmsgs = this.groupservice.groupmsgs;
+
       for (var key in this.allgroupmsgs) {
+        await groupservice.getSenders(this.allgroupmsgs[key].sentby).then(response => {
+          this.allgroupmsgs[key].displayName = this.groupservice.sendersNames[key];
+        });
+
       /*  var d = new Date(this.allgroupmsgs[key].timestamp);
         var hours = d.getHours();
         var minutes = "0" + d.getMinutes();
@@ -203,7 +208,7 @@ export class GroupchatPage {
 
   }
 
-  CaesarCipher(str, num) {
+ public  CaesarCipher(str, num) {
     // you can comment this line
 
 
