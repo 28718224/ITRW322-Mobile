@@ -226,17 +226,17 @@ export class GroupsProvider {
       this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex2()).set({
         sentby: firebase.auth().currentUser.uid,
         displayName: firebase.auth().currentUser.displayName,
-        photoURL: firebase.auth().currentUser.photoURL,
+
         message: this.CaesarCipher(newmessage,13),
-        timestamp: firebase.database.ServerValue.TIMESTAMP
+        timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
       }).then(async () => {
         if (tempowner != firebase.auth().currentUser.uid) {
           this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').child(await this.getIndex3(tempowner)).set({
             sentby: firebase.auth().currentUser.uid,
+
             displayName: firebase.auth().currentUser.displayName,
-            photoURL: firebase.auth().currentUser.photoURL,
             message: this.CaesarCipher(newmessage,13),
-            timestamp: firebase.database.ServerValue.TIMESTAMP
+            timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
           })
         }
         var tempmembers = [];
@@ -266,9 +266,8 @@ export class GroupsProvider {
     this.firegroup.child(member.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex4(member)).set({
             sentby: firebase.auth().currentUser.uid,
             displayName: firebase.auth().currentUser.displayName,
-            photoURL: firebase.auth().currentUser.photoURL,
             message: this.CaesarCipher(msg,13),
-            timestamp: firebase.database.ServerValue.TIMESTAMP
+            timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
     }).then(() => {
       cb();
     })
@@ -277,7 +276,7 @@ export class GroupsProvider {
   getgroupmsgs(groupname) {
     this.firegroup.child(firebase.auth().currentUser.uid).child(groupname).child('owner').once('value', async (snapshot) => {
       var tempowner = snapshot.val();
-      alert(tempowner);
+
       this.firegroup.child(tempowner).child(groupname).child('msgboard').on('value', (snapshot) => {
         var tempmsgholder = snapshot.val();
         this.groupmsgs = [];
