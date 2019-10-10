@@ -225,16 +225,12 @@ export class GroupsProvider {
       var tempowner = snapshot.val();
       this.firegroup.child(firebase.auth().currentUser.uid).child(this.currentgroupname).child('msgboard').child(await this.getIndex2()).set({
         sentby: firebase.auth().currentUser.uid,
-        displayName: firebase.auth().currentUser.displayName,
-
         message: this.CaesarCipher(newmessage,13),
         timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
       }).then(async () => {
         if (tempowner != firebase.auth().currentUser.uid) {
           this.firegroup.child(tempowner).child(this.currentgroupname).child('msgboard').child(await this.getIndex3(tempowner)).set({
             sentby: firebase.auth().currentUser.uid,
-
-            displayName: firebase.auth().currentUser.displayName,
             message: this.CaesarCipher(newmessage,13),
             timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
           })
@@ -284,10 +280,7 @@ export class GroupsProvider {
           this.groupmsgs.push(tempmsgholder[key]);
         this.events.publish('newgroupmsg');
       })
-
     })
-
-
   }
 
 

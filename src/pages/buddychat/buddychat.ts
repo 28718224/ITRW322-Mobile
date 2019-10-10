@@ -35,6 +35,11 @@ export class BuddychatPage {
       this.zone.run(() => {
         this.allmessages = this.chatservice.buddymessages;
         for (var key in this.allmessages) {
+          var utcSeconds = this.allmessages[key].timestamp;
+          var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+          d.setUTCSeconds(utcSeconds);
+          this.allmessages[key].timestamp = d.toString().substr(0, d.toString().indexOf('GMT')-1);
+
 
           if (this.allmessages[key].message.substring(0, 4) == this.CaesarCipher('http',13))
             this.imgornot.push(true);

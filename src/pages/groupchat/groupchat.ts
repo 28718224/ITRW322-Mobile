@@ -183,7 +183,7 @@ export class GroupchatPage {
   }
 
   addgroupmsg() {
-    if(this.newmessage.length ===" "){
+    if(this.newmessage.length !=" "){
       this.groupservice.addgroupmsg(this.newmessage).then(() => {
         this.scrollto();
         this.newmessage = '';

@@ -236,7 +236,7 @@ var GroupchatPage = (function () {
     };
     GroupchatPage.prototype.addgroupmsg = function () {
         var _this = this;
-        if (this.newmessage.length === " ") {
+        if (this.newmessage.length != " ") {
             this.groupservice.addgroupmsg(this.newmessage).then(function () {
                 _this.scrollto();
                 _this.newmessage = '';

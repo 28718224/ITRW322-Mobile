@@ -393,7 +393,6 @@ var GroupsProvider = (function () {
                         case 1:
                             _b.apply(_a, [_c.sent()]).set({
                                 sentby: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
-                                displayName: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.displayName,
                                 message: this.CaesarCipher(newmessage, 13),
                                 timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                             }).then(function () { return __awaiter(_this, void 0, void 0, function () {
@@ -408,7 +407,6 @@ var GroupsProvider = (function () {
                                         case 1:
                                             _b.apply(_a, [_c.sent()]).set({
                                                 sentby: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.uid,
-                                                displayName: __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.auth().currentUser.displayName,
                                                 message: this.CaesarCipher(newmessage, 13),
                                                 timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                                             });
