@@ -236,10 +236,12 @@ var GroupchatPage = (function () {
     };
     GroupchatPage.prototype.addgroupmsg = function () {
         var _this = this;
-        this.groupservice.addgroupmsg(this.newmessage).then(function () {
-            _this.scrollto();
-            _this.newmessage = '';
-        });
+        if (this.newmessage.length === " ") {
+            this.groupservice.addgroupmsg(this.newmessage).then(function () {
+                _this.scrollto();
+                _this.newmessage = '';
+            });
+        }
     };
     GroupchatPage.prototype.scrollto = function () {
         var _this = this;

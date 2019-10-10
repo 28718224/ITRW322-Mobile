@@ -30350,6 +30350,7 @@ page-groupchat .chatwindow {
 
 page-login .background {
   background-image: url("../assets/bread.jpg");
+  background-size: cover;
 }
 
 page-login .scroll-content {

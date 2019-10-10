@@ -183,10 +183,13 @@ export class GroupchatPage {
   }
 
   addgroupmsg() {
-    this.groupservice.addgroupmsg(this.newmessage).then(() => {
-      this.scrollto();
-      this.newmessage = '';
-    })
+    if(this.newmessage.length ===" "){
+      this.groupservice.addgroupmsg(this.newmessage).then(() => {
+        this.scrollto();
+        this.newmessage = '';
+      })
+    }
+
   }
 
   scrollto() {

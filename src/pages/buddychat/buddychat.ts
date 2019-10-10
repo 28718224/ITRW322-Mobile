@@ -51,10 +51,13 @@ export class BuddychatPage {
 
 
   addmessage() {
-    this.chatservice.addnewmessage(this.newmessage).then(() => {
-      this.content.scrollToBottom();
-      this.newmessage = '';
-    })
+    if(this.newmessage != ' '){
+      this.chatservice.addnewmessage(this.newmessage).then(() => {
+        this.content.scrollToBottom();
+        this.newmessage = '';
+      })
+    }
+
   }
 
   ionViewDidEnter() {

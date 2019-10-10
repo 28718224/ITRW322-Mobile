@@ -471,7 +471,6 @@ var GroupsProvider = (function () {
             var tempowner;
             return __generator(this, function (_a) {
                 tempowner = snapshot.val();
-                alert(tempowner);
                 this.firegroup.child(tempowner).child(groupname).child('msgboard').on('value', function (snapshot) {
                     var tempmsgholder = snapshot.val();
                     _this.groupmsgs = [];
