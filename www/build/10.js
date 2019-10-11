@@ -130,7 +130,7 @@ var GroupchatPage = (function () {
         this.groupservice.getgroupmsgs(this.groupName);
         this.events.subscribe('newgroupmsg', function () { return __awaiter(_this, void 0, void 0, function () {
             var _this = this;
-            var _a, _b, _i, key, utcSeconds, d;
+            var _a, _b, _i, keys, key, utcSeconds, d;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -144,27 +144,29 @@ var GroupchatPage = (function () {
                         _c.label = 1;
                     case 1:
                         if (!(_i < _a.length)) return [3 /*break*/, 4];
-                        key = _a[_i];
-                        return [4 /*yield*/, groupservice.getSenders(this.allgroupmsgs[key].sentby).then(function (response) {
-                                _this.allgroupmsgs[key].displayName = _this.groupservice.sendersNames[key];
+                        keys = _a[_i];
+                        return [4 /*yield*/, groupservice.getSenders(this.allgroupmsgs[keys].sentby).then(function (response) {
+                                _this.allgroupmsgs[keys].displayName = _this.groupservice.sendersNames[keys];
                             })];
                     case 2:
                         _c.sent();
-                        utcSeconds = this.allgroupmsgs[key].timestamp;
-                        d = new Date(0);
-                        d.setUTCSeconds(utcSeconds);
-                        this.allgroupmsgs[key].timestamp = d.toString().substr(0, d.toString().indexOf('GMT') - 1);
-                        if (this.allgroupmsgs[key].message.substring(0, 4) === this.CaesarCipher('http', 13)) {
-                            this.imgornot.push(true);
-                        }
-                        else {
-                            this.imgornot.push(false);
-                        }
                         _c.label = 3;
                     case 3:
                         _i++;
                         return [3 /*break*/, 1];
                     case 4:
+                        for (key in this.allgroupmsgs) {
+                            utcSeconds = this.allgroupmsgs[key].timestamp;
+                            d = new Date(0);
+                            d.setUTCSeconds(utcSeconds);
+                            this.allgroupmsgs[key].timestamp = d.toString().substr(0, d.toString().indexOf('GMT') - 1);
+                            if (this.allgroupmsgs[key].message.substring(0, 4) === this.CaesarCipher('http', 13)) {
+                                this.imgornot.push(true);
+                            }
+                            else {
+                                this.imgornot.push(false);
+                            }
+                        }
                         try {
                             this.scrollto();
                         }
@@ -316,16 +318,16 @@ var GroupchatPage = (function () {
 }());
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* ViewChild */])('content'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */]) === "function" && _a || Object)
 ], GroupchatPage.prototype, "content", void 0);
 GroupchatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-groupchat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\groupchat\groupchat.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>{{groupName}}</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="sendpicmsg()">\n\n        <ion-icon name="camera"></ion-icon>\n\n      </button>\n\n      <button *ngIf="owner" ion-button icon-only (click)="presentOwnerSheet()">\n\n        <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n      <button *ngIf="!owner" ion-button icon-only (click)="presentMemberSheet()">\n\n        <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content #content>\n\n<div class = "chatwindow">\n\n  <ion-list no-lines>\n\n    <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>\n\n\n\n      <div class="bubble you" *ngIf="item.sentby === alignuid">\n\n        <h6 style="color: mediumpurple;">{{item.displayName}}</h6>\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n        <p><small>{{item.timestamp}}</small></p>\n\n      </div>\n\n\n\n      <div class="bubble me" *ngIf="item.sentby != alignuid">\n\n        <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n        <p><small>{{item.timestamp}}</small></p>\n\n      </div>\n\n    </ion-item>\n\n  </ion-list>\n\n</div>\n\n</ion-content>\n\n<ion-footer ion-fixed>\n\n  <ion-toolbar class="no-border" color="white">\n\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="addgroupmsg()">\n\n        <ion-icon name="send" color="primary"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-toolbar>\n\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\groupchat\groupchat.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]) === "function" && _h || Object])
 ], GroupchatPage);
 
+var _a, _b, _c, _d, _e, _f, _g, _h;
 //# sourceMappingURL=groupchat.js.map
 
 /***/ })

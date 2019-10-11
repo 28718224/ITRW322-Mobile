@@ -40,11 +40,13 @@ export class GroupchatPage {
       this.allgroupmsgs = [];
       this.imgornot = [];
       this.allgroupmsgs = this.groupservice.groupmsgs;
-
-      for (var key in this.allgroupmsgs) {
-        await groupservice.getSenders(this.allgroupmsgs[key].sentby).then(response => {
-          this.allgroupmsgs[key].displayName = this.groupservice.sendersNames[key];
+      for (var keys in this.allgroupmsgs) {
+         await groupservice.getSenders(this.allgroupmsgs[keys].sentby).then(response => {
+          this.allgroupmsgs[keys].displayName = this.groupservice.sendersNames[keys];
         });
+      }
+      for (var key in this.allgroupmsgs) {
+
 
       /*  var d = new Date(this.allgroupmsgs[key].timestamp);
         var hours = d.getHours();
