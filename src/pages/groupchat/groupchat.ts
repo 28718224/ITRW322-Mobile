@@ -40,9 +40,9 @@ export class GroupchatPage {
       this.allgroupmsgs = [];
       this.imgornot = [];
       this.allgroupmsgs = this.groupservice.groupmsgs;
-      for (var keys in this.allgroupmsgs) {
-         await groupservice.getSenders(this.allgroupmsgs[keys].sentby).then(response => {
-          this.allgroupmsgs[keys].displayName = this.groupservice.sendersNames[keys];
+      for (var i=0;i<this.allgroupmsgs.length;i++) {
+         await groupservice.getSenders(this.allgroupmsgs[i].sentby).then(response => {
+          this.allgroupmsgs[i].displayName = response;
         });
       }
       for (var key in this.allgroupmsgs) {

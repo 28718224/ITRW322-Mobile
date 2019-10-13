@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
 import { RequestsProvider } from '../../providers/requests/requests';
 import { GroupsProvider } from '../../providers/groups/groups';
 
@@ -15,7 +15,7 @@ export class GroupbuddiesPage {
   tempmyfriends = [];
   newbuddy;
   constructor(public navCtrl: NavController, public navParams: NavParams, public requestservice: RequestsProvider,
-              public events: Events, public groupservice: GroupsProvider) {
+              public events: Events, public groupservice: GroupsProvider, public toastController: ToastController) {
   }
 
   ionViewWillEnter() {
@@ -65,6 +65,14 @@ export class GroupbuddiesPage {
     this.groupservice.addmember(buddy);
     let sentuser = this.tempmyfriends.indexOf(buddy);
           this.tempmyfriends.splice(sentuser, 1);
+          this.presentToast();
+  }
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Group member added',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

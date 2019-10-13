@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
 import { Events } from 'ionic-angular';
-
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 /*
   Generated class for the ChatProvider provider.
 
@@ -12,8 +13,10 @@ import { Events } from 'ionic-angular';
 export class ChatProvider {
   firebuddychats = firebase.database().ref('/buddychats');
   buddy: any;
+  downloadfile:any;
   buddymessages = [];
-  constructor(public events: Events) {
+  private fileTransfer: FileTransferObject;
+  constructor(public events: Events, private transfer: FileTransfer ,private file: File) {
 
   }
 
@@ -127,4 +130,23 @@ export class ChatProvider {
         }
 
   }
+
+  public download(fileName, filePath) {
+    let url = encodeURI(filePath);
+    this.fileTransfer = this.transfer.create();
+
+    this.fileTransfer.download(url, this.file.dataDirectory   + fileName, true).then((entry) => {
+      //here logging our success downloaded file path in mobile.
+      console.log('download completed: ' + entry.toURL());
+
+      // open downloaded file
+      this.downloadfile = entry.toURL();
+
+    }).catch((error) => {
+      //here logging an error.
+      console.log('download failed: ' + JSON.stringify(error));
+    });
+  }
+
+
 }

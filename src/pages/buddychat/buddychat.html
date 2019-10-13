@@ -28,6 +28,7 @@
       <div class="bubble me" *ngIf="item.sentby === buddy.uid">
         <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>
         <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">
+        <button *ngIf="imgornot[i]" (click)="DownloadMedia(this.CaesarCipher(item.message,-13)) "> DOWNLOAD </button>
         <p><small>{{item.timestamp}}</small></p>
       </div>
       <ion-avatar item-right *ngIf="item.sentby != buddy.uid">
@@ -36,6 +37,7 @@
       <div class="bubble you" *ngIf="item.sentby != buddy.uid">
         <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>
         <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">
+        <button *ngIf="imgornot[i]" (click)="DownloadMedia(this.CaesarCipher(item.message,-13)) "> DOWNLOAD </button>
         <p><small>{{item.timestamp}}</small></p>
       </div>
     </ion-item>

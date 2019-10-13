@@ -13,13 +13,14 @@ import { MyApp } from './app.component';
 import { AuthProvider } from '../providers/auth/auth';
 import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/imghandler/imghandler';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
 import { GroupsProvider } from '../providers/groups/groups';
 import { CommandProvider } from '../providers/command/command';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/';
 
 
 @NgModule({
@@ -44,6 +45,8 @@ import { CommandProvider } from '../providers/command/command';
     UserProvider,
     ImghandlerProvider,
     FileChooser,
+    FileTransfer,
+    FileTransferObject,
     File,
     FilePath,
     RequestsProvider,

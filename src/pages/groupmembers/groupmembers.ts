@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, ToastController } from 'ionic-angular';
 import { GroupsProvider } from '../../providers/groups/groups';
 
 
@@ -12,7 +12,7 @@ export class GroupmembersPage {
   groupmembers;
   tempgrpmembers;
   constructor(public navCtrl: NavController, public navParams: NavParams, public groupservice: GroupsProvider,
-              public events: Events) {
+              public events: Events ,public toastcontroller:ToastController) {
   }
 
   ionViewWillEnter() {
@@ -54,6 +54,14 @@ export class GroupmembersPage {
     this.groupservice.deletemember(member);
     let sentuser = this.tempgrpmembers.indexOf(member);
           this.tempgrpmembers.splice(sentuser, 1);
+          this.presentToast();
+  }
+  async presentToast() {
+    const toast = await this.toastcontroller.create({
+      message: 'Member removed.',
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

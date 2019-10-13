@@ -53,7 +53,10 @@ export class BuddychatPage {
     })
   }
 
-
+  DownloadMedia(link){
+    var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+    this.chatservice.download(utc,'http://commondatastorage.googleapis.com/codeskulptor-assets/lathrop/asteroid_blue.png');
+  }
 
   addmessage() {
     if(this.newmessage != ' '){

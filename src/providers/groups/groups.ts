@@ -421,7 +421,7 @@ export class GroupsProvider {
     this.fireusername.child(groupname).once('value', async (snapshot) => {
       var tempowner = snapshot.val();
       this.sendersNames.push(tempowner.displayName);
-      resolve(true);
+      resolve(tempowner.displayName);
     })
   })
   }
