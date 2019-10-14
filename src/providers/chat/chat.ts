@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase';
-import { Events } from 'ionic-angular';
+import { Events, ToastController } from 'ionic-angular';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 /*
@@ -16,8 +16,17 @@ export class ChatProvider {
   downloadfile:any;
   buddymessages = [];
   private fileTransfer: FileTransferObject;
-  constructor(public events: Events, private transfer: FileTransfer ,private file: File) {
-
+  constructor(public events: Events, private transfer: FileTransfer ,private file: File, private toastController:ToastController) {
+    this.events.subscribe('newmessage:' + firebase.auth().currentUser.uid, () => {
+      this.presentToast();
+     })
+  }
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'New personal Message received',
+      duration: 2000
+    });
+    toast.present();
   }
 
   initializebuddy(buddy) {
@@ -51,6 +60,7 @@ export class ChatProvider {
             message: this.CaesarCipher(msg,13),
             timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0,10)
           }).then(() => {
+            this.events.publish('newmessage:' + this.buddy);
             resolve(true);
 
           })
@@ -71,6 +81,7 @@ export class ChatProvider {
         this.buddymessages.push(temp[tempkey]);
       }
       this.events.publish('newmessage');
+
     })
   }
 
