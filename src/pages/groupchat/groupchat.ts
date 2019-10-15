@@ -70,11 +70,13 @@ export class GroupchatPage {
           this.imgornot.push(false);
         }
       }
-      try{
-        this.scrollto();
-      }catch(err){
 
+      if(this.content._scroll) {
+        this.scrollto();
       }
+
+
+
 
     })
 

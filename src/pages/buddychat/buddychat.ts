@@ -73,13 +73,16 @@ export class BuddychatPage {
   }
 
   scrollto() {
-    try{
-      setTimeout(() => {
-        this.content.scrollToBottom();
-      }, 1000);
-    }catch(err){
+    if(this.content._scroll){
+      try{
+        setTimeout(() => {
+          this.content.scrollToBottom();
+        }, 1000);
+      }catch(err){
 
+      }
     }
+
 
   }
 
