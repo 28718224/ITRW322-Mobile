@@ -129,10 +129,34 @@ var CommandsPage = (function () {
             title: 'List of Commands',
             buttons: [
                 {
-                    text: 'Shut Down PC',
+                    text: 'Shut Down (Immediate))',
                     icon: 'ios-power',
                     handler: function () {
                         _this.sendcomm(receiver, "ShutDown");
+                    }
+                },
+                {
+                    text: 'Shut Down with Timer',
+                    icon: 'sad',
+                    handler: function () {
+                        var alert = _this.alertCtrl.create({
+                            title: 'Message',
+                            inputs: [
+                                {
+                                    name: 'Message',
+                                    placeholder: 'Time till restart in seconds'
+                                }
+                            ],
+                            buttons: [
+                                {
+                                    text: 'Send command',
+                                    handler: function (data) {
+                                        _this.sendcomm(receiver, "ShutDown=" + data.Message);
+                                    }
+                                }
+                            ]
+                        });
+                        alert.present();
                     }
                 },
                 {

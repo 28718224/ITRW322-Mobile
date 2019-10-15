@@ -78,11 +78,33 @@ export class CommandsPage {
       title: 'List of Commands',
       buttons: [
         {
-          text: 'Shut Down PC',
+          text: 'Shut Down (Immediate))',
           icon: 'ios-power',
           handler: () => {
 
             this.sendcomm(receiver, "ShutDown");
+          }
+        },
+        {
+          text: 'Shut Down with Timer',
+          icon: 'sad',
+          handler: () => {
+            let alert = this.alertCtrl.create({
+              title: 'Message',
+              inputs: [
+                {
+                  name: 'Message',
+                  placeholder: 'Time till restart in seconds'
+                }],
+                buttons: [
+                  {
+                    text: 'Send command',
+
+                    handler: data => {
+                      this.sendcomm(receiver, "ShutDown=" +data.Message);
+                    }
+                  }]});
+                  alert.present();
           }
         },
         {
