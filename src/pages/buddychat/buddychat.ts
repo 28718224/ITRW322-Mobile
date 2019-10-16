@@ -73,7 +73,7 @@ export class BuddychatPage {
   }
 
   scrollto() {
-    if(this.content._scroll){
+
       try{
         setTimeout(() => {
           this.content.scrollToBottom();
@@ -81,7 +81,7 @@ export class BuddychatPage {
       }catch(err){
 
       }
-    }
+
 
 
   }

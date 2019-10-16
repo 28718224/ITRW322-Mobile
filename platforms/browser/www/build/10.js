@@ -163,10 +163,8 @@ var GroupchatPage = (function () {
                                 this.imgornot.push(false);
                             }
                         }
-                        try {
+                        if (this.content._scroll) {
                             this.scrollto();
-                        }
-                        catch (err) {
                         }
                         return [2 /*return*/];
                 }

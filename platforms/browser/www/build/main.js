@@ -1358,13 +1358,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
   for more info on providers and Angular 2 DI.
 */
 var ChatProvider = (function () {
-    function ChatProvider(events, transfer, file) {
+    function ChatProvider(events, transfer, file, toastController) {
+        var _this = this;
         this.events = events;
         this.transfer = transfer;
         this.file = file;
+        this.toastController = toastController;
         this.firebuddychats = __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database().ref('/buddychats');
         this.buddymessages = [];
+        this.events.subscribe('newmessage:' + __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.auth().currentUser.uid, function () {
+            _this.presentToast();
+        });
     }
+    ChatProvider.prototype.presentToast = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var toast;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.toastController.create({
+                            message: 'New personal Message received',
+                            duration: 2000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ChatProvider.prototype.initializebuddy = function (buddy) {
         this.buddy = buddy;
     };
@@ -1395,6 +1417,7 @@ var ChatProvider = (function () {
                                 message: this.CaesarCipher(msg, 13),
                                 timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                             }).then(function () { return __awaiter(_this, void 0, void 0, function () {
+                                var _this = this;
                                 var _a, _b;
                                 return __generator(this, function (_c) {
                                     switch (_c.label) {
@@ -1407,6 +1430,7 @@ var ChatProvider = (function () {
                                                 message: this.CaesarCipher(msg, 13),
                                                 timestamp: (Math.round((new Date()).getTime() / 1000)).toString().substr(0, 10)
                                             }).then(function () {
+                                                _this.events.publish('newmessage:' + _this.buddy);
                                                 resolve(true);
                                             });
                                             return [2 /*return*/];
@@ -1542,7 +1566,7 @@ var ChatProvider = (function () {
 }());
 ChatProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__["a" /* File */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["m" /* ToastController */]])
 ], ChatProvider);
 
 //# sourceMappingURL=chat.js.map
