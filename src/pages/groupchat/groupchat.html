@@ -27,6 +27,7 @@
         <h6 style="color: mediumpurple;">{{item.displayName}}</h6>
         <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>
         <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">
+        <button *ngIf="imgornot[i]" (click)="DownloadMedia(this.CaesarCipher(item.message,-13)) "> DOWNLOAD </button>
         <p><small>{{item.timestamp}}</small></p>
       </div>
 
@@ -34,6 +35,7 @@
         <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>
         <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>
         <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">
+        <button *ngIf="imgornot[i]" (click)="DownloadMedia(this.CaesarCipher(item.message,-13)) "> DOWNLOAD </button>
         <p><small>{{item.timestamp}}</small></p>
       </div>
     </ion-item>

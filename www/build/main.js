@@ -26,7 +26,7 @@ var map = {
 		15
 	],
 	"../pages/buddychat/buddychat.module": [
-		454,
+		459,
 		14
 	],
 	"../pages/chats/chats.module": [
@@ -34,27 +34,27 @@ var map = {
 		13
 	],
 	"../pages/commands/commands.module": [
-		456,
+		454,
 		12
 	],
 	"../pages/groupbuddies/groupbuddies.module": [
-		457,
+		456,
 		11
 	],
 	"../pages/groupchat/groupchat.module": [
-		458,
+		457,
 		10
 	],
 	"../pages/groupinfo/groupinfo.module": [
-		459,
+		458,
 		9
 	],
 	"../pages/groupmembers/groupmembers.module": [
-		460,
+		464,
 		8
 	],
 	"../pages/groups/groups.module": [
-		461,
+		460,
 		7
 	],
 	"../pages/login/login.module": [
@@ -62,19 +62,19 @@ var map = {
 		6
 	],
 	"../pages/newgroup/newgroup.module": [
-		463,
+		461,
 		5
 	],
 	"../pages/passwordreset/passwordreset.module": [
-		464,
+		463,
 		4
 	],
 	"../pages/profile/profile.module": [
-		465,
+		466,
 		3
 	],
 	"../pages/profilepic/profilepic.module": [
-		466,
+		465,
 		2
 	],
 	"../pages/signup/signup.module": [
@@ -111,6 +111,8 @@ module.exports = webpackAsyncContext;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_transfer__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(239);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -158,6 +160,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+
+
 /*
   Generated class for the GroupsProvider provider.
 
@@ -165,8 +169,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
   for more info on providers and Angular 2 DI.
 */
 var GroupsProvider = (function () {
-    function GroupsProvider(events) {
+    function GroupsProvider(events, transfer, file) {
         this.events = events;
+        this.transfer = transfer;
+        this.file = file;
         this.firegroup = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/groups');
         this.firegroupname = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/groupsnames');
         this.fireusername = __WEBPACK_IMPORTED_MODULE_2_firebase___default.a.database().ref('/users');
@@ -770,13 +776,28 @@ var GroupsProvider = (function () {
         }
         return result;
     };
+    GroupsProvider.prototype.download = function (fileName, filePath) {
+        var _this = this;
+        var url = encodeURI(filePath);
+        this.fileTransfer = this.transfer.create();
+        this.fileTransfer.download(url, this.file.dataDirectory + fileName, true).then(function (entry) {
+            //here logging our success downloaded file path in mobile.
+            console.log('download completed: ' + entry.toURL());
+            // open downloaded file
+            _this.downloadfile = entry.toURL();
+        }).catch(function (error) {
+            //here logging an error.
+            console.log('download failed: ' + JSON.stringify(error));
+        });
+    };
     return GroupsProvider;
 }());
 GroupsProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_transfer__["a" /* FileTransfer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_file_transfer__["a" /* FileTransfer */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__["a" /* File */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__["a" /* File */]) === "function" && _c || Object])
 ], GroupsProvider);
 
+var _a, _b, _c;
 //# sourceMappingURL=groups.js.map
 
 /***/ }),
@@ -1882,19 +1903,19 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* MyApp */], { tabsPlacement: 'top' }, {
                 links: [
                     { loadChildren: '../pages/buddies/buddies.module#BuddiesPageModule', name: 'BuddiesPage', segment: 'buddies', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/commands/commands.module#CommandsPageModule', name: 'CommandsPage', segment: 'commands', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupbuddies/groupbuddies.module#GroupbuddiesPageModule', name: 'GroupbuddiesPage', segment: 'groupbuddies', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupchat/groupchat.module#GroupchatPageModule', name: 'GroupchatPage', segment: 'groupchat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groupinfo/groupinfo.module#GroupinfoPageModule', name: 'GroupinfoPage', segment: 'groupinfo', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/buddychat/buddychat.module#BuddychatPageModule', name: 'BuddychatPage', segment: 'buddychat', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/groups/groups.module#GroupsPageModule', name: 'GroupsPage', segment: 'groups', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/newgroup/newgroup.module#NewgroupPageModule', name: 'NewgroupPage', segment: 'newgroup', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/passwordreset/passwordreset.module#PasswordresetPageModule', name: 'PasswordresetPage', segment: 'passwordreset', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/groupmembers/groupmembers.module#GroupmembersPageModule', name: 'GroupmembersPage', segment: 'groupmembers', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/profilepic/profilepic.module#ProfilepicPageModule', name: 'ProfilepicPage', segment: 'profilepic', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] }
                 ]

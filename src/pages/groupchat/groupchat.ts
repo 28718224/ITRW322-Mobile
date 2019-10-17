@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController, LoadingCont
 import { GroupsProvider } from '../../providers/groups/groups';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import firebase from 'firebase';
-
+import { ChatProvider } from '../../providers/chat/chat';
 /**
  * Generated class for the GroupchatPage page.
  *
@@ -226,5 +226,8 @@ export class GroupchatPage {
     return result;
 
 }
-
+    DownloadMedia(link){
+    var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+    this.groupservice.download(utc,'http://commondatastorage.googleapis.com/codeskulptor-assets/lathrop/asteroid_blue.png');
+  }
 }

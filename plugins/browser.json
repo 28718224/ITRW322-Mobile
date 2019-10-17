@@ -36,6 +36,11 @@
     },
     "ionic-plugin-keyboard": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-fabric-plugin": {
+      "FABRIC_API_KEY": "5208c8a127d82b089775c64e06a5dc4caefbe9ac",
+      "FABRIC_API_SECRET": "3c651e531ad9daa990e462aca7a8cc7164e40537d65f3b7f75d36503d42c403e",
+      "PACKAGE_NAME": "com.CodevirBroodMobile.myapp"
     }
   },
   "dependent_plugins": {}

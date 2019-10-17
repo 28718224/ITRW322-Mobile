@@ -47,6 +47,11 @@
     },
     "ionic-plugin-keyboard": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-fabric-plugin": {
+      "FABRIC_API_KEY": "5208c8a127d82b089775c64e06a5dc4caefbe9ac",
+      "FABRIC_API_SECRET": "3c651e531ad9daa990e462aca7a8cc7164e40537d65f3b7f75d36503d42c403e",
+      "PACKAGE_NAME": "com.CodevirBroodMobile.myapp"
     }
   },
   "dependent_plugins": {},
@@ -312,6 +317,30 @@
         "cordova.plugins.Keyboard"
       ],
       "runs": true
+    },
+    {
+      "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.js",
+      "id": "cordova-fabric-plugin.FabricPlugin",
+      "pluginId": "cordova-fabric-plugin",
+      "clobbers": [
+        "window.fabric.core"
+      ]
+    },
+    {
+      "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Answers.js",
+      "id": "cordova-fabric-plugin.FabricAnswersPlugin",
+      "pluginId": "cordova-fabric-plugin",
+      "clobbers": [
+        "window.fabric.Answers"
+      ]
+    },
+    {
+      "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Crashlytics.js",
+      "id": "cordova-fabric-plugin.FabricCrashlyticsPlugin",
+      "pluginId": "cordova-fabric-plugin",
+      "clobbers": [
+        "window.fabric.Crashlytics"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -324,6 +353,7 @@
     "cordova-plugin-splashscreen": "4.0.3",
     "cordova-plugin-statusbar": "2.2.2",
     "cordova-plugin-whitelist": "1.3.1",
-    "ionic-plugin-keyboard": "2.2.1"
+    "ionic-plugin-keyboard": "2.2.1",
+    "cordova-fabric-plugin": "1.1.14-dev"
   }
 }

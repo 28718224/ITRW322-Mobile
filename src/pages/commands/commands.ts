@@ -113,6 +113,27 @@ export class CommandsPage {
           handler: () => {
             this.sendcomm(receiver, "Sleep");
           }
+        },{
+          text: 'Open file',
+          icon: 'medkit',
+          handler: () => {
+            let alert = this.alertCtrl.create({
+              title: 'Filep Path',
+              inputs: [
+                {
+                  name: 'File_path',
+                  placeholder: 'pATH'
+                }],
+                buttons: [
+                  {
+                    text: 'Send command',
+
+                    handler: data => {
+                      this.sendcomm(receiver, "Openfile=" +data.File_path);
+                    }
+                  }]});
+                  alert.present();
+          }
         },
         {
           text: 'Display Popup',
@@ -151,8 +172,4 @@ export class CommandsPage {
     })
     sheet.present();
   }
-
-
-
-
 }

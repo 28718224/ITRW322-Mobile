@@ -7,35 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-filechooser": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-filepath": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "ionic-plugin-keyboard": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-console": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "io.ionic.starter"
+    "cordova-fabric-plugin": {
+      "FABRIC_API_KEY": "5208c8a127d82b089775c64e06a5dc4caefbe9ac",
+      "FABRIC_API_SECRET": "3c651e531ad9daa990e462aca7a8cc7164e40537d65f3b7f75d36503d42c403e",
+      "PACKAGE_NAME": "com.CodevirBroodMobile.myapp"
     }
   },
   "dependent_plugins": {}

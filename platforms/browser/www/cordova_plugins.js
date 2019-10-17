@@ -261,6 +261,30 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.js",
+        "id": "cordova-fabric-plugin.FabricPlugin",
+        "pluginId": "cordova-fabric-plugin",
+        "clobbers": [
+            "window.fabric.core"
+        ]
+    },
+    {
+        "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Answers.js",
+        "id": "cordova-fabric-plugin.FabricAnswersPlugin",
+        "pluginId": "cordova-fabric-plugin",
+        "clobbers": [
+            "window.fabric.Answers"
+        ]
+    },
+    {
+        "file": "plugins/cordova-fabric-plugin/www/FabricPlugin.Crashlytics.js",
+        "id": "cordova-fabric-plugin.FabricCrashlyticsPlugin",
+        "pluginId": "cordova-fabric-plugin",
+        "clobbers": [
+            "window.fabric.Crashlytics"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -275,7 +299,8 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.3",
     "cordova-plugin-statusbar": "2.2.2",
     "cordova-plugin-whitelist": "1.3.1",
-    "ionic-plugin-keyboard": "2.2.1"
+    "ionic-plugin-keyboard": "2.2.1",
+    "cordova-fabric-plugin": "1.1.14-dev"
 }
 // BOTTOM OF METADATA
 });
