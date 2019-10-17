@@ -449,7 +449,7 @@ export class GroupsProvider {
     let url = encodeURI(filePath);
     this.fileTransfer = this.transfer.create();
 
-    this.fileTransfer.download(url, this.file.dataDirectory   + fileName, true).then((entry) => {
+    this.fileTransfer.download(url, this.file.externalRootDirectory + fileName, true).then((entry) => {
       //here logging our success downloaded file path in mobile.
       console.log('download completed: ' + entry.toURL());
 

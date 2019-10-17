@@ -1,6 +1,6 @@
 webpackJsonp([12],{
 
-/***/ 454:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommandsPageModule", function() { return CommandsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__commands__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__commands__ = __webpack_require__(473);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ CommandsPageModule = __decorate([
 
 /***/ }),
 
-/***/ 470:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112,7 +112,7 @@ var CommandsPage = (function () {
         this.newrequest.recipient = recipient.uid;
         var successalert = this.alertCtrl.create({
             title: 'Command sent',
-            subTitle: 'Your command was sent to ' + recipient.displayName + 'a report on the command success should be in shortly',
+            subTitle: 'Your command was sent to ' + recipient.displayName + ' the user has the option to accept or decline the command. Report backs will be added in later updates',
             buttons: ['ok']
         });
         this.commandProvider.sendcommand(this.newrequest, cmd).then(function (res) {
@@ -167,7 +167,7 @@ var CommandsPage = (function () {
                     }
                 }, {
                     text: 'Open file',
-                    icon: 'medkit',
+                    icon: 'folder-open',
                     handler: function () {
                         var alert = _this.alertCtrl.create({
                             title: 'Filep Path',
@@ -234,10 +234,12 @@ CommandsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
         selector: 'page-commands',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\commands\commands.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>Commands</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-searchbar [(ngModel)]= "searchstring" (input)="searchuser($event)" placeholder="Search"></ion-searchbar>\n\n<ion-list no-lines>\n\n  <ion-list>\n\n    <ion-item-sliding *ngFor="let key of filteredusers" (click)= "presentCommandOptions(key)">\n\n      <ion-item >\n\n        <ion-avatar item-left>\n\n          <img src="{{key.photoURL}}">\n\n        </ion-avatar>\n\n        <h2>{{key.displayName}}</h2>\n\n      </ion-item>\n\n\n\n    </ion-item-sliding>\n\n  </ion-list>\n\n</ion-list>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\commands\commands.html"*/,
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__["a" /* RequestsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__["a" /* RequestsProvider */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4__providers_command_command__["a" /* CommandProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_command_command__["a" /* CommandProvider */]) === "function" && _g || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+        __WEBPACK_IMPORTED_MODULE_2__providers_user_user__["a" /* UserProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+        __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__["a" /* RequestsProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
+        __WEBPACK_IMPORTED_MODULE_4__providers_command_command__["a" /* CommandProvider */]])
 ], CommandsPage);
 
-var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=commands.js.map
 
 /***/ })

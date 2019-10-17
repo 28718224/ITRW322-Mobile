@@ -1,6 +1,6 @@
 webpackJsonp([10],{
 
-/***/ 467:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupchatPageModule", function() { return GroupchatPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupchat__ = __webpack_require__(483);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groupchat__ = __webpack_require__(473);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,15 +41,15 @@ GroupchatPageModule = __decorate([
 
 /***/ }),
 
-/***/ 483:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupchatPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -308,6 +308,10 @@ var GroupchatPage = (function () {
         }
         return result;
     };
+    GroupchatPage.prototype.DownloadMedia = function (link) {
+        var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+        this.groupservice.download("sample.pdf", 'http://commondatastorage.googleapis.com/codeskulptor-assets/lathrop/asteroid_blue.png');
+    };
     return GroupchatPage;
 }());
 __decorate([
@@ -316,7 +320,7 @@ __decorate([
 ], GroupchatPage.prototype, "content", void 0);
 GroupchatPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-        selector: 'page-groupchat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\groupchat\groupchat.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>{{groupName}}</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="sendpicmsg()">\n\n        <ion-icon name="camera"></ion-icon>\n\n      </button>\n\n      <button *ngIf="owner" ion-button icon-only (click)="presentOwnerSheet()">\n\n        <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n      <button *ngIf="!owner" ion-button icon-only (click)="presentMemberSheet()">\n\n        <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content #content>\n\n<div class = "chatwindow">\n\n  <ion-list no-lines>\n\n    <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>\n\n\n\n      <div class="bubble you" *ngIf="item.sentby === alignuid">\n\n        <h6 style="color: mediumpurple;">{{item.displayName}}</h6>\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n        <p><small>{{item.timestamp}}</small></p>\n\n      </div>\n\n\n\n      <div class="bubble me" *ngIf="item.sentby != alignuid">\n\n        <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n        <p><small>{{item.timestamp}}</small></p>\n\n      </div>\n\n    </ion-item>\n\n  </ion-list>\n\n</div>\n\n</ion-content>\n\n<ion-footer ion-fixed>\n\n  <ion-toolbar class="no-border" color="white">\n\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="addgroupmsg()">\n\n        <ion-icon name="send" color="primary"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-toolbar>\n\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\groupchat\groupchat.html"*/,
+        selector: 'page-groupchat',template:/*ion-inline-start:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\groupchat\groupchat.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="hcolor">\n\n    <ion-title>{{groupName}}</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="sendpicmsg()">\n\n        <ion-icon name="camera"></ion-icon>\n\n      </button>\n\n      <button *ngIf="owner" ion-button icon-only (click)="presentOwnerSheet()">\n\n        <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n      <button *ngIf="!owner" ion-button icon-only (click)="presentMemberSheet()">\n\n        <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content #content>\n\n<div class = "chatwindow">\n\n  <ion-list no-lines>\n\n    <ion-item *ngFor = "let item of allgroupmsgs; let i = index" text-wrap>\n\n\n\n      <div class="bubble you" *ngIf="item.sentby === alignuid">\n\n        <h6 style="color: mediumpurple;">{{item.displayName}}</h6>\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n        <button *ngIf="imgornot[i]" (click)="DownloadMedia(this.CaesarCipher(item.message,-13)) "> DOWNLOAD </button>\n\n        <p><small>{{item.timestamp}}</small></p>\n\n      </div>\n\n\n\n      <div class="bubble me" *ngIf="item.sentby != alignuid">\n\n        <h6 style="color: mediumvioletred;">{{item.displayName}}</h6>\n\n        <h3 *ngIf="!imgornot[i]">{{this.CaesarCipher(item.message,-13)}}</h3>\n\n        <img src="{{this.CaesarCipher(item.message,-13)}}" *ngIf="imgornot[i]">\n\n        <button *ngIf="imgornot[i]" (click)="DownloadMedia(this.CaesarCipher(item.message,-13)) "> DOWNLOAD </button>\n\n        <p><small>{{item.timestamp}}</small></p>\n\n      </div>\n\n    </ion-item>\n\n  </ion-list>\n\n</div>\n\n</ion-content>\n\n<ion-footer ion-fixed>\n\n  <ion-toolbar class="no-border" color="white">\n\n    <ion-input [(ngModel)]="newmessage" placeholder="Write your message ..."></ion-input>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="addgroupmsg()">\n\n        <ion-icon name="send" color="primary"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-toolbar>\n\n</ion-footer>'/*ion-inline-end:"C:\Users\ipadc\Documents\Cloned repos\ITRW322-Mobile\src\pages\groupchat\groupchat.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_groups_groups__["a" /* GroupsProvider */],
         __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_3__providers_imghandler_imghandler__["a" /* ImghandlerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */]])

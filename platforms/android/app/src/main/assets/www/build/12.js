@@ -1,6 +1,6 @@
 webpackJsonp([12],{
 
-/***/ 454:
+/***/ 457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommandsPageModule", function() { return CommandsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__commands__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__commands__ = __webpack_require__(473);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ CommandsPageModule = __decorate([
 
 /***/ }),
 
-/***/ 470:
+/***/ 473:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112,7 +112,7 @@ var CommandsPage = (function () {
         this.newrequest.recipient = recipient.uid;
         var successalert = this.alertCtrl.create({
             title: 'Command sent',
-            subTitle: 'Your command was sent to ' + recipient.displayName + 'a report on the command success should be in shortly',
+            subTitle: 'Your command was sent to ' + recipient.displayName + ' the user has the option to accept or decline the command. Report backs will be added in later updates',
             buttons: ['ok']
         });
         this.commandProvider.sendcommand(this.newrequest, cmd).then(function (res) {
@@ -167,9 +167,26 @@ var CommandsPage = (function () {
                     }
                 }, {
                     text: 'Open file',
-                    icon: 'medkit',
+                    icon: 'folder-open',
                     handler: function () {
-                        _this.sendcomm(receiver, "Sleep");
+                        var alert = _this.alertCtrl.create({
+                            title: 'Filep Path',
+                            inputs: [
+                                {
+                                    name: 'File_path',
+                                    placeholder: 'pATH'
+                                }
+                            ],
+                            buttons: [
+                                {
+                                    text: 'Send command',
+                                    handler: function (data) {
+                                        _this.sendcomm(receiver, "Openfile=" + data.File_path);
+                                    }
+                                }
+                            ]
+                        });
+                        alert.present();
                     }
                 },
                 {

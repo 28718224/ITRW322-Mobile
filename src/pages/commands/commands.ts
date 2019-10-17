@@ -58,7 +58,7 @@ export class CommandsPage {
 
       let successalert = this.alertCtrl.create({
         title: 'Command sent',
-        subTitle: 'Your command was sent to ' + recipient.displayName + 'a report on the command success should be in shortly',
+        subTitle: 'Your command was sent to ' + recipient.displayName + ' the user has the option to accept or decline the command. Report backs will be added in later updates',
         buttons: ['ok']
       });
 
@@ -115,7 +115,7 @@ export class CommandsPage {
           }
         },{
           text: 'Open file',
-          icon: 'medkit',
+          icon: 'folder-open',
           handler: () => {
             let alert = this.alertCtrl.create({
               title: 'Filep Path',

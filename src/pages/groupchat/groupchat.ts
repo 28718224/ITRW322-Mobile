@@ -228,6 +228,6 @@ export class GroupchatPage {
 }
     DownloadMedia(link){
     var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    this.groupservice.download(utc,'http://commondatastorage.googleapis.com/codeskulptor-assets/lathrop/asteroid_blue.png');
+    this.groupservice.download("sample.pdf",'http://commondatastorage.googleapis.com/codeskulptor-assets/lathrop/asteroid_blue.png');
   }
 }

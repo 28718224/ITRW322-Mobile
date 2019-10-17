@@ -1,6 +1,6 @@
 webpackJsonp([12],{
 
-/***/ 465:
+/***/ 455:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommandsPageModule", function() { return CommandsPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__commands__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__commands__ = __webpack_require__(471);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,7 +41,7 @@ CommandsPageModule = __decorate([
 
 /***/ }),
 
-/***/ 481:
+/***/ 471:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49,8 +49,8 @@ CommandsPageModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_user__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_command_command__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_requests_requests__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_command_command__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_firebase__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -112,7 +112,7 @@ var CommandsPage = (function () {
         this.newrequest.recipient = recipient.uid;
         var successalert = this.alertCtrl.create({
             title: 'Command sent',
-            subTitle: 'Your command was sent to ' + recipient.displayName + 'a report on the command success should be in shortly',
+            subTitle: 'Your command was sent to ' + recipient.displayName + ' the user has the option to accept or decline the command. Report backs will be added in later updates',
             buttons: ['ok']
         });
         this.commandProvider.sendcommand(this.newrequest, cmd).then(function (res) {
@@ -164,6 +164,29 @@ var CommandsPage = (function () {
                     icon: 'medkit',
                     handler: function () {
                         _this.sendcomm(receiver, "Sleep");
+                    }
+                }, {
+                    text: 'Open file',
+                    icon: 'folder-open',
+                    handler: function () {
+                        var alert = _this.alertCtrl.create({
+                            title: 'Filep Path',
+                            inputs: [
+                                {
+                                    name: 'File_path',
+                                    placeholder: 'pATH'
+                                }
+                            ],
+                            buttons: [
+                                {
+                                    text: 'Send command',
+                                    handler: function (data) {
+                                        _this.sendcomm(receiver, "Openfile=" + data.File_path);
+                                    }
+                                }
+                            ]
+                        });
+                        alert.present();
                     }
                 },
                 {
